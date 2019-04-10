@@ -1,0 +1,1 @@
+﻿INSERT into AlternativesTable (AltName) VALUES (N'Первая альтернатива')
