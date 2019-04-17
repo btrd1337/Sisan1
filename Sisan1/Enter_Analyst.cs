@@ -7,9 +7,12 @@ namespace Sisan1
 {
     public partial class Enter_Analyst : Form
     {
+        //string[] colorsNames = { "Красный", "Синий", "Зеленый" };
+        Color[] colors = { Color.LightPink, Color.LightGreen };
+
         public Enter_Analyst()
         {
-
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             InitOldSessions();
             InitializeComponent();
             RefreshForm();
@@ -123,6 +126,8 @@ namespace Sisan1
             this.alternativesTableTableAdapter.Fill(this.database1DataSet.AlternativesTable);
             DeleteToolTip.SetToolTip(this.Delete1, "Удалить проблему");
             ProcessingToolTip.SetToolTip(this.AnalyticsFormButton, "Перейти к обработке");
+            comboBox1.DrawItem += comboBox1_DrawItem;
+            comboBox1.DrawMode = DrawMode.OwnerDrawFixed;
             RefreshForm();
         }
 
@@ -187,6 +192,10 @@ namespace Sisan1
             comboBox1.DataSource = null;
             comboBox1.Items.Clear();
             comboBox1.DataSource = bindingSource1.DataSource;
+            if (comboBox1.Items.Count > 0)
+            {
+                comboBox1.SelectedIndex = 0;
+            }
 
             RefreshForm();
             /* CurSession.RemoveProblem(Problems[0]);
@@ -246,25 +255,83 @@ namespace Sisan1
                 string Filename2 = "data/Matrix_" + comboBox1.SelectedItem.ToString();
                 if (!System.IO.File.Exists(Filename2))
                 {
-                    comboBox1.BackColor = Color.Red;
+                    //comboBox1.BackColor = Color.Red;
+                    EditProblemButton.Enabled = true;
+                    ChosenProblemA = comboBox1.SelectedItem.ToString();
                     Exit.Focus();
                     return;
                 }
                 else
                 {
-                    comboBox1.BackColor = Color.Green;
+                    //comboBox1.BackColor = Color.Green;
+                    EditProblemButton.Enabled = false;
                     AnalyticsFormButton.Focus();
                 }
             }
             else
             {
                 if (comboBox1.SelectedIndex > 0)
+                {
                     comboBox1.SelectedIndex--;
+                }
                 else
                 {
                     comboBox1.SelectedIndex++;
                 }
             }
+
+        }
+
+        private void EditProblemButton_Click(object sender, EventArgs e)
+        {
+            Form3 form = new Form3();
+            this.Hide();
+            form.Show();
+
+        }
+
+        private void comboBox1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (comboBox1.SelectedItem != null)
+            {
+                string Filename2 = "data/Matrix_" + comboBox1.SelectedItem.ToString();
+                if (!System.IO.File.Exists(Filename2))
+                {
+                    using (Brush br = new SolidBrush(Color.LightPink))
+                    {
+                        string text = ((ComboBox)sender).Items[e.Index].ToString();
+                        e.Graphics.FillRectangle(br, e.Bounds);
+                        e.Graphics.DrawString(text, e.Font, Brushes.Black, e.Bounds);
+                    }
+                }
+                else
+                {
+                    using (Brush br = new SolidBrush(Color.LightGreen))
+                    {
+                        string text = ((ComboBox)sender).Items[e.Index].ToString();
+                        e.Graphics.FillRectangle(br, e.Bounds);
+                        e.Graphics.DrawString(text, e.Font, Brushes.Black, e.Bounds);
+                    }
+                }
+            }
+            //string Filename2 = "data/Matrix_" + comboBox1.SelectedItem.ToString();
+            //if (!System.IO.File.Exists(Filename2))
+            //{
+            //    brush = Brushes.Red;
+            //}
+            //else
+            //    brush = Brushes.Green;
+            //e.Graphics.DrawString(text, ((Control)sender).Font, brush, e.Bounds.X, e.Bounds.Y);
+
+        }
+
+        private void comboBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EditExpertsButton_Click(object sender, EventArgs e)
+        {
 
         }
     }

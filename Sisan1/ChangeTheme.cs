@@ -14,6 +14,7 @@ namespace Sisan1
     {
         public ChangeTheme()
         {
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             InitializeComponent();
         }
 

@@ -11,13 +11,14 @@ namespace Sisan1
     {
         public Form1()
         {
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             InitializeComponent();
         }
 
         List<Pair<float, string>> pairs = new List<Pair<float, string>>();
         List<float> results = new List<float>();
         List<string> elements = new List<string>() { "1", "0,5", "0" };
-        List<string> alterntaivs = new List<string>();
+        List<string> Alternatives = new List<string>();
         int alterCount = 0;
         float r = 0;
 
@@ -100,7 +101,7 @@ namespace Sisan1
             pairs.Clear();
             for (int i = 0; i < listBox1.Items.Count; i++)
             {
-                pairs.Add(new Pair<float, string>(0, alterntaivs[i]));
+                pairs.Add(new Pair<float, string>(0, Alternatives[i]));
             }
 
             PairedComparison(); // Вызов метода парных сравнений
@@ -109,7 +110,7 @@ namespace Sisan1
             {
                 pairs[i].Second = (i + 1).ToString() + "." + pairs[i].Second;
             }
-            //pairs.Add(new Pair<float, string>(0, (i + 1).ToString() + "." + alterntaivs[i]));
+            //pairs.Add(new Pair<float, string>(0, (i + 1).ToString() + "." + Alternatives[i]));
 
             //listBox1.Items.Clear(); // Очищение списка альтернатив
             listBox2.Items.Clear(); // Очищение списка результатов
@@ -160,7 +161,7 @@ namespace Sisan1
             pairs.Clear();
             for (int i = 0; i < listBox1.Items.Count; i++)
             {
-                pairs.Add(new Pair<float, string>(0, alterntaivs[i]));
+                pairs.Add(new Pair<float, string>(0, Alternatives[i]));
             }
 
             PairedComparison(); // Вызов метода парных сравнений
@@ -169,7 +170,7 @@ namespace Sisan1
             {
                 pairs[i].Second = (i + 1).ToString() + "." + pairs[i].Second;
             }
-            //pairs.Add(new Pair<float, string>(0, (i + 1).ToString() + "." + alterntaivs[i]));
+            //pairs.Add(new Pair<float, string>(0, (i + 1).ToString() + "." + Alternatives[i]));
 
             //listBox1.Items.Clear(); // Очищение списка альтернатив
             listBox2.Items.Clear(); // Очищение списка результатов
@@ -218,8 +219,8 @@ namespace Sisan1
         private void AddAlternative(string db) //Добавление альтернативы
         {
             alterCount++;
-            alterntaivs.Add(db);
-            listBox1.Items.Add(db);
+            Alternatives.Add(db);
+            listBox1.Items.Add(alterCount.ToString()+"."+db);
 
             var column = new DataGridViewComboBoxColumn();
             column.HeaderText = "Z" + alterCount.ToString();
@@ -308,7 +309,7 @@ namespace Sisan1
             pairs.Clear();
             for (int i = 0; i < listBox1.Items.Count; i++)
             {
-                pairs.Add(new Pair<float, string>(0, alterntaivs[i]));
+                pairs.Add(new Pair<float, string>(0, Alternatives[i]));
             }
 
             PairedComparison(); // Вызов метода парных сравнений
@@ -317,7 +318,7 @@ namespace Sisan1
             {
                 pairs[i].Second = (i + 1).ToString() + "." + pairs[i].Second;
             }
-            //pairs.Add(new Pair<float, string>(0, (i + 1).ToString() + "." + alterntaivs[i]));
+            //pairs.Add(new Pair<float, string>(0, (i + 1).ToString() + "." + Alternatives[i]));
 
             //listBox1.Items.Clear(); // Очищение списка альтернатив
             listBox2.Items.Clear(); // Очищение списка результатов
@@ -335,6 +336,11 @@ namespace Sisan1
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

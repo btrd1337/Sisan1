@@ -20,6 +20,8 @@
             base.Dispose(disposing);
         }
 
+
+
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -30,17 +32,22 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
             this.Problem = new System.Windows.Forms.Label();
+            this.MaximizeBox = false;
             this.label2 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button8 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.buttonExit = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.AlternativesListDataGridView = new System.Windows.Forms.DataGridView();
+            this.SaveExitButton = new System.Windows.Forms.Button();
+            this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AlternativesListDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // Problem
@@ -74,10 +81,10 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(570, 148);
             this.listBox1.TabIndex = 21;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button8);
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
@@ -88,24 +95,15 @@
             this.groupBox1.Size = new System.Drawing.Size(570, 51);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(395, 16);
-            this.button8.Margin = new System.Windows.Forms.Padding(2);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(171, 27);
-            this.button8.TabIndex = 9;
-            this.button8.Text = "Ввод альтернатив из файла";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.groupBox1.Visible = false;
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(157, 16);
+            this.button3.Location = new System.Drawing.Point(383, 16);
             this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(97, 27);
+            this.button3.Size = new System.Drawing.Size(183, 27);
             this.button3.TabIndex = 2;
             this.button3.Text = "Очистить всё";
             this.button3.UseVisualStyleBackColor = true;
@@ -113,10 +111,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(258, 16);
+            this.button2.Location = new System.Drawing.Point(197, 16);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(133, 27);
+            this.button2.Size = new System.Drawing.Size(183, 27);
             this.button2.TabIndex = 1;
             this.button2.Text = "Удалить альтернативу";
             this.button2.UseVisualStyleBackColor = true;
@@ -127,11 +125,23 @@
             this.button1.Location = new System.Drawing.Point(10, 16);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(138, 27);
+            this.button1.Size = new System.Drawing.Size(183, 27);
             this.button1.TabIndex = 0;
             this.button1.Text = "Добавить альтернативу";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(410, 10);
+            this.button8.Margin = new System.Windows.Forms.Padding(2);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(171, 27);
+            this.button8.TabIndex = 9;
+            this.button8.Text = "Ввод альтернатив из файла";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Visible = false;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // openFileDialog1
             // 
@@ -148,11 +158,45 @@
             this.buttonExit.UseVisualStyleBackColor = true;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
+            // AlternativesListDataGridView
+            // 
+            this.AlternativesListDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.AlternativesListDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.AlternativeName});
+            this.AlternativesListDataGridView.Location = new System.Drawing.Point(11, 63);
+            this.AlternativesListDataGridView.Name = "AlternativesListDataGridView";
+            this.AlternativesListDataGridView.Size = new System.Drawing.Size(570, 203);
+            this.AlternativesListDataGridView.TabIndex = 1;
+            this.AlternativesListDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.AlternativesListDataGridView_CellContentClick);
+            this.AlternativesListDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.AlternativesListDataGridView_CellValueChanged);
+            this.AlternativesListDataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.AlternativesListDataGridView_UserDeletingRow);
+            this.AlternativesListDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AlternativesListDataGridView_KeyDown);
+            this.AlternativesListDataGridView.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AlternativesListDataGridView_KeyPress);
+            // 
+            // SaveExitButton
+            // 
+            this.SaveExitButton.Location = new System.Drawing.Point(461, 10);
+            this.SaveExitButton.Name = "SaveExitButton";
+            this.SaveExitButton.Size = new System.Drawing.Size(120, 27);
+            this.SaveExitButton.TabIndex = 25;
+            this.SaveExitButton.Text = "Сохранить и выйти";
+            this.SaveExitButton.UseVisualStyleBackColor = true;
+            this.SaveExitButton.Click += new System.EventHandler(this.SaveExitButton_Click);
+            // 
+            // AlternativeName
+            // 
+            this.AlternativeName.HeaderText = "Альтернативы";
+            this.AlternativeName.Name = "AlternativeName";
+            this.AlternativeName.Width = 525;
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 285);
+            this.Controls.Add(this.SaveExitButton);
+            this.Controls.Add(this.AlternativesListDataGridView);
+            this.Controls.Add(this.button8);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.listBox1);
@@ -163,6 +207,7 @@
             this.Text = "Работа со списком альтернатив";
             this.Load += new System.EventHandler(this.Form3_Load);
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.AlternativesListDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -181,5 +226,8 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.DataGridView AlternativesListDataGridView;
+        private System.Windows.Forms.Button SaveExitButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
     }
 }

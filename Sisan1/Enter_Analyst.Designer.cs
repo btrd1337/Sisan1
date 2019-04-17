@@ -46,6 +46,8 @@
             this.database1DataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.database1DataSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.alternativesTableBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.EditExpertsButton = new System.Windows.Forms.Button();
+            this.EditProblemButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSet)).BeginInit();
@@ -78,7 +80,7 @@
             // Delete1
             // 
             this.Delete1.Image = ((System.Drawing.Image)(resources.GetObject("Delete1.Image")));
-            this.Delete1.Location = new System.Drawing.Point(233, 130);
+            this.Delete1.Location = new System.Drawing.Point(233, 198);
             this.Delete1.Name = "Delete1";
             this.Delete1.Size = new System.Drawing.Size(44, 42);
             this.Delete1.TabIndex = 8;
@@ -88,14 +90,16 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 142);
+            this.comboBox1.Location = new System.Drawing.Point(12, 210);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(165, 21);
             this.comboBox1.TabIndex = 11;
+            this.comboBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox1_DrawItem);
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox1.Click += new System.EventHandler(this.comboBox1_Click);
             // 
             // bindingSource1
             // 
@@ -123,7 +127,7 @@
             // AnalyticsFormButton
             // 
             this.AnalyticsFormButton.Image = ((System.Drawing.Image)(resources.GetObject("AnalyticsFormButton.Image")));
-            this.AnalyticsFormButton.Location = new System.Drawing.Point(183, 130);
+            this.AnalyticsFormButton.Location = new System.Drawing.Point(183, 198);
             this.AnalyticsFormButton.Name = "AnalyticsFormButton";
             this.AnalyticsFormButton.Size = new System.Drawing.Size(44, 42);
             this.AnalyticsFormButton.TabIndex = 14;
@@ -167,16 +171,40 @@
             this.alternativesTableBindingSource1.DataMember = "AlternativesTable";
             this.alternativesTableBindingSource1.DataSource = this.database1DataSet;
             // 
+            // EditExpertsButton
+            // 
+            this.EditExpertsButton.Location = new System.Drawing.Point(12, 130);
+            this.EditExpertsButton.Name = "EditExpertsButton";
+            this.EditExpertsButton.Size = new System.Drawing.Size(265, 54);
+            this.EditExpertsButton.TabIndex = 15;
+            this.EditExpertsButton.Text = "Добавить эксперта";
+            this.EditExpertsButton.UseVisualStyleBackColor = true;
+            this.EditExpertsButton.Click += new System.EventHandler(this.EditExpertsButton_Click);
+            // 
+            // EditProblemButton
+            // 
+            this.EditProblemButton.Enabled = false;
+            this.EditProblemButton.Location = new System.Drawing.Point(183, 246);
+            this.EditProblemButton.Name = "EditProblemButton";
+            this.EditProblemButton.Size = new System.Drawing.Size(94, 23);
+            this.EditProblemButton.TabIndex = 16;
+            this.EditProblemButton.Text = "Редактировать проблему";
+            this.EditProblemButton.UseVisualStyleBackColor = true;
+            this.EditProblemButton.Click += new System.EventHandler(this.EditProblemButton_Click);
+            // 
             // Enter_Analyst
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(293, 184);
+            this.ClientSize = new System.Drawing.Size(293, 273);
+            this.Controls.Add(this.EditProblemButton);
+            this.Controls.Add(this.EditExpertsButton);
             this.Controls.Add(this.AnalyticsFormButton);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.Delete1);
             this.Controls.Add(this.NewProblem);
+            this.MaximizeBox = false;
             this.Name = "Enter_Analyst";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор проблемы";
@@ -210,5 +238,7 @@
         private System.Windows.Forms.Button AnalyticsFormButton;
         private System.Windows.Forms.ToolTip ProcessingToolTip;
         private System.Windows.Forms.ToolTip DeleteToolTip;
+        private System.Windows.Forms.Button EditExpertsButton;
+        private System.Windows.Forms.Button EditProblemButton;
     }
 }

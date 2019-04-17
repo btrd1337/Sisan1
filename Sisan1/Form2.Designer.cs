@@ -20,6 +20,8 @@
             base.Dispose(disposing);
         }
 
+        
+
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -37,6 +39,7 @@
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.FinishButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonExit = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -51,7 +54,6 @@
             this.AlternativeDisagree = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Alternative2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.form2BindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.FinishButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -72,7 +74,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.FinishButton);
             this.groupBox1.Controls.Add(this.buttonPrev);
             this.groupBox1.Controls.Add(this.buttonNext);
             this.groupBox1.Controls.Add(this.radioButton3);
@@ -142,6 +143,17 @@
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
+            // FinishButton
+            // 
+            this.FinishButton.Enabled = false;
+            this.FinishButton.Location = new System.Drawing.Point(683, 426);
+            this.FinishButton.Name = "FinishButton";
+            this.FinishButton.Size = new System.Drawing.Size(75, 23);
+            this.FinishButton.TabIndex = 5;
+            this.FinishButton.Text = "Закончить";
+            this.FinishButton.UseVisualStyleBackColor = true;
+            this.FinishButton.Click += new System.EventHandler(this.FinishButton_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -179,6 +191,7 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBox1.FormattingEnabled = true;
@@ -186,7 +199,10 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(179, 21);
             this.comboBox1.TabIndex = 25;
+            this.comboBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox1_DrawItem);
+            this.comboBox1.DropDown += new System.EventHandler(this.comboBox1_DrawItem);
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox1.Click += new System.EventHandler(this.comboBox1_DrawItem);
             // 
             // progressBar1
             // 
@@ -217,18 +233,21 @@
             this.AlternativeNeutral,
             this.AlternativeDisagree,
             this.Alternative2});
-            this.dataGridView1.Location = new System.Drawing.Point(15, 85);
+            this.dataGridView1.Location = new System.Drawing.Point(15, 46);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(421, 233);
+            this.dataGridView1.Size = new System.Drawing.Size(1323, 374);
             this.dataGridView1.TabIndex = 27;
+            this.dataGridView1.Visible = false;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Alternative1
             // 
-            this.Alternative1.HeaderText = "Alternative1";
+            this.Alternative1.HeaderText = "Альтернатива 1";
             this.Alternative1.Name = "Alternative1";
             this.Alternative1.ReadOnly = true;
             this.Alternative1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Alternative1.Width = 601;
             // 
             // AlternativeAgree
             // 
@@ -253,30 +272,22 @@
             // 
             // Alternative2
             // 
-            this.Alternative2.HeaderText = "Alternative 2";
+            this.Alternative2.HeaderText = "Альтернатива 2";
             this.Alternative2.Name = "Alternative2";
             this.Alternative2.ReadOnly = true;
             this.Alternative2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Alternative2.Width = 602;
             // 
             // form2BindingSource
             // 
             this.form2BindingSource.DataSource = typeof(Sisan1.Form2);
             // 
-            // FinishButton
-            // 
-            this.FinishButton.Location = new System.Drawing.Point(87, 136);
-            this.FinishButton.Name = "FinishButton";
-            this.FinishButton.Size = new System.Drawing.Size(75, 23);
-            this.FinishButton.TabIndex = 5;
-            this.FinishButton.Text = "Finish";
-            this.FinishButton.UseVisualStyleBackColor = true;
-            this.FinishButton.Click += new System.EventHandler(this.FinishButton_Click);
-            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(446, 365);
+            this.ClientSize = new System.Drawing.Size(1350, 461);
+            this.Controls.Add(this.FinishButton);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.ProgressLabel);
             this.Controls.Add(this.comboBox1);
@@ -286,8 +297,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
+            this.MaximizeBox = false;
             this.Name = "Form2";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Эксперт";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.groupBox1.ResumeLayout(false);
@@ -317,11 +329,11 @@
         private System.Windows.Forms.Label ProgressLabel;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource form2BindingSource;
+        private System.Windows.Forms.Button FinishButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn Alternative1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeAgree;
         private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeNeutral;
         private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeDisagree;
         private System.Windows.Forms.DataGridViewTextBoxColumn Alternative2;
-        private System.Windows.Forms.Button FinishButton;
     }
 }

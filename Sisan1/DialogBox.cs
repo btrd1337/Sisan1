@@ -14,6 +14,7 @@ namespace Sisan1
     {
         public DialogBox()
         {
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             InitializeComponent();
         }
 
