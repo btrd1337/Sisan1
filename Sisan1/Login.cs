@@ -26,7 +26,7 @@ namespace Sisan1
 
         private void expert_Click(object sender, EventArgs e)
         {
-            Form2 fr = new Form2();
+            ExpertLogin fr = new ExpertLogin();
             this.Hide();
             fr.Show();
         }

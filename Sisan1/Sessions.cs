@@ -10,11 +10,11 @@ namespace Sisan1
         int ProblemsCountToWrite;
         int ProblemsCountRead;
         public List<string> Problems = new List<string>();
-
+        
         public bool SaveSession(string name)
         {
             string tmp;
-            StreamReader reader = new StreamReader("ad.txt");
+            StreamReader reader = new StreamReader(Data.ProblemsFileName);
             ProblemsCountToWrite = Convert.ToInt32(reader.ReadLine());
             if (ProblemsCountToWrite>0)
             tmp = Convert.ToString((ProblemsCountToWrite + 1) + "\n" + reader.ReadToEnd() + "\n" + name);
@@ -22,15 +22,15 @@ namespace Sisan1
                 tmp = Convert.ToString((ProblemsCountToWrite + 1) + "\n" + name);
 
             reader.Close();
-            File.WriteAllText("ad.txt", tmp);
+            File.WriteAllText(Data.ProblemsFileName, tmp);
             return true;
         }
 
-        public bool LoadSession()
+        public bool LoadSession() //Перед этим пишем из какого файла хотим читать проблемы
         {
             if (!initalized)
             {
-                StreamReader reader = new StreamReader("ad.txt");
+                StreamReader reader = new StreamReader(Data.ProblemsFileName);
                 ProblemsCountRead = Convert.ToInt32(reader.ReadLine());
                 for (int i = 0; i < ProblemsCountRead; i++)
                 {
@@ -42,10 +42,25 @@ namespace Sisan1
             return false;
         }
 
-        public bool RemoveProblem(string name)
+
+        public bool LoadAlternativesSession()
+        {
+            StreamReader reader = new StreamReader(Data.ProblemsFileName);
+            ProblemsCountRead = Convert.ToInt32(reader.ReadLine());
+            for (int i = 0; i < ProblemsCountRead; i++)
+            {
+                Problems.Add(reader.ReadLine());
+            }
+            reader.Close();
+            return true;
+        
+
+        }
+
+    public bool RemoveProblem(string name)
         {
             int NumToDelete = -1;
-            var file = new List<string>(File.ReadAllLines("ad.txt"));
+            var file = new List<string>(File.ReadAllLines(Data.ProblemsFileName));
             for (int i = 0; i < file.Count; i++)
             {
                 if (file[i].Equals(name))
@@ -58,7 +73,7 @@ namespace Sisan1
                 file.RemoveAt(NumToDelete);
                 file[0] = Convert.ToString((Convert.ToInt32(file[0]) - 1));
             }
-            var writer = new StreamWriter("ad.txt");
+            var writer = new StreamWriter(Data.ProblemsFileName);
             writer.NewLine = "\n";
 
             for (int i = 0; i < file.Count - 1; i++)
@@ -75,7 +90,7 @@ namespace Sisan1
             }
             writer.Write(file[file.Count - 1]);
             writer.Close();
-            //using (var writer = new StreamWriter("ad.txt"))
+            //using (var writer = new StreamWriter(Data.ProblemsFileName))
             //{
             //    writer.NewLine = "\n";
             //    foreach (var line in file.ToArray())
@@ -84,7 +99,7 @@ namespace Sisan1
             //    }
             //}
 
-            //File.WriteAllLines("ad.txt", file.ToArray());
+            //File.WriteAllLines(Data.ProblemsFileName, file.ToArray());
             File.Delete("data/Alternatives_" + name);
             return true;
 

@@ -14,7 +14,7 @@ namespace Sisan1
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             InitializeComponent();
         }
-
+        List<Tuple<string, double, List<string>>> ComboBoxExperts;
         List<Pair<float, string>> pairs = new List<Pair<float, string>>();
         List<float> results = new List<float>();
         List<string> elements = new List<string>() { "1", "0,5", "0" };
@@ -26,6 +26,7 @@ namespace Sisan1
         {
             try
             {
+                initProblemsNameFirstLabMethodComboBox();
                 Problem.Text = Enter_Analyst.ChosenProblemA;
                 dataGridView1.AllowUserToAddRows = false;
                 dataGridView2.Columns.Add("inter_results", "Cj");
@@ -44,9 +45,9 @@ namespace Sisan1
                     counter++;
                 }
                 sr1.Close();
-
+                Tuple<string, double, List<string>> temp = (Tuple<string, double, List<string>>)ExpertNameFirstLabMethodComboBox.SelectedItem;
                 // Загрузка значений матрицы из файла
-                string Filename2 = "data/Matrix_" + Enter_Analyst.ChosenProblemA;
+                string Filename2 = "data/Experts/" + temp.Item1 + "/Matrix_" + Enter_Analyst.ChosenProblemA;
                 if (!File.Exists(Filename2))
                 {
                     MessageBox.Show($"Не существует файла {Enter_Analyst.ChosenProblemA}");
@@ -220,7 +221,7 @@ namespace Sisan1
         {
             alterCount++;
             Alternatives.Add(db);
-            listBox1.Items.Add(alterCount.ToString()+"."+db);
+            listBox1.Items.Add(alterCount.ToString() + "." + db);
 
             var column = new DataGridViewComboBoxColumn();
             column.HeaderText = "Z" + alterCount.ToString();
@@ -343,6 +344,37 @@ namespace Sisan1
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void ExpertNameFirstLabMethodComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void initProblemsNameFirstLabMethodComboBox()
+        {
+            ComboBoxExperts = new List<Tuple<string, double, List<string>>>();
+            Sessions CurrentSession = new Sessions();
+            string path = "data/Experts/";
+            foreach (string s in Directory.GetDirectories(path))
+            {
+                if (File.Exists(s + "/Coefficient.txt") && File.Exists(s + "/Problems.txt") && File.Exists(s + "/Matrix_" + Enter_Analyst.ChosenProblemA))
+                {
+                    double tmpDouble = Convert.ToDouble(File.ReadAllText(s + "/Coefficient.txt"));
+                    List<string> tmpProblemsString = new List<string>();
+                    Data.ProblemsFileName = "data/Experts/" + s.Remove(0, path.Length) + "/Problems.txt";
+                    CurrentSession.LoadSession(); //Здесь проблемы для данного эксперта
+                                                  //{
+                                                  //    File.ReadLines(s + "/Problems.txt")
+                                                  //};
+                    ComboBoxExperts.Add(Tuple.Create(s.Remove(0, path.Length), tmpDouble, CurrentSession.Problems));
+                }
+
+            }
+            Data.ProblemsFileName = "ad.txt";
+
+            ExpertNameFirstLabMethodComboBox.DataSource = ComboBoxExperts;
+            ExpertNameFirstLabMethodComboBox.DisplayMember = "Item1";
         }
     }
 }

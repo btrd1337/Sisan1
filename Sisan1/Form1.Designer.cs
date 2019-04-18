@@ -40,6 +40,7 @@
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.Problem = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.ExpertNameFirstLabMethodComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -163,11 +164,21 @@
             this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // ExpertNameFirstLabMethodComboBox
+            // 
+            this.ExpertNameFirstLabMethodComboBox.FormattingEnabled = true;
+            this.ExpertNameFirstLabMethodComboBox.Location = new System.Drawing.Point(397, 43);
+            this.ExpertNameFirstLabMethodComboBox.Name = "ExpertNameFirstLabMethodComboBox";
+            this.ExpertNameFirstLabMethodComboBox.Size = new System.Drawing.Size(173, 21);
+            this.ExpertNameFirstLabMethodComboBox.TabIndex = 19;
+            this.ExpertNameFirstLabMethodComboBox.SelectedIndexChanged += new System.EventHandler(this.ExpertNameFirstLabMethodComboBox_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(934, 414);
+            this.Controls.Add(this.ExpertNameFirstLabMethodComboBox);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.Problem);
             this.Controls.Add(this.listBox2);
@@ -202,6 +213,7 @@
         protected System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.Label Problem;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ComboBox ExpertNameFirstLabMethodComboBox;
     }
 }
 

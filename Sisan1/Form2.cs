@@ -9,7 +9,7 @@ namespace Sisan1
     public partial class Form2 : Form
     {
         public static string ChosenProblem;
-        public Sessions CurrectSession = new Sessions();
+        Sessions CurrectSession = new Sessions();
         int CurrentProgress = 0;
         int tmp = 0;
         public void initChosen()
@@ -20,8 +20,10 @@ namespace Sisan1
         public Form2()
         {
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
+
             this.Location = new System.Drawing.Point(500, 284);
             InitializeComponent();
+            Data.ProblemsFileName = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Problems.txt";
             CurrectSession.LoadSession();
             bindingSource1.DataSource = CurrectSession.Problems;
             comboBox1.DataSource = bindingSource1.DataSource;
@@ -151,10 +153,10 @@ namespace Sisan1
                 //}
 
             }
-            if (File.Exists("data/Temp_Matrix_" + Enter_Expert.ChosenProblem))
+            if (File.Exists("data/Experts/" + Data.CurrentExpertTuple.Item1 + "Temp_Matrix_" + Enter_Expert.ChosenProblem))
             {
                 int tempInt = 0;
-                string Filename2 = "data/Temp_Matrix_" + Enter_Expert.ChosenProblem;
+                string Filename2 = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "Temp_Matrix_" + Enter_Expert.ChosenProblem;
                 //if (!File.Exists(Filename2))
                 //{
                 //    MessageBox.Show($"Не существует файла {Enter_Analyst.ChosenProblemA}");
@@ -376,7 +378,7 @@ namespace Sisan1
         {
             if (dataGridView1.Visible)
             {
-                string Filename = "data/Temp_Matrix_" + Enter_Expert.ChosenProblem;
+                string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "Temp_Matrix_" + Enter_Expert.ChosenProblem;
                 string output = string.Empty;
                 for (int n = 0; n < alterCount; n++)
                 {
@@ -402,7 +404,7 @@ namespace Sisan1
         {
             if (comboBox1.SelectedItem != null)
             {
-                string Filename2 = "data/Matrix_" + comboBox1.SelectedItem.ToString();
+                string Filename2 = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Matrix_" + comboBox1.SelectedItem.ToString();
                 if (!System.IO.File.Exists(Filename2))
                 {
                     //comboBox1.BackColor = Color.Red;
@@ -590,8 +592,8 @@ namespace Sisan1
 
         private void FinishButton_Click(object sender, EventArgs e)
         {
-            string Filename = "data/Matrix_" + Enter_Expert.ChosenProblem;
-            File.Delete("data/Temp_Matrix_" + Enter_Expert.ChosenProblem);
+            string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Matrix_" + Enter_Expert.ChosenProblem;
+            File.Delete("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_Matrix_" + Enter_Expert.ChosenProblem);
             string output = string.Empty;
             for (int n = 0; n < alterCount; n++)
             {
@@ -613,7 +615,7 @@ namespace Sisan1
         {
             if (comboBox1.SelectedItem != null)
             {
-                string Filename2 = "data/Matrix_" + comboBox1.SelectedItem.ToString();
+                string Filename2 = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Matrix_" + comboBox1.SelectedItem.ToString();
                 if (!System.IO.File.Exists(Filename2))
                 {
                     using (Brush br = new SolidBrush(Color.LightPink))

@@ -8,6 +8,7 @@ namespace Sisan1
 {
     public class Constants
     {
-        public static int MAX_ITEMS = 3;
+        public static int MAX_ITEMS = Int32.MaxValue;
+        public string Name { get; set; }
     }
 }

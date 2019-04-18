@@ -7,8 +7,12 @@ namespace Sisan1
 {
     public partial class Enter_Analyst : Form
     {
-        //string[] colorsNames = { "Красный", "Синий", "Зеленый" };
         Color[] colors = { Color.LightPink, Color.LightGreen };
+        Sessions CurSession = new Sessions();
+        
+        public static List<string> Problems = new List<string>();
+        //public static List<string> Problems;
+        public static string ChosenProblemA;
 
         public Enter_Analyst()
         {
@@ -37,10 +41,6 @@ namespace Sisan1
 
         }
 
-        Sessions CurSession = new Sessions();
-        public static List<string> Problems = new List<string>();
-        //public static List<string> Problems;
-        public static string ChosenProblemA;
 
         public void RefreshForm()
         {
@@ -131,50 +131,6 @@ namespace Sisan1
             RefreshForm();
         }
 
-        private void Problem1_Click(object sender, EventArgs e)
-        {
-            ChosenProblemA = comboBox1.Items[1].ToString();
-            if (CurSession.CheckMatrix(comboBox1.Items[1].ToString()))
-            {
-                Form1 form = new Form1();
-                this.Hide();
-                form.Show();
-            }
-            else
-            {
-                MessageBox.Show("Эксперт еще не прошел тестирование по теме: " + comboBox1.Items[1].ToString());
-            }
-        }
-
-        private void Problem2_Click(object sender, EventArgs e)
-        {
-            ChosenProblemA = comboBox1.Items[2].ToString();
-            if (CurSession.CheckMatrix(comboBox1.Items[2].ToString()))
-            {
-                Form1 form = new Form1();
-                this.Hide();
-                form.Show();
-            }
-            else
-            {
-                MessageBox.Show("Эксперт еще не прошел тестирование по теме: " + comboBox1.Items[2].ToString());
-            }
-        }
-
-        private void Problem3_Click(object sender, EventArgs e)
-        {
-            ChosenProblemA = comboBox1.Items[3].ToString();
-            if (CurSession.CheckMatrix(comboBox1.Items[3].ToString()))
-            {
-                Form1 form = new Form1();
-                this.Hide();
-                form.Show();
-            }
-            else
-            {
-                MessageBox.Show("Эксперт еще не прошел тестирование по теме: " + comboBox1.Items[3].ToString());
-            }
-        }
 
         private void Exit_Click(object sender, EventArgs e)
         {
@@ -226,10 +182,10 @@ namespace Sisan1
         private void AnalyticsFormButton_Click(object sender, EventArgs e)
         {
             ChosenProblemA = comboBox1.SelectedItem.ToString();
-            string Filename2 = "data/Matrix_" + Enter_Analyst.ChosenProblemA;
+            string Filename2 = "data/Matrix_" + ChosenProblemA;
             if (!System.IO.File.Exists(Filename2))
             {
-                MessageBox.Show($"Эксперт не выбрал альтернативы для проблемы {Enter_Analyst.ChosenProblemA}");
+                MessageBox.Show($"Эксперт не выбрал альтернативы для проблемы {ChosenProblemA}");
                 //this.Hide();
                 //Enter_Analyst backForm = new Enter_Analyst();
                 //backForm.Show();
@@ -332,7 +288,9 @@ namespace Sisan1
 
         private void EditExpertsButton_Click(object sender, EventArgs e)
         {
-
+            MakeExpert makeExpert = new MakeExpert();
+            makeExpert.Show();
+            this.Hide();
         }
     }
 }

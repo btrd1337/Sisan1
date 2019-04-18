@@ -34,7 +34,6 @@
             this.Exit = new System.Windows.Forms.Button();
             this.Delete1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.NewProblemTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.AnalyticsFormButton = new System.Windows.Forms.Button();
@@ -48,18 +47,19 @@
             this.alternativesTableBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.EditExpertsButton = new System.Windows.Forms.Button();
             this.EditProblemButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.alternativesTableBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSetBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.alternativesTableBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // NewProblem
             // 
-            this.NewProblem.Location = new System.Drawing.Point(12, 70);
+            this.NewProblem.Location = new System.Drawing.Point(44, 68);
             this.NewProblem.Name = "NewProblem";
             this.NewProblem.Size = new System.Drawing.Size(265, 54);
             this.NewProblem.TabIndex = 3;
@@ -80,7 +80,7 @@
             // Delete1
             // 
             this.Delete1.Image = ((System.Drawing.Image)(resources.GetObject("Delete1.Image")));
-            this.Delete1.Location = new System.Drawing.Point(233, 198);
+            this.Delete1.Location = new System.Drawing.Point(334, 193);
             this.Delete1.Name = "Delete1";
             this.Delete1.Size = new System.Drawing.Size(44, 42);
             this.Delete1.TabIndex = 8;
@@ -93,23 +93,19 @@
             this.comboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 210);
+            this.comboBox1.Location = new System.Drawing.Point(44, 205);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(165, 21);
+            this.comboBox1.Size = new System.Drawing.Size(284, 21);
             this.comboBox1.TabIndex = 11;
             this.comboBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox1_DrawItem);
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             this.comboBox1.Click += new System.EventHandler(this.comboBox1_Click);
             // 
-            // bindingSource1
-            // 
-            this.bindingSource1.CurrentChanged += new System.EventHandler(this.bindingSource1_CurrentChanged);
-            // 
             // NewProblemTextBox
             // 
             this.NewProblemTextBox.Location = new System.Drawing.Point(32, 22);
             this.NewProblemTextBox.Name = "NewProblemTextBox";
-            this.NewProblemTextBox.Size = new System.Drawing.Size(233, 20);
+            this.NewProblemTextBox.Size = new System.Drawing.Size(384, 20);
             this.NewProblemTextBox.TabIndex = 12;
             this.NewProblemTextBox.TextChanged += new System.EventHandler(this.NewProblemTextBox_TextChanged);
             // 
@@ -119,7 +115,7 @@
             this.groupBox1.Controls.Add(this.NewProblemTextBox);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(265, 50);
+            this.groupBox1.Size = new System.Drawing.Size(422, 50);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "        Введите название новой проблемы";
@@ -127,7 +123,7 @@
             // AnalyticsFormButton
             // 
             this.AnalyticsFormButton.Image = ((System.Drawing.Image)(resources.GetObject("AnalyticsFormButton.Image")));
-            this.AnalyticsFormButton.Location = new System.Drawing.Point(183, 198);
+            this.AnalyticsFormButton.Location = new System.Drawing.Point(384, 193);
             this.AnalyticsFormButton.Name = "AnalyticsFormButton";
             this.AnalyticsFormButton.Size = new System.Drawing.Size(44, 42);
             this.AnalyticsFormButton.TabIndex = 14;
@@ -173,18 +169,18 @@
             // 
             // EditExpertsButton
             // 
-            this.EditExpertsButton.Location = new System.Drawing.Point(12, 130);
+            this.EditExpertsButton.Location = new System.Drawing.Point(44, 128);
             this.EditExpertsButton.Name = "EditExpertsButton";
             this.EditExpertsButton.Size = new System.Drawing.Size(265, 54);
             this.EditExpertsButton.TabIndex = 15;
-            this.EditExpertsButton.Text = "Добавить эксперта";
+            this.EditExpertsButton.Text = "Управление экспертами";
             this.EditExpertsButton.UseVisualStyleBackColor = true;
             this.EditExpertsButton.Click += new System.EventHandler(this.EditExpertsButton_Click);
             // 
             // EditProblemButton
             // 
             this.EditProblemButton.Enabled = false;
-            this.EditProblemButton.Location = new System.Drawing.Point(183, 246);
+            this.EditProblemButton.Location = new System.Drawing.Point(334, 241);
             this.EditProblemButton.Name = "EditProblemButton";
             this.EditProblemButton.Size = new System.Drawing.Size(94, 23);
             this.EditProblemButton.TabIndex = 16;
@@ -192,11 +188,15 @@
             this.EditProblemButton.UseVisualStyleBackColor = true;
             this.EditProblemButton.Click += new System.EventHandler(this.EditProblemButton_Click);
             // 
+            // bindingSource1
+            // 
+            this.bindingSource1.CurrentChanged += new System.EventHandler(this.bindingSource1_CurrentChanged);
+            // 
             // Enter_Analyst
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(293, 273);
+            this.ClientSize = new System.Drawing.Size(446, 278);
             this.Controls.Add(this.EditProblemButton);
             this.Controls.Add(this.EditExpertsButton);
             this.Controls.Add(this.AnalyticsFormButton);
@@ -209,7 +209,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор проблемы";
             this.Load += new System.EventHandler(this.Enter_Analyst_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSet)).EndInit();
@@ -217,6 +216,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSetBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.alternativesTableBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
