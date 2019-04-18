@@ -1,0 +1,47 @@
+C:\Users\PMI62\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.DialogBox.resources
+C:\Users\PMI62\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.Form1.resources
+C:\Users\PMI62\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.Properties.Resources.resources
+C:\Users\PMI62\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.csproj.GenerateResource.cache
+C:\Users\PMI62\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.csproj.CoreCompileInputs.cache
+C:\Users\PMI62\source\repos\Sisan1\Sisan1\bin\Debug\Sisan1.exe.config
+C:\Users\PMI62\source\repos\Sisan1\Sisan1\bin\Debug\Sisan1.exe
+C:\Users\PMI62\source\repos\Sisan1\Sisan1\bin\Debug\Sisan1.pdb
+C:\Users\PMI62\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.exe
+C:\Users\PMI62\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.pdb
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\bin\Debug\Sisan1.exe.config
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\obj\Debug\Sisan1.exe
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\obj\Debug\Sisan1.pdb
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\bin\Debug\Sisan1.exe
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\bin\Debug\Sisan1.pdb
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\obj\Debug\Sisan1.DialogBox.resources
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\obj\Debug\Sisan1.Form1.resources
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\obj\Debug\Sisan1.Properties.Resources.resources
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\obj\Debug\Sisan1.csproj.GenerateResource.Cache
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\obj\Debug\Sisan1.Login.resources
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\obj\Debug\Sisan1.ChangeTheme.resources
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\obj\Debug\Sisan1.Form2.resources
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\obj\Debug\Sisan1.Enter_Analyst.resources
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\obj\Debug\Sisan1.Enter_Expert.resources
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\obj\Debug\Sisan1.Form3.resources
+C:\Users\Ksenya\Documents\Visual Studio 2015\Projects\Sisan1\Sisan1\obj\Debug\Sisan1.csprojResolveAssemblyReference.cache
+C:\Users\btrd\source\repos\Sisan1\Sisan1\bin\Debug\Sisan1.exe.config
+C:\Users\btrd\source\repos\Sisan1\Sisan1\bin\Debug\Sisan1.exe
+C:\Users\btrd\source\repos\Sisan1\Sisan1\bin\Debug\Sisan1.pdb
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.csprojAssemblyReference.cache
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.ChangeTheme.resources
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.DialogBox.resources
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.Enter_Analyst.resources
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.Enter_Expert.resources
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.Form1.resources
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.Form2.resources
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.Form3.resources
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.Login.resources
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.Properties.Resources.resources
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.csproj.GenerateResource.cache
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.csproj.CoreCompileInputs.cache
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.exe
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.pdb
+C:\Users\btrd\source\repos\Sisan1\Sisan1\bin\Debug\Database1.mdf
+C:\Users\btrd\source\repos\Sisan1\Sisan1\bin\Debug\Database1_log.ldf
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.ExpertLogin.resources
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.MakeExpert.resources
