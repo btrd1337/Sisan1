@@ -14,7 +14,7 @@ namespace Sisan1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Data.ExpertsList = new List<Tuple<string, double, List<string>>>();
+            Data.ExpertsList = new List<Tuple<string, List<double>, List<string>>>();
             Data.ProblemsFileName = "ad.txt";
             Data.Methods = new List<string>();
             Data.Methods.Add("Метод парных сравнений");
@@ -31,13 +31,13 @@ namespace Sisan1
     static class Data
     {
         public static string ProblemsFileName { set; get; }
-        public static List<Tuple<string, double, List<string>>> ExpertsList { set; get; }
-        public static Tuple<string, double, List<string>> CurrentExpertTuple { set; get; }
+        public static List<Tuple<string, List<double>, List<string>>> ExpertsList { set; get; }
+        public static Tuple<string, List<double>, List<string>> CurrentExpertTuple { set; get; }
         public static string CurrentExpertName { set; get; }
         public static bool ExpertsNamesInited { set; get; }
         public static double CurrentCoefficient { set; get; }
         public static List<string> AllProblems { set; get; }
-        public static List<Tuple<string, double>> AllExpertsCoefForCurrrentProblem { set; get; }
+        public static List<Tuple<string, double>> AllExpertsCoefForCurrrentProblem { set; get; } //хз зачем
         public static List<string> Methods { set; get; }
     }
 }

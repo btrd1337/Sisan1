@@ -11,6 +11,7 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
         private bool SelectedIndexChangedCount;
         public List<Tuple<string, double>> ExpertsList = new List<Tuple<string, double>>();
         private List<string> CurrentExpertProblemsSelected = new List<string>();
+        private List<double> CurrentExpertProblemsSelectedCoefficient = new List<double>();
 
         public MakeExpert()
         {
@@ -39,9 +40,12 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
                 if (!String.IsNullOrEmpty(ExpertNameTextBox.Text))
                 {
                     Directory.CreateDirectory("data/Experts/" + ExpertNameTextBox.Text);
-                    File.WriteAllText("data/Experts/" + ExpertNameTextBox.Text + "/Coefficient.txt", ExpertCoefficientNumericUpDown.Value.ToString());
+                    //File.WriteAllText("data/Experts/" + ExpertNameTextBox.Text + "/Coefficient.txt", ExpertCoefficientNumericUpDown.Value.ToString());
                     File.CreateText("data/Experts/" + ExpertNameTextBox.Text + "/Problems.txt").Close();
-                    Data.ExpertsList.Add(new Tuple<string, double, List<string>>(ExpertNameTextBox.Text, Convert.ToDouble(ExpertCoefficientNumericUpDown.Value), new List<string>()));
+                    File.WriteAllText("data/Experts/" + ExpertNameTextBox.Text + "/Problems.txt", "0");
+                    File.CreateText("data/Experts/" + ExpertNameTextBox.Text + "/Coefficient.txt").Close();
+                    File.WriteAllText("data/Experts/" + ExpertNameTextBox.Text + "/Coefficient.txt", "0");
+                    Data.ExpertsList.Add(new Tuple<string, List<double>, List<string>>(ExpertNameTextBox.Text, new List<double>(), new List<string>()));
                     Convert.ToString(Enter_Analyst.ChosenProblemA.Length);
                     MessageBox.Show("Эксперт успешно добавлен");
                     MakeExpert Refresh = new MakeExpert();
@@ -71,18 +75,18 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
             //}
             if (!Data.ExpertsNamesInited)
             {
-                Sessions CurrentSession = new Sessions();
                 Data.ExpertsNamesInited = true;
                 string path = "data/Experts/";
                 foreach (string s in Directory.GetDirectories(path))
                 {
                     if (File.Exists(s + "/Coefficient.txt") && File.Exists(s + "/Problems.txt"))
                     {
-                        double tmpDouble = Convert.ToDouble(File.ReadAllText(s + "/Coefficient.txt"));
+                        Sessions CurrentSession = new Sessions();
                         List<string> tmpProblemsString = new List<string>();
                         Data.ProblemsFileName = "data/Experts/" + s.Remove(0, path.Length) + "/Problems.txt";
                         CurrentSession.LoadSession();
-                        Data.ExpertsList.Add(Tuple.Create(s.Remove(0, path.Length), tmpDouble, CurrentSession.Problems));
+                        CurrentSession.LoadCoefficients(s + "/Coefficient.txt");
+                        Data.ExpertsList.Add(Tuple.Create(s.Remove(0, path.Length), CurrentSession.CofficientsList, CurrentSession.Problems));
                     }
                 }
                 Data.ProblemsFileName = "ad.txt";
@@ -91,21 +95,22 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
 
         }
 
-        private void LoadPreviousCoefficient()
-        {
-            if (File.Exists("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Coefficient.txt"))
-            {
-                Data.CurrentCoefficient = Convert.ToDouble(File.ReadAllText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Coefficient.txt"));
-                EditExpertCoefficientNumericUpDown.Value = (decimal)Data.CurrentCoefficient;
-            }
-        }
+        //private void LoadPreviousCoefficient()
+        //{
+        //    if (File.Exists("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Coefficient.txt"))
+        //    {
+        //        Data.CurrentCoefficient = Convert.ToDouble(File.ReadAllText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Coefficient.txt"));
+        //        EditExpertCoefficientNumericUpDown.Value = (decimal)Data.CurrentCoefficient;
+        //    }
+        //}
 
         private void LoadPreviousProblems()
         {
             Sessions LoadProblem = new Sessions();
-            Data.CurrentExpertTuple = (Tuple<string, double, List<string>>)ExpertListComboBox.SelectedItem;
+            Data.CurrentExpertTuple = (Tuple<string, List<double>, List<string>>)ExpertListComboBox.SelectedItem;
             Data.ProblemsFileName = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Problems.txt";
             LoadProblem.LoadSession();
+            LoadProblem.LoadCoefficients("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Coefficient.txt");
             CurrentExpertProblemsSelected = LoadProblem.Problems;
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
@@ -119,9 +124,12 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
                     if (dataGridView1.Rows[j].Cells[0].Value.ToString() == CurrentExpertProblemsSelected[i])
                     {
                         dataGridView1.Rows[j].Cells[1].Value = true;
+                        dataGridView1.Rows[j].Cells[2].ReadOnly = false;
+                        dataGridView1.Rows[j].Cells[2].Value = LoadProblem.CofficientsList[i];
                     }
                 }
             }
+            Data.ProblemsFileName = "ad.txt";
 
 
 
@@ -166,10 +174,10 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
                     dataGridView1.Rows.Clear();
                     dataGridView1.Refresh();
                     EditExpertGroupBox.Visible = true;
-                    EditExpertCoefficientNumericUpDown.Value = 0;
+                    //EditExpertCoefficientNumericUpDown.Value = 0;
                     InitDataGrid();
                     LoadPreviousProblems();
-                    LoadPreviousCoefficient();
+                    //LoadPreviousCoefficient();
                 }
 
             }
@@ -186,7 +194,12 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = !Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+            if (e.ColumnIndex == 1)
+            {
+                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = !Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                dataGridView1.Rows[e.RowIndex].Cells[2].ReadOnly = !Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                dataGridView1.Rows[e.RowIndex].Cells[2].Value = null;
+            }
         }
 
         private void SaveEditButton_Click(object sender, EventArgs e)
@@ -199,23 +212,30 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
                 {
 
                     CurrentExpertProblemsSelected.Add(dataGridView1.Rows[i].Cells[0].Value.ToString());
+                    CurrentExpertProblemsSelectedCoefficient.Add(Convert.ToDouble(dataGridView1.Rows[i].Cells[2].Value));
                 }
             }
             File.CreateText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Problems.txt").Close(); //чистим строчку
+            File.CreateText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Coefficient.txt").Close(); //чистим строчку
             for (int i = 0; i < Data.ExpertsList.Count; i++)
             {
                 if (Data.ExpertsList[i].Item1 == Data.CurrentExpertTuple.Item1)
                 {
                     Data.ExpertsList[i].Item3.Clear();
+                    Data.ExpertsList[i].Item2.Clear();
                     for (int j = 0; j < CurrentExpertProblemsSelected.Count; j++)
                     {
                         Data.ExpertsList[i].Item3.Add(CurrentExpertProblemsSelected[j]);
+                        Data.ExpertsList[i].Item2.Add(CurrentExpertProblemsSelectedCoefficient[j]);
                     }
                 }
             }
             CurrentExpertProblemsSelected.Insert(0, CurrentExpertProblemsSelected.Count.ToString());
+            CurrentExpertProblemsSelectedCoefficient.Insert(0, CurrentExpertProblemsSelectedCoefficient.Count);
             File.WriteAllLines("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Problems.txt", CurrentExpertProblemsSelected);
-            File.WriteAllText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Coefficient.txt", Convert.ToString(EditExpertCoefficientNumericUpDown.Value));
+            //File.WriteAllText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Coefficient.txt", Convert.ToString(EditExpertCoefficientNumericUpDown.Value));
+            File.WriteAllLines("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Coefficient.txt", (List<string>)CurrentExpertProblemsSelectedCoefficient.ConvertAll<string>(x=>x.ToString()));
+
             Data.ProblemsFileName = "ad.txt";
             MessageBox.Show("Успешно сохранено");
         }
@@ -223,7 +243,7 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
         private void DeleteExpert_Click(object sender, EventArgs e)
         {
             Sessions CurrentSession = new Sessions();
-            Tuple<string, double, List<string>> tmpTuple = (Tuple<string, double, List<string>>)ExpertListComboBox.SelectedItem;
+            Tuple<string, List<double>, List<string>> tmpTuple = (Tuple<string, List<double>, List<string>>)ExpertListComboBox.SelectedItem;
             CurrentSession.RemoveExpert(tmpTuple.Item1);
             MessageBox.Show("Эксперт успешно удален");
             MakeExpert Refresh = new MakeExpert();

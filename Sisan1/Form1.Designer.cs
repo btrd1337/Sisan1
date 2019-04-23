@@ -39,9 +39,9 @@
             this.button3 = new System.Windows.Forms.Button();
             this.ExpertNameFirstLabMethodComboBox = new System.Windows.Forms.ComboBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewLab1 = new System.Windows.Forms.DataGridView();
             this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ResultScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewLab1 = new System.Windows.Forms.DataGridView();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Alternative = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -162,22 +162,6 @@
             this.dataGridView3.TabIndex = 20;
             this.dataGridView3.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
             // 
-            // dataGridViewLab1
-            // 
-            this.dataGridViewLab1.AllowUserToAddRows = false;
-            this.dataGridViewLab1.AllowUserToDeleteRows = false;
-            this.dataGridViewLab1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewLab1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Number,
-            this.Alternative,
-            this.Weight});
-            this.dataGridViewLab1.Location = new System.Drawing.Point(279, 64);
-            this.dataGridViewLab1.Name = "dataGridViewLab1";
-            this.dataGridViewLab1.ReadOnly = true;
-            this.dataGridViewLab1.RowHeadersVisible = false;
-            this.dataGridViewLab1.Size = new System.Drawing.Size(242, 301);
-            this.dataGridViewLab1.TabIndex = 21;
-            // 
             // AlternativeName
             // 
             this.AlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -192,13 +176,29 @@
             this.ResultScore.ReadOnly = true;
             this.ResultScore.Width = 70;
             // 
+            // dataGridViewLab1
+            // 
+            this.dataGridViewLab1.AllowUserToAddRows = false;
+            this.dataGridViewLab1.AllowUserToDeleteRows = false;
+            this.dataGridViewLab1.AllowUserToResizeRows = false;
+            this.dataGridViewLab1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewLab1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Number,
+            this.Alternative,
+            this.Weight});
+            this.dataGridViewLab1.Location = new System.Drawing.Point(279, 64);
+            this.dataGridViewLab1.Name = "dataGridViewLab1";
+            this.dataGridViewLab1.ReadOnly = true;
+            this.dataGridViewLab1.RowHeadersVisible = false;
+            this.dataGridViewLab1.Size = new System.Drawing.Size(242, 301);
+            this.dataGridViewLab1.TabIndex = 21;
+            // 
             // Number
             // 
-            this.Number.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Number.HeaderText = "№";
             this.Number.Name = "Number";
             this.Number.ReadOnly = true;
-            this.Number.Width = 43;
+            this.Number.Width = 25;
             // 
             // Alternative
             // 
@@ -209,9 +209,11 @@
             // 
             // Weight
             // 
+            this.Weight.FillWeight = 50F;
             this.Weight.HeaderText = "Вес";
             this.Weight.Name = "Weight";
             this.Weight.ReadOnly = true;
+            this.Weight.Width = 50;
             // 
             // Form1
             // 

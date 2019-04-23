@@ -46,17 +46,18 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.ProgressLabel = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.MethodsComboBox = new System.Windows.Forms.ComboBox();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlternativeScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Alternative1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AlternativeAgree = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.AlternativeNeutral = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.AlternativeDisagree = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Alternative2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MethodsComboBox = new System.Windows.Forms.ComboBox();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AlternativeScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProgressLabel = new System.Windows.Forms.Label();
+            this.Lab2Label = new System.Windows.Forms.Label();
             this.form2BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
@@ -217,16 +218,6 @@
             this.progressBar1.TabIndex = 17;
             this.progressBar1.Visible = false;
             // 
-            // ProgressLabel
-            // 
-            this.ProgressLabel.AutoSize = true;
-            this.ProgressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ProgressLabel.Location = new System.Drawing.Point(146, 173);
-            this.ProgressLabel.Name = "ProgressLabel";
-            this.ProgressLabel.Size = new System.Drawing.Size(41, 13);
-            this.ProgressLabel.TabIndex = 26;
-            this.ProgressLabel.Text = "label1";
-            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -245,43 +236,6 @@
             this.dataGridView1.Visible = false;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // Alternative1
-            // 
-            this.Alternative1.HeaderText = "Альтернатива 1";
-            this.Alternative1.Name = "Alternative1";
-            this.Alternative1.ReadOnly = true;
-            this.Alternative1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Alternative1.Width = 601;
-            // 
-            // AlternativeAgree
-            // 
-            this.AlternativeAgree.HeaderText = " ";
-            this.AlternativeAgree.Name = "AlternativeAgree";
-            this.AlternativeAgree.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.AlternativeAgree.Width = 20;
-            // 
-            // AlternativeNeutral
-            // 
-            this.AlternativeNeutral.HeaderText = " ";
-            this.AlternativeNeutral.Name = "AlternativeNeutral";
-            this.AlternativeNeutral.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.AlternativeNeutral.Width = 20;
-            // 
-            // AlternativeDisagree
-            // 
-            this.AlternativeDisagree.HeaderText = " ";
-            this.AlternativeDisagree.Name = "AlternativeDisagree";
-            this.AlternativeDisagree.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.AlternativeDisagree.Width = 20;
-            // 
-            // Alternative2
-            // 
-            this.Alternative2.HeaderText = "Альтернатива 2";
-            this.Alternative2.Name = "Alternative2";
-            this.Alternative2.ReadOnly = true;
-            this.Alternative2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Alternative2.Width = 602;
             // 
             // MethodsComboBox
             // 
@@ -302,7 +256,7 @@
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.AlternativeName,
             this.AlternativeScore});
-            this.dataGridView2.Location = new System.Drawing.Point(11, 43);
+            this.dataGridView2.Location = new System.Drawing.Point(11, 41);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(870, 379);
             this.dataGridView2.TabIndex = 29;
@@ -322,6 +276,67 @@
             this.AlternativeScore.Name = "AlternativeScore";
             this.AlternativeScore.Width = 200;
             // 
+            // Alternative1
+            // 
+            this.Alternative1.HeaderText = "Альтернатива 1";
+            this.Alternative1.Name = "Alternative1";
+            this.Alternative1.ReadOnly = true;
+            this.Alternative1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Alternative1.Width = 601;
+            // 
+            // AlternativeAgree
+            // 
+            this.AlternativeAgree.HeaderText = " ";
+            this.AlternativeAgree.Name = "AlternativeAgree";
+            this.AlternativeAgree.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.AlternativeAgree.ToolTipText = "Альтернатива 1 предпочтительнее";
+            this.AlternativeAgree.Width = 20;
+            // 
+            // AlternativeNeutral
+            // 
+            this.AlternativeNeutral.HeaderText = " ";
+            this.AlternativeNeutral.Name = "AlternativeNeutral";
+            this.AlternativeNeutral.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.AlternativeNeutral.ToolTipText = "Альтернативы равнозначны";
+            this.AlternativeNeutral.Width = 20;
+            // 
+            // AlternativeDisagree
+            // 
+            this.AlternativeDisagree.HeaderText = " ";
+            this.AlternativeDisagree.Name = "AlternativeDisagree";
+            this.AlternativeDisagree.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.AlternativeDisagree.ToolTipText = "Альтерантива 2 предпочтительнее";
+            this.AlternativeDisagree.Width = 20;
+            // 
+            // Alternative2
+            // 
+            this.Alternative2.HeaderText = "Альтернатива 2";
+            this.Alternative2.Name = "Alternative2";
+            this.Alternative2.ReadOnly = true;
+            this.Alternative2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Alternative2.Width = 602;
+            // 
+            // ProgressLabel
+            // 
+            this.ProgressLabel.AutoSize = true;
+            this.ProgressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ProgressLabel.Location = new System.Drawing.Point(146, 173);
+            this.ProgressLabel.Name = "ProgressLabel";
+            this.ProgressLabel.Size = new System.Drawing.Size(41, 13);
+            this.ProgressLabel.TabIndex = 26;
+            this.ProgressLabel.Text = "label1";
+            // 
+            // Lab2Label
+            // 
+            this.Lab2Label.AutoSize = true;
+            this.Lab2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.Lab2Label.Location = new System.Drawing.Point(204, 16);
+            this.Lab2Label.Name = "Lab2Label";
+            this.Lab2Label.Size = new System.Drawing.Size(420, 20);
+            this.Lab2Label.TabIndex = 30;
+            this.Lab2Label.Text = "Введите оценку альтернативам по шкале от 0 до 100";
+            this.Lab2Label.Visible = false;
+            // 
             // form2BindingSource
             // 
             this.form2BindingSource.DataSource = typeof(Sisan1.Form2);
@@ -331,6 +346,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1350, 461);
+            this.Controls.Add(this.Lab2Label);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.MethodsComboBox);
             this.Controls.Add(this.FinishButton);
@@ -373,18 +389,19 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.BindingSource bindingSource1;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label ProgressLabel;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource form2BindingSource;
         private System.Windows.Forms.Button FinishButton;
+        private System.Windows.Forms.ComboBox MethodsComboBox;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeScore;
         private System.Windows.Forms.DataGridViewTextBoxColumn Alternative1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeAgree;
         private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeNeutral;
         private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeDisagree;
         private System.Windows.Forms.DataGridViewTextBoxColumn Alternative2;
-        private System.Windows.Forms.ComboBox MethodsComboBox;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeScore;
+        private System.Windows.Forms.Label ProgressLabel;
+        private System.Windows.Forms.Label Lab2Label;
     }
 }

@@ -57,6 +57,19 @@ namespace Sisan1
             }
         }
 
+        private void LoadSavedSecondLab()
+        {
+            var sr2 = new StreamReader("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_SecondLab_" + Enter_Expert.ChosenProblem); // Сканируем файл
+                                                   // Удаляем из него все разделители
+            var Text = sr2.ReadToEnd().Split(new char[] { ' ', '\t', '\r', '\n', });
+            sr2.Close();
+            for (int i=0;i<dataGridView2.Rows.Count;i++)
+            {
+                if (Text[i] != "r")
+                    dataGridView2.Rows[i].Cells[1].Value = Text[i];
+            }
+        }
+
         private void Form2_Load(object sender, EventArgs e)
         {
             //Problem.Text = Enter_Expert.ChosenProblem;
@@ -285,7 +298,7 @@ namespace Sisan1
                     {
                         if (Alternatives.Count > 0)
                         {
-
+                            Lab2Label.Visible = true;
                             this.Size = new System.Drawing.Size(1000, 600);
                             this.Width = 900;
                             this.Height = 500;
@@ -302,6 +315,7 @@ namespace Sisan1
                                 dataGridView2.Rows.Add();
                                 dataGridView2.Rows[i].Cells[0].Value = Alternatives[i];
                             }
+                            LoadSavedSecondLab();
                         }
                         break;
                     }
@@ -428,6 +442,27 @@ namespace Sisan1
                 }
                 File.Delete(Filename);
                 File.WriteAllText(Filename, output);
+            }
+            if (dataGridView2.Visible)
+            {
+                string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_SecondLab_" + Enter_Expert.ChosenProblem;
+                string output = string.Empty;
+                for (int n = 0; n < dataGridView2.Rows.Count; n++)
+                {
+                    if (dataGridView2.Rows[n].Cells[1].Value == null)
+                    {
+                        output += "r";
+                    }
+                    else
+                    {
+                        output += dataGridView2.Rows[n].Cells[1].Value.ToString();
+                    }
+
+                    output += "\n";
+                }
+                File.Delete(Filename);
+                File.WriteAllText(Filename, output);
+
             }
             Data.ProblemsFileName = "ad.txt";
             Login lgn = new Login();
@@ -655,10 +690,13 @@ namespace Sisan1
                     }
                 case 1:
                     {
-                        int SumScore = 0;
+                        double SumScore = 0;
                         for (int i = 0; i < dataGridView2.Rows.Count; i++)
                         {
-                            SumScore += Convert.ToInt32(dataGridView2.Rows[i].Cells[1].Value);
+                            if (dataGridView2.Rows[i].Cells[1].Value != null)
+                            {
+                                SumScore += Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ','));
+                            }
                         }
 
                         if (SumScore != 100)
@@ -668,9 +706,9 @@ namespace Sisan1
                         else
                         {
                             List<string> tempList = new List<string>();
-                            for (int i=0;i<dataGridView2.Rows.Count;i++)
+                            for (int i = 0; i < dataGridView2.Rows.Count; i++)
                             {
-                                tempList.Add(Convert.ToString(Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value)/100));
+                                tempList.Add(Convert.ToString(Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ',')) / 100));
                             }
                             File.WriteAllLines("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/SecondLab_" + Enter_Expert.ChosenProblem, tempList);
                             Login lgn = new Login();
@@ -682,7 +720,7 @@ namespace Sisan1
                     }
 
             }
-            
+
 
         }
 

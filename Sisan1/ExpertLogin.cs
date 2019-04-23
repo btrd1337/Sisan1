@@ -23,7 +23,7 @@ namespace Sisan1
         {
             
             //Data.CurrentExpertTuple = ExpertsListComboBox.SelectedItem;
-            Data.CurrentExpertTuple = (Tuple<string,double,List<string>>)ExpertsListComboBox.SelectedItem;
+            Data.CurrentExpertTuple = (Tuple<string,List<double>,List<string>>)ExpertsListComboBox.SelectedItem;
             Data.CurrentExpertName = Data.CurrentExpertTuple.Item1;
             if (Data.CurrentExpertTuple.Item3.Count > 0)
             {
@@ -64,11 +64,12 @@ namespace Sisan1
                     if (File.Exists(s + "/Coefficient.txt") && File.Exists(s + "/Problems.txt"))
                     {
                         Sessions CurrentSession = new Sessions();
-                        double tmpDouble = Convert.ToDouble(File.ReadAllText(s + "/Coefficient.txt"));
+                        //double tmpDouble = Convert.ToDouble(File.ReadAllText(s + "/Coefficient.txt"));
                         List<string> tmpProblemsString = new List<string>();
                         Data.ProblemsFileName = "data/Experts/" + s.Remove(0, path.Length) + "/Problems.txt";
                         CurrentSession.LoadSession();
-                        Data.ExpertsList.Add(Tuple.Create(s.Remove(0, path.Length), tmpDouble, CurrentSession.Problems));
+                        CurrentSession.LoadCoefficients(s + "/Coefficient.txt");
+                        Data.ExpertsList.Add(Tuple.Create(s.Remove(0, path.Length), CurrentSession.CofficientsList, CurrentSession.Problems));
                     }
                 }
                 Data.ProblemsFileName = "ad.txt";

@@ -10,7 +10,7 @@ namespace Sisan1
     {
         Color[] colors = { Color.LightPink, Color.LightGreen };
         Sessions CurSession = new Sessions();
-        
+
         public static List<string> Problems = new List<string>();
         //public static List<string> Problems;
         public static string ChosenProblemA;
@@ -100,7 +100,7 @@ namespace Sisan1
                     {
                         Problems.Add(ProblemName);
                         ChosenProblemA = ProblemName;
-                        
+
                         CurSession.SaveSession(ChosenProblemA);
 
                         Form3 form = new Form3();
@@ -141,8 +141,9 @@ namespace Sisan1
             foreach (string s in Directory.GetDirectories(path))
             {
                 if (File.Exists(s + "/Matrix_" + ChosenProblemA))
+                {
                     return true;
-
+                }
             }
             return false;
         }
@@ -198,20 +199,11 @@ namespace Sisan1
         {
             ChosenProblemA = comboBox1.SelectedItem.ToString();
             string Filename2 = "data/Matrix_" + ChosenProblemA;
-            if (!IsExpertCheckedAlternative())
-            {
-                MessageBox.Show($"Эксперт не выбрал альтернативы для проблемы {ChosenProblemA}");
-                //this.Hide();
-                //Enter_Analyst backForm = new Enter_Analyst();
-                //backForm.Show();
-                return;
-            }
-            else
-            {
-                Form1 form = new Form1();
-                this.Hide();
-                form.Show();
-            }
+
+            Form1 form = new Form1();
+            this.Hide();
+            form.Show();
+
         }
 
         private void NewProblemTextBox_TextChanged(object sender, EventArgs e)

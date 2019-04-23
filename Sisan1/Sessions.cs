@@ -9,6 +9,8 @@ namespace Sisan1
         public bool initalized = false;
         int ProblemsCountToWrite;
         int ProblemsCountRead;
+        int CoefficientsCountRead;
+        public List<double> CofficientsList = new List<double>();
         public List<string> Problems = new List<string>();
 
 
@@ -47,8 +49,21 @@ namespace Sisan1
             return false;
         }
 
+        public void LoadCoefficients(string path)
+        {
+            StreamReader reader = new StreamReader(path);
+            CoefficientsCountRead = Convert.ToInt32(reader.ReadLine());
+            for (int i = 0; i < CoefficientsCountRead; i++)
+            {
+                CofficientsList.Add(Convert.ToDouble(reader.ReadLine()));
+            }
+            reader.Close();
+           
 
-        public bool LoadAlternativesSession()
+        }
+
+
+        public void LoadAlternativesSession()
         {
             StreamReader reader = new StreamReader(Data.ProblemsFileName);
             ProblemsCountRead = Convert.ToInt32(reader.ReadLine());
@@ -57,8 +72,6 @@ namespace Sisan1
                 Problems.Add(reader.ReadLine());
             }
             reader.Close();
-            return true;
-
 
         }
 
