@@ -34,19 +34,20 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
             this.buttonExit = new System.Windows.Forms.Button();
-            this.listBox2 = new System.Windows.Forms.ListBox();
             this.Problem = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.ExpertNameFirstLabMethodComboBox = new System.Windows.Forms.ComboBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewLab1 = new System.Windows.Forms.DataGridView();
             this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ResultScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Alternative = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -87,39 +88,13 @@
             this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
             this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBox1.Size = new System.Drawing.Size(350, 300);
+            this.listBox1.Size = new System.Drawing.Size(254, 300);
             this.listBox1.TabIndex = 3;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.AllowUserToResizeColumns = false;
-            this.dataGridView2.AllowUserToResizeRows = false;
-            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            this.dataGridView2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
-            this.dataGridView2.Location = new System.Drawing.Point(397, 64);
-            this.dataGridView2.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersWidth = 50;
-            this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(173, 300);
-            this.dataGridView2.TabIndex = 7;
-            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(571, 43);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 18);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Результат";
             // 
             // buttonExit
             // 
@@ -132,18 +107,6 @@
             this.buttonExit.TabIndex = 16;
             this.buttonExit.UseVisualStyleBackColor = true;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
-            // 
-            // listBox2
-            // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.HorizontalScrollbar = true;
-            this.listBox2.IntegralHeight = false;
-            this.listBox2.Location = new System.Drawing.Point(574, 64);
-            this.listBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(350, 300);
-            this.listBox2.TabIndex = 17;
-            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
             // Problem
             // 
@@ -171,9 +134,9 @@
             // ExpertNameFirstLabMethodComboBox
             // 
             this.ExpertNameFirstLabMethodComboBox.FormattingEnabled = true;
-            this.ExpertNameFirstLabMethodComboBox.Location = new System.Drawing.Point(397, 43);
+            this.ExpertNameFirstLabMethodComboBox.Location = new System.Drawing.Point(279, 44);
             this.ExpertNameFirstLabMethodComboBox.Name = "ExpertNameFirstLabMethodComboBox";
-            this.ExpertNameFirstLabMethodComboBox.Size = new System.Drawing.Size(173, 21);
+            this.ExpertNameFirstLabMethodComboBox.Size = new System.Drawing.Size(242, 21);
             this.ExpertNameFirstLabMethodComboBox.TabIndex = 19;
             this.ExpertNameFirstLabMethodComboBox.SelectedIndexChanged += new System.EventHandler(this.ExpertNameFirstLabMethodComboBox_SelectedIndexChanged);
             this.ExpertNameFirstLabMethodComboBox.Click += new System.EventHandler(this.ExpertNameFirstLabMethodComboBox_Click);
@@ -189,7 +152,7 @@
             this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.AlternativeName,
             this.ResultScore});
-            this.dataGridView3.Location = new System.Drawing.Point(11, 382);
+            this.dataGridView3.Location = new System.Drawing.Point(526, 64);
             this.dataGridView3.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.ReadOnly = true;
@@ -199,12 +162,28 @@
             this.dataGridView3.TabIndex = 20;
             this.dataGridView3.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
             // 
+            // dataGridViewLab1
+            // 
+            this.dataGridViewLab1.AllowUserToAddRows = false;
+            this.dataGridViewLab1.AllowUserToDeleteRows = false;
+            this.dataGridViewLab1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewLab1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Number,
+            this.Alternative,
+            this.Weight});
+            this.dataGridViewLab1.Location = new System.Drawing.Point(279, 64);
+            this.dataGridViewLab1.Name = "dataGridViewLab1";
+            this.dataGridViewLab1.ReadOnly = true;
+            this.dataGridViewLab1.RowHeadersVisible = false;
+            this.dataGridViewLab1.Size = new System.Drawing.Size(242, 301);
+            this.dataGridViewLab1.TabIndex = 21;
+            // 
             // AlternativeName
             // 
+            this.AlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.AlternativeName.HeaderText = "Альтернатива";
             this.AlternativeName.Name = "AlternativeName";
             this.AlternativeName.ReadOnly = true;
-            this.AlternativeName.Width = 103;
             // 
             // ResultScore
             // 
@@ -213,20 +192,39 @@
             this.ResultScore.ReadOnly = true;
             this.ResultScore.Width = 70;
             // 
+            // Number
+            // 
+            this.Number.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Number.HeaderText = "№";
+            this.Number.Name = "Number";
+            this.Number.ReadOnly = true;
+            this.Number.Width = 43;
+            // 
+            // Alternative
+            // 
+            this.Alternative.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Alternative.HeaderText = "Альтеранитива";
+            this.Alternative.Name = "Alternative";
+            this.Alternative.ReadOnly = true;
+            // 
+            // Weight
+            // 
+            this.Weight.HeaderText = "Вес";
+            this.Weight.Name = "Weight";
+            this.Weight.ReadOnly = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(934, 467);
+            this.Controls.Add(this.dataGridViewLab1);
             this.Controls.Add(this.dataGridView3);
             this.Controls.Add(this.ExpertNameFirstLabMethodComboBox);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.Problem);
-            this.Controls.Add(this.listBox2);
             this.Controls.Add(this.buttonExit);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView1);
@@ -237,8 +235,8 @@
             this.Text = "Аналитик";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,16 +248,17 @@
         protected System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonExit;
-        protected System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.Label Problem;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox ExpertNameFirstLabMethodComboBox;
         private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.DataGridView dataGridViewLab1;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ResultScore;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Alternative;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
     }
 }
 

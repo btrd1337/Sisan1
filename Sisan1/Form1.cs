@@ -61,24 +61,27 @@ namespace Sisan1
 
         private void InitSecondLabResultTable()
         {
-            List<double> tempList = new List<double>(SecondLabExpertsPassed[0].Item3.Count);
-            for (int i = 0; i < Alternatives.Count ; i++)
+            if (SecondLabExpertsPassed.Count != 0)
             {
-                tempList.Add(0);
-            }
-            for (int i = 0; i < SecondLabExpertsPassed.Count; i++)
-            {
-                for (int j = 0; j < SecondLabExpertsPassed[i].Item3.Count; j++)
+                List<double> tempList = new List<double>(SecondLabExpertsPassed[0].Item3.Count);
+                for (int i = 0; i < Alternatives.Count; i++)
                 {
-                    tempList[j] += SecondLabExpertsPassed[i].Item3[j]*SecondLabExpertsPassed[i].Item2;
+                    tempList.Add(0);
                 }
-            }
-            for (int i = 0; i < Alternatives.Count; i++)
-            {
-                SecondLabResultVector.Add(Tuple.Create(Alternatives[i], tempList[i]));
-                dataGridView3.Rows.Add();
-                dataGridView3.Rows[i].Cells[0].Value = Alternatives[i];
-                dataGridView3.Rows[i].Cells[1].Value = tempList[i];
+                for (int i = 0; i < SecondLabExpertsPassed.Count; i++)
+                {
+                    for (int j = 0; j < SecondLabExpertsPassed[i].Item3.Count; j++)
+                    {
+                        tempList[j] += SecondLabExpertsPassed[i].Item3[j] * SecondLabExpertsPassed[i].Item2;
+                    }
+                }
+                for (int i = 0; i < Alternatives.Count; i++)
+                {
+                    SecondLabResultVector.Add(Tuple.Create(Alternatives[i], tempList[i]));
+                    dataGridView3.Rows.Add();
+                    dataGridView3.Rows[i].Cells[0].Value = Alternatives[i];
+                    dataGridView3.Rows[i].Cells[1].Value = tempList[i];
+                }
             }
         }
 
@@ -90,7 +93,7 @@ namespace Sisan1
                 initProblemsNameFirstLabMethodComboBox();
                 Problem.Text = Enter_Analyst.ChosenProblemA;
                 dataGridView1.AllowUserToAddRows = false;
-                dataGridView2.Columns.Add("inter_results", "Cj");
+                //dataGridView2.Columns.Add("inter_results", "Cj");
                 //dataGridView2.Columns.GetColumnsWidth()
 
                 // Загрузка альтернатив из файла
@@ -177,13 +180,14 @@ namespace Sisan1
             //pairs.Add(new Pair<float, string>(0, (i + 1).ToString() + "." + Alternatives[i]));
 
             //listBox1.Items.Clear(); // Очищение списка альтернатив
-            listBox2.Items.Clear(); // Очищение списка результатов
-            for (int i = 0; i < pairs.Count; i++)
-            {
-                listBox2.Items.Add(pairs[i].Second);
-            }
+            //listBox2.Items.Clear(); // Очищение списка результатов
+            //for (int i = 0; i < pairs.Count; i++)
+            //{
+            //    listBox2.Items.Add(pairs[i].Second);
+            //}
 
-            Results(); // Промежуточные результаты
+            //Results(); // Промежуточные результаты
+            ResultsFirstLab();
         }
 
         private void Reload() // Открытие формы
@@ -195,13 +199,13 @@ namespace Sisan1
                 dataGridView1.Rows.Clear();
                 dataGridView1.Columns.Clear();
                 listBox1.Items.Clear();
-                listBox2.Items.Clear();
-                dataGridView2.Rows.Clear();
-                dataGridView2.Columns.Clear();
+                //listBox2.Items.Clear();
+                //dataGridView2.Rows.Clear();
+                //dataGridView2.Columns.Clear();
 
                 Problem.Text = Enter_Analyst.ChosenProblemA;
                 dataGridView1.AllowUserToAddRows = false;
-                dataGridView2.Columns.Add("inter_results", "Cj");
+                //dataGridView2.Columns.Add("inter_results", "Cj");
                 //dataGridView2.Columns.GetColumnsWidth()
 
                 // Загрузка альтернатив из файла
@@ -286,13 +290,14 @@ namespace Sisan1
             //pairs.Add(new Pair<float, string>(0, (i + 1).ToString() + "." + Alternatives[i]));
 
             //listBox1.Items.Clear(); // Очищение списка альтернатив
-            listBox2.Items.Clear(); // Очищение списка результатов
-            for (int i = 0; i < pairs.Count; i++)
-            {
-                listBox2.Items.Add(pairs[i].Second);
-            }
+            //listBox2.Items.Clear(); // Очищение списка результатов
+            //for (int i = 0; i < pairs.Count; i++)
+            //{
+            //    listBox2.Items.Add(pairs[i].Second);
+            //}
 
-            Results(); // Промежуточные результаты
+            //Results(); // Промежуточные результаты
+            ResultsFirstLab();
         }
 
         void PairedComparison() // Метод парных сравнений
@@ -328,32 +333,33 @@ namespace Sisan1
             pairs.Sort(CompareClass.Compare); // Сортировка весов альтернатив
         }
 
-        private void button7_Click(object sender, EventArgs e) // Упорядочить список
-        {
-            results.Clear();
-            pairs.Clear();
-            for (int i = 0; i < listBox1.Items.Count; i++)
-            {
-                pairs.Add(new Pair<float, string>(0, Alternatives[i]));
-            }
+        //private void button7_Click(object sender, EventArgs e) // Упорядочить список
+        //{
+        //    results.Clear();
+        //    pairs.Clear();
+        //    for (int i = 0; i < listBox1.Items.Count; i++)
+        //    {
+        //        pairs.Add(new Pair<float, string>(0, Alternatives[i]));
+        //    }
 
-            PairedComparison(); // Вызов метода парных сравнений
+        //    PairedComparison(); // Вызов метода парных сравнений
 
-            for (int i = 0; i < listBox1.Items.Count; i++)
-            {
-                pairs[i].Second = (i + 1).ToString() + "." + pairs[i].Second;
-            }
-            //pairs.Add(new Pair<float, string>(0, (i + 1).ToString() + "." + Alternatives[i]));
+        //    for (int i = 0; i < listBox1.Items.Count; i++)
+        //    {
+        //        pairs[i].Second = (i + 1).ToString() + "." + pairs[i].Second;
+        //    }
+        //    //pairs.Add(new Pair<float, string>(0, (i + 1).ToString() + "." + Alternatives[i]));
 
-            //listBox1.Items.Clear(); // Очищение списка альтернатив
-            listBox2.Items.Clear(); // Очищение списка результатов
-            for (int i = 0; i < pairs.Count; i++)
-            {
-                listBox2.Items.Add(pairs[i].Second);
-            }
+        //    //listBox1.Items.Clear(); // Очищение списка альтернатив
+        //    listBox2.Items.Clear(); // Очищение списка результатов
+        //    for (int i = 0; i < pairs.Count; i++)
+        //    {
+        //        listBox2.Items.Add(pairs[i].Second);
+        //    }
 
-            Results(); // Промежуточные результаты
-        }
+        //    Results(); // Промежуточные результаты
+        //    ResultsFirstLab();
+        //}
 
         bool Checking_grid() // Проверка матрицы на корректность данных
         {
@@ -447,32 +453,45 @@ namespace Sisan1
             }
         }
 
-        void Results() // Результаты
+        void ResultsFirstLab()
         {
-            dataGridView2.Columns.RemoveAt(0);
-            dataGridView2.Columns.Add("inter_results", "Cj");
-            dataGridView2.Columns[0].Width = 100;
-            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            //dataGridView2.Columns[1].Width = 53;
-
-            for (int i = 0; i < alterCount; i++)
+            dataGridViewLab1.Rows.Clear();
+            for (int i=0;i<results.Count;i++)
             {
-                dataGridView2.Rows.Add();
-                dataGridView2.Rows[i].HeaderCell.Value = "Z" + (i + 1).ToString();
+                dataGridViewLab1.Rows.Add();
+                dataGridViewLab1.Rows[i].Cells[0].Value = i + 1;
+                dataGridViewLab1.Rows[i].Cells[1].Value = Alternatives[i];
+                dataGridViewLab1.Rows[i].Cells[2].Value = results[i];
             }
-
-            var sum = 0.0f;
-            if (results.Count > 0)
-            {
-                for (int i = 0; i < alterCount; i++)
-                {
-                    sum += results[i];
-                    dataGridView2[0, i].Value = results[i].ToString();
-                }
-            }
-            dataGridView2.Rows[alterCount].HeaderCell.Value = "Sum";
-            dataGridView2[0, alterCount].Value = sum.ToString();
+            dataGridViewLab1.Sort(dataGridViewLab1.Columns[2], System.ComponentModel.ListSortDirection.Descending);
         }
+
+        //void Results() // Результаты
+        //{
+        //    dataGridView2.Columns.RemoveAt(0);
+        //    dataGridView2.Columns.Add("inter_results", "Cj");
+        //    dataGridView2.Columns[0].Width = 100;
+        //    dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+        //    //dataGridView2.Columns[1].Width = 53;
+
+        //    for (int i = 0; i < alterCount; i++)
+        //    {
+        //        dataGridView2.Rows.Add();
+        //        dataGridView2.Rows[i].HeaderCell.Value = "Z" + (i + 1).ToString();
+        //    }
+
+        //    var sum = 0.0f;
+        //    if (results.Count > 0)
+        //    {
+        //        for (int i = 0; i < alterCount; i++)
+        //        {
+        //            sum += results[i];
+        //            dataGridView2[0, i].Value = results[i].ToString();
+        //        }
+        //    }
+        //    dataGridView2.Rows[alterCount].HeaderCell.Value = "Sum";
+        //    dataGridView2[0, alterCount].Value = sum.ToString();
+        //}
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
@@ -500,33 +519,6 @@ namespace Sisan1
         private void button8_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void button7_Click_1(object sender, EventArgs e)
-        {
-            results.Clear();
-            pairs.Clear();
-            for (int i = 0; i < listBox1.Items.Count; i++)
-            {
-                pairs.Add(new Pair<float, string>(0, Alternatives[i]));
-            }
-
-            PairedComparison(); // Вызов метода парных сравнений
-
-            for (int i = 0; i < listBox1.Items.Count; i++)
-            {
-                pairs[i].Second = (i + 1).ToString() + "." + pairs[i].Second;
-            }
-            //pairs.Add(new Pair<float, string>(0, (i + 1).ToString() + "." + Alternatives[i]));
-
-            //listBox1.Items.Clear(); // Очищение списка альтернатив
-            listBox2.Items.Clear(); // Очищение списка результатов
-            for (int i = 0; i < pairs.Count; i++)
-            {
-                listBox2.Items.Add(pairs[i].Second);
-            }
-
-            Results(); // Промежуточные результаты
         }
 
         private void Problem_Click(object sender, EventArgs e)
