@@ -41,8 +41,12 @@
             this.Problem = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.ExpertNameFirstLabMethodComboBox = new System.Windows.Forms.ComboBox();
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ResultScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -172,12 +176,50 @@
             this.ExpertNameFirstLabMethodComboBox.Size = new System.Drawing.Size(173, 21);
             this.ExpertNameFirstLabMethodComboBox.TabIndex = 19;
             this.ExpertNameFirstLabMethodComboBox.SelectedIndexChanged += new System.EventHandler(this.ExpertNameFirstLabMethodComboBox_SelectedIndexChanged);
+            this.ExpertNameFirstLabMethodComboBox.Click += new System.EventHandler(this.ExpertNameFirstLabMethodComboBox_Click);
+            // 
+            // dataGridView3
+            // 
+            this.dataGridView3.AllowUserToAddRows = false;
+            this.dataGridView3.AllowUserToDeleteRows = false;
+            this.dataGridView3.AllowUserToResizeColumns = false;
+            this.dataGridView3.AllowUserToResizeRows = false;
+            this.dataGridView3.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dataGridView3.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
+            this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.AlternativeName,
+            this.ResultScore});
+            this.dataGridView3.Location = new System.Drawing.Point(11, 382);
+            this.dataGridView3.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.ReadOnly = true;
+            this.dataGridView3.RowHeadersWidth = 50;
+            this.dataGridView3.RowTemplate.Height = 24;
+            this.dataGridView3.Size = new System.Drawing.Size(350, 300);
+            this.dataGridView3.TabIndex = 20;
+            this.dataGridView3.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
+            // 
+            // AlternativeName
+            // 
+            this.AlternativeName.HeaderText = "Альтернатива";
+            this.AlternativeName.Name = "AlternativeName";
+            this.AlternativeName.ReadOnly = true;
+            this.AlternativeName.Width = 103;
+            // 
+            // ResultScore
+            // 
+            this.ResultScore.HeaderText = "Оценка";
+            this.ResultScore.Name = "ResultScore";
+            this.ResultScore.ReadOnly = true;
+            this.ResultScore.Width = 70;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(934, 414);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(934, 467);
+            this.Controls.Add(this.dataGridView3);
             this.Controls.Add(this.ExpertNameFirstLabMethodComboBox);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.Problem);
@@ -196,6 +238,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,6 +257,9 @@
         private System.Windows.Forms.Label Problem;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox ExpertNameFirstLabMethodComboBox;
+        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ResultScore;
     }
 }
 

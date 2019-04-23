@@ -10,13 +10,18 @@ namespace Sisan1
         
         public ExpertLogin()
         {
+            Sessions InitAllProblems = new Sessions();
+            InitAllProblems.LoadSession();
+            Data.AllProblems = InitAllProblems.Problems;
+
+
             InitializeComponent();
             InitComboBox();
         }
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-
+            
             //Data.CurrentExpertTuple = ExpertsListComboBox.SelectedItem;
             Data.CurrentExpertTuple = (Tuple<string,double,List<string>>)ExpertsListComboBox.SelectedItem;
             Data.CurrentExpertName = Data.CurrentExpertTuple.Item1;

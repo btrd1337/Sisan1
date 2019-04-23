@@ -197,6 +197,7 @@ namespace Sisan1
         private void SaveExitButton_Click(object sender, EventArgs e)
         {
             Alternatives.Clear();
+            
             for (int i = 0; i < AlternativesListDataGridView.Rows.Count - 1; i++)
             {
                 Alternatives.Add(Convert.ToString(AlternativesListDataGridView.Rows[i].Cells[0].Value));
@@ -210,7 +211,7 @@ namespace Sisan1
                 output += Alternatives[n] + "\n";
             }
             System.IO.File.WriteAllText(Filename, output);
-
+            
             //Login lgn = new Login();
             //this.Hide();
             //lgn.Show();

@@ -11,7 +11,7 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
         private bool SelectedIndexChangedCount;
         public List<Tuple<string, double>> ExpertsList = new List<Tuple<string, double>>();
         private List<string> CurrentExpertProblemsSelected = new List<string>();
-        private Tuple<string, double, List<string>> CurrentExpertTuplettt;
+
         public MakeExpert()
         {
             InitializeComponent();
@@ -216,7 +216,19 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
             CurrentExpertProblemsSelected.Insert(0, CurrentExpertProblemsSelected.Count.ToString());
             File.WriteAllLines("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Problems.txt", CurrentExpertProblemsSelected);
             File.WriteAllText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Coefficient.txt", Convert.ToString(EditExpertCoefficientNumericUpDown.Value));
+            Data.ProblemsFileName = "ad.txt";
             MessageBox.Show("Успешно сохранено");
+        }
+
+        private void DeleteExpert_Click(object sender, EventArgs e)
+        {
+            Sessions CurrentSession = new Sessions();
+            Tuple<string, double, List<string>> tmpTuple = (Tuple<string, double, List<string>>)ExpertListComboBox.SelectedItem;
+            CurrentSession.RemoveExpert(tmpTuple.Item1);
+            MessageBox.Show("Эксперт успешно удален");
+            MakeExpert Refresh = new MakeExpert();
+            Refresh.Show();
+            this.Hide();
         }
     }
 }

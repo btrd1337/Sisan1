@@ -9,6 +9,7 @@ namespace Sisan1
     public partial class Form2 : Form
     {
         public static string ChosenProblem;
+
         Sessions CurrectSession = new Sessions();
         int CurrentProgress = 0;
         int tmp = 0;
@@ -23,6 +24,12 @@ namespace Sisan1
 
             this.Location = new System.Drawing.Point(500, 284);
             InitializeComponent();
+            for (int i = 0; i < Data.Methods.Count; i++)
+            {
+                MethodsComboBox.Items.Add(Data.Methods[i]);
+            }
+
+            MethodsComboBox.SelectedIndex = 0;
             Data.ProblemsFileName = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Problems.txt";
             CurrectSession.LoadSession();
             bindingSource1.DataSource = CurrectSession.Problems;
@@ -55,8 +62,8 @@ namespace Sisan1
             //Problem.Text = Enter_Expert.ChosenProblem;
             try
             {
-                this.Width = 260;
-                this.Height = 120;
+                this.Width = 439;
+                this.Height = 160;
                 //if (CurrectSession.Problems.Count > 0)
                 //{
                 //comboBox1.Items[1].ToString() = Problems[0];
@@ -94,181 +101,212 @@ namespace Sisan1
         public void button1_Click(object sender, EventArgs e) // Начать тестирование
         {
             int questionCount = 0;
-
-            if (Alternatives.Count > 1)
+            switch (MethodsComboBox.SelectedIndex)
             {
-                int k = 0;
-                this.Size = new System.Drawing.Size(1000, 600);
-                this.Width = 1366;
-                this.Height = 500;
-
-                initProgressBar();
-                comboBox1.Visible = false;
-                buttonPrev.Visible = false;
-                buttonNext.Visible = false;
-                this.Location = new System.Drawing.Point(2, 30);
-                Matrix = new string[Alternatives.Count, Alternatives.Count];
-                for (int n = 0; n < Alternatives.Count; n++)
-                {
-                    Matrix[n, n] = "d";
-                }
-
-                button1.Visible = false;
-                //groupBox1.Visible = true;
-                //buttonNext.Enabled = false;
-                DrawNext(i, j);
-                initProgressBar();
-                //DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn();
-                //dataGridView1.Columns.AddRange(checkBoxColumn);
-                //dataGridView1.DataSource = Alternatives;
-                //for (int questionCount = 0; questionCount < tmp; questionCount++)
-                //{
-                dataGridView1.DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
-                dataGridView1.Visible = true;
-                dataGridView1.Columns[1].ReadOnly = false;
-                List<int> row = new List<int>();
-                for (int i = 0; i < tmp; ++i)
-                {
-                    row = new List<int>();
-                    Array.Add(row);
-                }
-
-                for (int i = 0; i < Alternatives.Count; i++)
-                {
-                    for (int j = i + 1; j < Alternatives.Count; j++)
+                case 0:
                     {
-                        dataGridView1.Rows.Add();
-                        Array[k].Add(i);
-                        Array[k].Add(j);
-                        k++;
-                        dataGridView1.Rows[questionCount].Cells[0].Value = Alternatives[i];
-                        dataGridView1.Rows[questionCount].Cells[1].Value = false;
-                        dataGridView1.Rows[questionCount].Cells[2].Value = false;
-                        dataGridView1.Rows[questionCount].Cells[3].Value = false;
-                        dataGridView1.Rows[questionCount].Cells[4].Value = Alternatives[j];
-                        questionCount++;
-                    }
-                }
-                //dataGridView1.Rows.RemoveAt(questionCount);
-                //}
-
-            }
-            if (File.Exists("data/Experts/" + Data.CurrentExpertTuple.Item1 + "Temp_Matrix_" + Enter_Expert.ChosenProblem))
-            {
-                int tempInt = 0;
-                string Filename2 = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "Temp_Matrix_" + Enter_Expert.ChosenProblem;
-                //if (!File.Exists(Filename2))
-                //{
-                //    MessageBox.Show($"Не существует файла {Enter_Analyst.ChosenProblemA}");
-                //    this.Hide();
-                //    Enter_Analyst backForm = new Enter_Analyst();
-                //    backForm.Show();
-                //    return;
-                //}
-
-                var sr2 = new StreamReader(Filename2); // Сканируем файл
-                                                       // Удаляем из него все разделители
-                var Text = sr2.ReadToEnd().Split(new char[] { ' ', '\t', '\r', '\n', });
-                for (int s = 0; s < Text.Length; s++)
-                {
-                    if (tempInt == 8)
-                    {
-                        Text[s] = "r";
-                        tempInt = -1;
-                    }
-                    tempInt++;
-                }
-
-                var j = 0;
-                var i = 0;
-                int ConvertQuestionNumberFromText = 0;
-                for (var k = 0; k < Text.Length; k++)
-                {
-                    // Переход на следующую строку
-                    if (i == alterCount)
-                    {
-                        j++;
-                        i = 0;
-                    }
-                    if (i == j && Text[k] != "d") // Проверка на диагональный элемент
-                    {
-                        throw new Exception("Матрица в файле имеет посторонние элементы на диагонали \n + Примечение: диагональный элемент в файле должен быть помечен символом d");
-                    }
-
-                    else
-                    {
-
+                        if (Alternatives.Count > 1)
                         {
-                            switch (Text[k])// Добвление значений в матрицу
+                            int k = 0;
+                            this.Size = new System.Drawing.Size(1000, 600);
+                            this.Width = 1366;
+                            this.Height = 500;
+
+                            initProgressBar();
+                            comboBox1.Visible = false;
+                            buttonPrev.Visible = false;
+                            buttonNext.Visible = false;
+                            this.Location = new System.Drawing.Point(2, 30);
+                            Matrix = new string[Alternatives.Count, Alternatives.Count];
+                            for (int n = 0; n < Alternatives.Count; n++)
                             {
-                                case "1":
-                                    if (i > j)
+                                Matrix[n, n] = "d";
+                            }
+
+                            button1.Visible = false;
+                            //groupBox1.Visible = true;
+                            //buttonNext.Enabled = false;
+                            DrawNext(i, j);
+                            initProgressBar();
+                            //DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn();
+                            //dataGridView1.Columns.AddRange(checkBoxColumn);
+                            //dataGridView1.DataSource = Alternatives;
+                            //for (int questionCount = 0; questionCount < tmp; questionCount++)
+                            //{
+                            dataGridView1.DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
+                            dataGridView1.Visible = true;
+                            dataGridView1.Columns[1].ReadOnly = false;
+                            List<int> row = new List<int>();
+                            for (int i = 0; i < tmp; ++i)
+                            {
+                                row = new List<int>();
+                                Array.Add(row);
+                            }
+
+                            for (int i = 0; i < Alternatives.Count; i++)
+                            {
+                                for (int j = i + 1; j < Alternatives.Count; j++)
+                                {
+                                    dataGridView1.Rows.Add();
+                                    Array[k].Add(i);
+                                    Array[k].Add(j);
+                                    k++;
+                                    dataGridView1.Rows[questionCount].Cells[0].Value = Alternatives[i];
+                                    dataGridView1.Rows[questionCount].Cells[1].Value = false;
+                                    dataGridView1.Rows[questionCount].Cells[2].Value = false;
+                                    dataGridView1.Rows[questionCount].Cells[3].Value = false;
+                                    dataGridView1.Rows[questionCount].Cells[4].Value = Alternatives[j];
+                                    questionCount++;
+                                }
+                            }
+                            //dataGridView1.Rows.RemoveAt(questionCount);
+                            //}
+
+                        }
+                        if (File.Exists("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_Matrix_" + Enter_Expert.ChosenProblem))
+                        {
+                            int tempInt = 0;
+                            string Filename2 = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_Matrix_" + Enter_Expert.ChosenProblem;
+                            //if (!File.Exists(Filename2))
+                            //{
+                            //    MessageBox.Show($"Не существует файла {Enter_Analyst.ChosenProblemA}");
+                            //    this.Hide();
+                            //    Enter_Analyst backForm = new Enter_Analyst();
+                            //    backForm.Show();
+                            //    return;
+                            //}
+
+                            var sr2 = new StreamReader(Filename2); // Сканируем файл
+                                                                   // Удаляем из него все разделители
+                            var Text = sr2.ReadToEnd().Split(new char[] { ' ', '\t', '\r', '\n', });
+                            for (int s = 0; s < Text.Length; s++)
+                            {
+                                if (tempInt == alterCount)
+                                {
+                                    Text[s] = "r";
+                                    tempInt = -1;
+                                }
+                                tempInt++;
+                            }
+
+                            var j = 0;
+                            var i = 0;
+                            int ConvertQuestionNumberFromText = 0;
+                            for (var k = 0; k < Text.Length; k++)
+                            {
+                                // Переход на следующую строку
+                                if (i == alterCount)
+                                {
+                                    j++;
+                                    i = 0;
+                                }
+                                if (i == j && Text[k] != "d") // Проверка на диагональный элемент
+                                {
+                                    throw new Exception("Матрица в файле имеет посторонние элементы на диагонали \n + Примечение: диагональный элемент в файле должен быть помечен символом d");
+                                }
+
+                                else
+                                {
+
                                     {
-                                        dataGridView1.Rows[ConvertQuestionNumberFromText].DefaultCellStyle.BackColor = Color.LightSeaGreen;
-                                        dataGridView1.Rows[ConvertQuestionNumberFromText].Cells[1].Value = true;
-                                        ConvertQuestionNumberFromText++;
-                                        CurrentCheckBoxChecked++;
+                                        switch (Text[k])// Добвление значений в матрицу
+                                        {
+                                            case "1":
+                                                if (i > j)
+                                                {
+                                                    dataGridView1.Rows[ConvertQuestionNumberFromText].DefaultCellStyle.BackColor = Color.LightSeaGreen;
+                                                    dataGridView1.Rows[ConvertQuestionNumberFromText].Cells[1].Value = true;
+                                                    ConvertQuestionNumberFromText++;
+                                                    CurrentCheckBoxChecked++;
+                                                }
+                                                Matrix[i, j] = "1";
+                                                Matrix[j, i] = "0";
+                                                i++;
+                                                break;
+                                            case "0.5":
+                                                if (i > j)
+                                                {
+                                                    dataGridView1.Rows[ConvertQuestionNumberFromText].DefaultCellStyle.BackColor = Color.LightSeaGreen;
+                                                    dataGridView1.Rows[ConvertQuestionNumberFromText].Cells[2].Value = true;
+                                                    ConvertQuestionNumberFromText++;
+                                                    CurrentCheckBoxChecked++;
+                                                }
+                                                Matrix[i, j] = "0.5";
+                                                Matrix[j, i] = "0.5";
+                                                i++;
+                                                break;
+                                            case "0,5":
+                                                if (i > j)
+                                                {
+                                                    dataGridView1.Rows[ConvertQuestionNumberFromText].DefaultCellStyle.BackColor = Color.LightSeaGreen;
+                                                    dataGridView1.Rows[ConvertQuestionNumberFromText].Cells[2].Value = true;
+                                                    ConvertQuestionNumberFromText++;
+                                                    CurrentCheckBoxChecked++;
+                                                }
+                                                Matrix[i, j] = "0,5";
+                                                Matrix[j, i] = "0,5";
+                                                i++;
+                                                break;
+                                            case "0":
+                                                if (i > j)
+                                                {
+                                                    dataGridView1.Rows[ConvertQuestionNumberFromText].DefaultCellStyle.BackColor = Color.LightSeaGreen;
+                                                    dataGridView1.Rows[ConvertQuestionNumberFromText].Cells[3].Value = true;
+                                                    ConvertQuestionNumberFromText++;
+                                                    CurrentCheckBoxChecked++;
+                                                }
+                                                Matrix[i, j] = "0";
+                                                Matrix[j, i] = "1";
+                                                i++;
+                                                break;
+                                            case "d": i++; break;
+                                            case "": i++; break;
+                                            case "r": break;
+                                            default:
+                                                throw new Exception("Матрица в файле имеет посторонние элементы");
+                                        }
                                     }
-                                    Matrix[i, j] = "1";
-                                    Matrix[j, i] = "0";
-                                    i++;
-                                    break;
-                                case "0.5":
-                                    if (i > j)
-                                    {
-                                        dataGridView1.Rows[ConvertQuestionNumberFromText].DefaultCellStyle.BackColor = Color.LightSeaGreen;
-                                        dataGridView1.Rows[ConvertQuestionNumberFromText].Cells[2].Value = true;
-                                        ConvertQuestionNumberFromText++;
-                                        CurrentCheckBoxChecked++;
-                                    }
-                                    Matrix[i, j] = "0.5";
-                                    Matrix[j, i] = "0.5";
-                                    i++;
-                                    break;
-                                case "0,5":
-                                    if (i > j)
-                                    {
-                                        dataGridView1.Rows[ConvertQuestionNumberFromText].DefaultCellStyle.BackColor = Color.LightSeaGreen;
-                                        dataGridView1.Rows[ConvertQuestionNumberFromText].Cells[2].Value = true;
-                                        ConvertQuestionNumberFromText++;
-                                        CurrentCheckBoxChecked++;
-                                    }
-                                    Matrix[i, j] = "0,5";
-                                    Matrix[j, i] = "0,5";
-                                    i++;
-                                    break;
-                                case "0":
-                                    if (i > j)
-                                    {
-                                        dataGridView1.Rows[ConvertQuestionNumberFromText].DefaultCellStyle.BackColor = Color.LightSeaGreen;
-                                        dataGridView1.Rows[ConvertQuestionNumberFromText].Cells[3].Value = true;
-                                        ConvertQuestionNumberFromText++;
-                                        CurrentCheckBoxChecked++;
-                                    }
-                                    Matrix[i, j] = "0";
-                                    Matrix[j, i] = "1";
-                                    i++;
-                                    break;
-                                case "d": i++; break;
-                                case "": i++; break;
-                                case "r": break;
-                                default:
-                                    throw new Exception("Матрица в файле имеет посторонние элементы");
+                                }
+                            }
+                            sr2.Close();
+                            //for (int i = 0; i < Alternatives.Count; i++)
+                            //{
+                            //    for (int j=i;j<Alternatives.Count;j++)
+                            //    {
+                            //        dataGridView1.Rows[tempInt].Cells[]
+                            //            tempInt++;
+                            //    }
+
+                            //}
+                        }
+                        break;
+                    }
+                case 1:
+                    {
+                        if (Alternatives.Count > 0)
+                        {
+
+                            this.Size = new System.Drawing.Size(1000, 600);
+                            this.Width = 900;
+                            this.Height = 500;
+                            this.Location = new System.Drawing.Point(233, 60);
+
+                            comboBox1.Visible = false;
+                            buttonPrev.Visible = false;
+                            buttonNext.Visible = false;
+                            dataGridView2.Visible = true;
+                            FinishButton.Location = new Point(450, 426);
+                            FinishButton.Enabled = true;
+                            for (int i = 0; i < Alternatives.Count; i++)
+                            {
+                                dataGridView2.Rows.Add();
+                                dataGridView2.Rows[i].Cells[0].Value = Alternatives[i];
                             }
                         }
+                        break;
                     }
-                }
-                sr2.Close();
-                //for (int i = 0; i < Alternatives.Count; i++)
-                //{
-                //    for (int j=i;j<Alternatives.Count;j++)
-                //    {
-                //        dataGridView1.Rows[tempInt].Cells[]
-                //            tempInt++;
-                //    }
-
-                //}
             }
+            MethodsComboBox.Visible = false;
 
         }
 
@@ -378,7 +416,7 @@ namespace Sisan1
         {
             if (dataGridView1.Visible)
             {
-                string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "Temp_Matrix_" + Enter_Expert.ChosenProblem;
+                string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_Matrix_" + Enter_Expert.ChosenProblem;
                 string output = string.Empty;
                 for (int n = 0; n < alterCount; n++)
                 {
@@ -391,6 +429,7 @@ namespace Sisan1
                 File.Delete(Filename);
                 File.WriteAllText(Filename, output);
             }
+            Data.ProblemsFileName = "ad.txt";
             Login lgn = new Login();
             this.Hide();
             lgn.Show();
@@ -592,22 +631,58 @@ namespace Sisan1
 
         private void FinishButton_Click(object sender, EventArgs e)
         {
-            string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Matrix_" + Enter_Expert.ChosenProblem;
-            File.Delete("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_Matrix_" + Enter_Expert.ChosenProblem);
-            string output = string.Empty;
-            for (int n = 0; n < alterCount; n++)
+            switch (MethodsComboBox.SelectedIndex)
             {
-                for (int m = 0; m < alterCount; m++)
-                {
-                    output += Matrix[n, m] + "\t";
-                }
-                output += "\n";
-            }
-            File.WriteAllText(Filename, output);
+                case 0:
+                    {
+                        string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Matrix_" + Enter_Expert.ChosenProblem;
+                        File.Delete("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_Matrix_" + Enter_Expert.ChosenProblem);
+                        string output = string.Empty;
+                        for (int n = 0; n < alterCount; n++)
+                        {
+                            for (int m = 0; m < alterCount; m++)
+                            {
+                                output += Matrix[n, m] + "\t";
+                            }
+                            output += "\n";
+                        }
+                        File.WriteAllText(Filename, output);
+                        Data.ProblemsFileName = "ad.txt";
+                        Login lgn = new Login();
+                        this.Hide();
+                        lgn.Show();
+                        break;
+                    }
+                case 1:
+                    {
+                        int SumScore = 0;
+                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        {
+                            SumScore += Convert.ToInt32(dataGridView2.Rows[i].Cells[1].Value);
+                        }
 
-            Login lgn = new Login();
-            this.Hide();
-            lgn.Show();
+                        if (SumScore != 100)
+                        {
+                            MessageBox.Show("Сумма оценок альтернатив не равно 100");
+                        }
+                        else
+                        {
+                            List<string> tempList = new List<string>();
+                            for (int i=0;i<dataGridView2.Rows.Count;i++)
+                            {
+                                tempList.Add(Convert.ToString(Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value)/100));
+                            }
+                            File.WriteAllLines("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/SecondLab_" + Enter_Expert.ChosenProblem, tempList);
+                            Login lgn = new Login();
+                            this.Hide();
+                            lgn.Show();
+
+                        }
+                        break;
+                    }
+
+            }
+            
 
         }
 
@@ -642,6 +717,15 @@ namespace Sisan1
 
         }
 
+        private void MethodsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
 
         private void buttonNext_Click(object sender, EventArgs e)
         {

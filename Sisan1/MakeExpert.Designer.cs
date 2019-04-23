@@ -37,16 +37,17 @@
             this.Exit = new System.Windows.Forms.Button();
             this.ExpertCoefficientNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.EditExpertGroupBox = new System.Windows.Forms.GroupBox();
-            this.EditExpertCoefficientNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.EditExpertCoefficientLabel = new System.Windows.Forms.Label();
+            this.SaveEditButton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ProblemNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.SaveEditButton = new System.Windows.Forms.Button();
+            this.EditExpertCoefficientNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.EditExpertCoefficientLabel = new System.Windows.Forms.Label();
+            this.DeleteExpert = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ExpertCoefficientNumericUpDown)).BeginInit();
             this.EditExpertGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EditExpertCoefficientNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditExpertCoefficientNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // AddExpertButton
@@ -126,6 +127,7 @@
             // 
             // EditExpertGroupBox
             // 
+            this.EditExpertGroupBox.Controls.Add(this.DeleteExpert);
             this.EditExpertGroupBox.Controls.Add(this.SaveEditButton);
             this.EditExpertGroupBox.Controls.Add(this.dataGridView1);
             this.EditExpertGroupBox.Controls.Add(this.EditExpertCoefficientNumericUpDown);
@@ -138,32 +140,15 @@
             this.EditExpertGroupBox.Text = "Редактирование";
             this.EditExpertGroupBox.Visible = false;
             // 
-            // EditExpertCoefficientNumericUpDown
+            // SaveEditButton
             // 
-            this.EditExpertCoefficientNumericUpDown.DecimalPlaces = 2;
-            this.EditExpertCoefficientNumericUpDown.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.EditExpertCoefficientNumericUpDown.Location = new System.Drawing.Point(6, 19);
-            this.EditExpertCoefficientNumericUpDown.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.EditExpertCoefficientNumericUpDown.Name = "EditExpertCoefficientNumericUpDown";
-            this.EditExpertCoefficientNumericUpDown.Size = new System.Drawing.Size(333, 20);
-            this.EditExpertCoefficientNumericUpDown.TabIndex = 11;
-            // 
-            // EditExpertCoefficientLabel
-            // 
-            this.EditExpertCoefficientLabel.AutoSize = true;
-            this.EditExpertCoefficientLabel.Location = new System.Drawing.Point(346, 19);
-            this.EditExpertCoefficientLabel.Name = "EditExpertCoefficientLabel";
-            this.EditExpertCoefficientLabel.Size = new System.Drawing.Size(77, 13);
-            this.EditExpertCoefficientLabel.TabIndex = 10;
-            this.EditExpertCoefficientLabel.Text = "Коэффициент";
+            this.SaveEditButton.Location = new System.Drawing.Point(349, 45);
+            this.SaveEditButton.Name = "SaveEditButton";
+            this.SaveEditButton.Size = new System.Drawing.Size(70, 23);
+            this.SaveEditButton.TabIndex = 13;
+            this.SaveEditButton.Text = "Сохранить";
+            this.SaveEditButton.UseVisualStyleBackColor = true;
+            this.SaveEditButton.Click += new System.EventHandler(this.SaveEditButton_Click);
             // 
             // dataGridView1
             // 
@@ -192,15 +177,42 @@
             this.CheckBoxColumn.Name = "CheckBoxColumn";
             this.CheckBoxColumn.ReadOnly = true;
             // 
-            // SaveEditButton
+            // EditExpertCoefficientNumericUpDown
             // 
-            this.SaveEditButton.Location = new System.Drawing.Point(349, 45);
-            this.SaveEditButton.Name = "SaveEditButton";
-            this.SaveEditButton.Size = new System.Drawing.Size(70, 23);
-            this.SaveEditButton.TabIndex = 13;
-            this.SaveEditButton.Text = "Сохранить";
-            this.SaveEditButton.UseVisualStyleBackColor = true;
-            this.SaveEditButton.Click += new System.EventHandler(this.SaveEditButton_Click);
+            this.EditExpertCoefficientNumericUpDown.DecimalPlaces = 2;
+            this.EditExpertCoefficientNumericUpDown.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.EditExpertCoefficientNumericUpDown.Location = new System.Drawing.Point(6, 19);
+            this.EditExpertCoefficientNumericUpDown.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.EditExpertCoefficientNumericUpDown.Name = "EditExpertCoefficientNumericUpDown";
+            this.EditExpertCoefficientNumericUpDown.Size = new System.Drawing.Size(333, 20);
+            this.EditExpertCoefficientNumericUpDown.TabIndex = 11;
+            // 
+            // EditExpertCoefficientLabel
+            // 
+            this.EditExpertCoefficientLabel.AutoSize = true;
+            this.EditExpertCoefficientLabel.Location = new System.Drawing.Point(346, 19);
+            this.EditExpertCoefficientLabel.Name = "EditExpertCoefficientLabel";
+            this.EditExpertCoefficientLabel.Size = new System.Drawing.Size(77, 13);
+            this.EditExpertCoefficientLabel.TabIndex = 10;
+            this.EditExpertCoefficientLabel.Text = "Коэффициент";
+            // 
+            // DeleteExpert
+            // 
+            this.DeleteExpert.Location = new System.Drawing.Point(349, 74);
+            this.DeleteExpert.Name = "DeleteExpert";
+            this.DeleteExpert.Size = new System.Drawing.Size(70, 25);
+            this.DeleteExpert.TabIndex = 14;
+            this.DeleteExpert.Text = "Удалить";
+            this.DeleteExpert.UseVisualStyleBackColor = true;
+            this.DeleteExpert.Click += new System.EventHandler(this.DeleteExpert_Click);
             // 
             // MakeExpert
             // 
@@ -216,13 +228,14 @@
             this.Controls.Add(this.ExpertNameTextBox);
             this.Controls.Add(this.AddExpertButton);
             this.Name = "MakeExpert";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MakeExpert";
             this.Load += new System.EventHandler(this.MakeExpert_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ExpertCoefficientNumericUpDown)).EndInit();
             this.EditExpertGroupBox.ResumeLayout(false);
             this.EditExpertGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EditExpertCoefficientNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditExpertCoefficientNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -244,5 +257,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ProblemNameColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn CheckBoxColumn;
         private System.Windows.Forms.Button SaveEditButton;
+        private System.Windows.Forms.Button DeleteExpert;
     }
 }

@@ -10,16 +10,21 @@ namespace Sisan1
         int ProblemsCountToWrite;
         int ProblemsCountRead;
         public List<string> Problems = new List<string>();
-        
+
+
         public bool SaveSession(string name)
         {
             string tmp;
             StreamReader reader = new StreamReader(Data.ProblemsFileName);
             ProblemsCountToWrite = Convert.ToInt32(reader.ReadLine());
-            if (ProblemsCountToWrite>0)
-            tmp = Convert.ToString((ProblemsCountToWrite + 1) + "\n" + reader.ReadToEnd() + "\n" + name);
+            if (ProblemsCountToWrite > 0)
+            {
+                tmp = Convert.ToString((ProblemsCountToWrite + 1) + "\n" + reader.ReadToEnd() + "\n" + name);
+            }
             else
+            {
                 tmp = Convert.ToString((ProblemsCountToWrite + 1) + "\n" + name);
+            }
 
             reader.Close();
             File.WriteAllText(Data.ProblemsFileName, tmp);
@@ -53,11 +58,54 @@ namespace Sisan1
             }
             reader.Close();
             return true;
-        
+
 
         }
 
-    public bool RemoveProblem(string name)
+        public bool RemoveExpert(string name)
+        {
+            Data.ExpertsNamesInited = true;
+            string path = "data/Experts/";
+            string ExpertName;
+            int StopPoint = 0;
+            foreach (string s in Directory.GetDirectories(path))
+            {
+                ExpertName = s.Remove(0, path.Length);
+                if (ExpertName==name)
+                {
+                    for (int i=0;i<Data.ExpertsList.Count;i++)
+                    {
+                        if (Data.ExpertsList[i].Item1 == name)
+                            StopPoint = i;
+                    }
+                    DeleteDirectory(s);
+                    Data.ExpertsList.RemoveAt(StopPoint);
+                }
+            }
+            Data.ProblemsFileName = "ad.txt";
+            return true;
+
+        }
+        public static void DeleteDirectory(string target_dir)
+        {
+            string[] files = Directory.GetFiles(target_dir);
+            string[] dirs = Directory.GetDirectories(target_dir);
+
+            foreach (string file in files)
+            {
+                File.SetAttributes(file, FileAttributes.Normal);
+                File.Delete(file);
+            }
+
+            foreach (string dir in dirs)
+            {
+                DeleteDirectory(dir);
+            }
+
+            Directory.Delete(target_dir, false);
+        }
+
+        public bool RemoveProblem(string name)
         {
             int NumToDelete = -1;
             var file = new List<string>(File.ReadAllLines(Data.ProblemsFileName));

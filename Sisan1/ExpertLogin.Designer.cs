@@ -67,6 +67,7 @@
             this.Controls.Add(this.LoginButton);
             this.Controls.Add(this.ExpertsListComboBox);
             this.Name = "ExpertLogin";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ExpertLogin";
             this.Load += new System.EventHandler(this.ExpertLogin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.form2BindingSource)).EndInit();

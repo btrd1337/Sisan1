@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Sisan1
@@ -16,6 +17,10 @@ namespace Sisan1
 
         public Enter_Analyst()
         {
+            Sessions InitAllProblems = new Sessions();
+            InitAllProblems.LoadSession();
+            Data.AllProblems = InitAllProblems.Problems;
+
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             InitOldSessions();
             InitializeComponent();
@@ -95,7 +100,7 @@ namespace Sisan1
                     {
                         Problems.Add(ProblemName);
                         ChosenProblemA = ProblemName;
-
+                        
                         CurSession.SaveSession(ChosenProblemA);
 
                         Form3 form = new Form3();
@@ -130,7 +135,17 @@ namespace Sisan1
             comboBox1.DrawMode = DrawMode.OwnerDrawFixed;
             RefreshForm();
         }
+        private bool IsExpertCheckedAlternative()
+        {
+            string path = "data/Experts/";
+            foreach (string s in Directory.GetDirectories(path))
+            {
+                if (File.Exists(s + "/Matrix_" + ChosenProblemA))
+                    return true;
 
+            }
+            return false;
+        }
 
         private void Exit_Click(object sender, EventArgs e)
         {
@@ -183,7 +198,7 @@ namespace Sisan1
         {
             ChosenProblemA = comboBox1.SelectedItem.ToString();
             string Filename2 = "data/Matrix_" + ChosenProblemA;
-            if (!System.IO.File.Exists(Filename2))
+            if (!IsExpertCheckedAlternative())
             {
                 MessageBox.Show($"Эксперт не выбрал альтернативы для проблемы {ChosenProblemA}");
                 //this.Hide();

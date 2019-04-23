@@ -12,21 +12,193 @@ namespace Sisan1
         public Form1()
         {
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            Data.AllExpertsCoefForCurrrentProblem = new List<Tuple<string, double>>();
+            Data.AllExpertsCoefForCurrrentProblem.Clear();
+            UserClicked = 0;
             InitializeComponent();
+            InitSecondLabPassedExperts();
         }
         List<Tuple<string, double, List<string>>> ComboBoxExperts;
+
         List<Pair<float, string>> pairs = new List<Pair<float, string>>();
+        List<Tuple<string, double>> SecondLabResultVector = new List<Tuple<string, double>>();//название альтернативы и итоговая оценка
+        List<Tuple<string, double, List<double>>> SecondLabExpertsPassed = new List<Tuple<string, double, List<double>>>();
         List<float> results = new List<float>();
         List<string> elements = new List<string>() { "1", "0,5", "0" };
         List<string> Alternatives = new List<string>();
+
         int alterCount = 0;
         float r = 0;
+        double SumForOtnositCoef;
+
+        void InitSecondLabPassedExperts()
+        {
+            string path = "data/Experts/";
+            foreach (string s in Directory.GetDirectories(path))
+            {
+
+                if (File.Exists(s + "/SecondLab_" + Enter_Analyst.ChosenProblemA))
+                {
+                    List<double> tmpDouble = new List<double>();
+
+                    string Filename1 = s + "/SecondLab_" + Enter_Analyst.ChosenProblemA;
+                    var sr1 = new StreamReader(Filename1); // Сканируем файл
+                    string line;
+                    while ((line = sr1.ReadLine()) != null)
+                    {
+                        tmpDouble.Add(Convert.ToDouble(line));
+                    }
+                    sr1.Close();
+
+                    SecondLabExpertsPassed.Add(new Tuple<string, double, List<double>>(s.Remove(0, path.Length), Convert.ToDouble(File.ReadAllText(s + "/Coefficient.txt")), tmpDouble));
+
+                }
+
+            }
+            Data.ProblemsFileName = "ad.txt";
+
+        }
+
+        private void InitSecondLabResultTable()
+        {
+            List<double> tempList = new List<double>(SecondLabExpertsPassed[0].Item3.Count);
+            for (int i = 0; i < Alternatives.Count ; i++)
+            {
+                tempList.Add(0);
+            }
+            for (int i = 0; i < SecondLabExpertsPassed.Count; i++)
+            {
+                for (int j = 0; j < SecondLabExpertsPassed[i].Item3.Count; j++)
+                {
+                    tempList[j] += SecondLabExpertsPassed[i].Item3[j]*SecondLabExpertsPassed[i].Item2;
+                }
+            }
+            for (int i = 0; i < Alternatives.Count; i++)
+            {
+                SecondLabResultVector.Add(Tuple.Create(Alternatives[i], tempList[i]));
+                dataGridView3.Rows.Add();
+                dataGridView3.Rows[i].Cells[0].Value = Alternatives[i];
+                dataGridView3.Rows[i].Cells[1].Value = tempList[i];
+            }
+        }
 
         private void Form1_Load(object sender, EventArgs e) // Открытие формы
         {
             try
             {
+                UserClicked++;
                 initProblemsNameFirstLabMethodComboBox();
+                Problem.Text = Enter_Analyst.ChosenProblemA;
+                dataGridView1.AllowUserToAddRows = false;
+                dataGridView2.Columns.Add("inter_results", "Cj");
+                //dataGridView2.Columns.GetColumnsWidth()
+
+                // Загрузка альтернатив из файла
+                string Filename1 = "data/Alternatives_" + Enter_Analyst.ChosenProblemA;
+                var sr1 = new StreamReader(Filename1); // Сканируем файл
+                var text = new List<string>();
+
+                int counter = 0;
+                string line;
+                while ((line = sr1.ReadLine()) != null)
+                {
+                    AddAlternative(line);
+                    counter++;
+                }
+                sr1.Close();
+                CountOtnositCoef();
+                InitSecondLabResultTable();
+                Tuple<string, double, List<string>> temp = (Tuple<string, double, List<string>>)ExpertNameFirstLabMethodComboBox.SelectedItem;
+                // Загрузка значений матрицы из файла
+                string Filename2 = "data/Experts/" + temp.Item1 + "/Matrix_" + Enter_Analyst.ChosenProblemA;
+                if (!File.Exists(Filename2))
+                {
+                    MessageBox.Show($"Не существует файла {Enter_Analyst.ChosenProblemA}");
+                    this.Hide();
+                    Enter_Analyst backForm = new Enter_Analyst();
+                    backForm.Show();
+                    return;
+                }
+
+                var sr2 = new StreamReader(Filename2); // Сканируем файл
+                                                       // Удаляем из него все разделители
+                var Text = sr2.ReadToEnd().Split(new char[] { ' ', '\t', '\r', '\n', });
+                var j = 0;
+                var i = 0;
+
+                for (var k = 0; k < Text.Length; k++)
+                {
+                    // Переход на следующую строку
+                    if (i == alterCount)
+                    {
+                        j++;
+                        i = 0;
+                    }
+                    if (i == j && Text[k] != "d") // Проверка на диагональный элемент
+                    {
+                        throw new Exception("Матрица в файле имеет посторонние элементы на диагонали \n + Примечение: диагональный элемент в файле должен быть помечен символом d");
+                    }
+
+                    else
+                    {
+                        switch (Text[k])// Добвление значений в матрицу
+                        {
+                            case "1": dataGridView1[i, j].Value = "1"; i++; break;
+                            case "0.5": dataGridView1[i, j].Value = "0,5"; i++; break;
+                            case "0,5": dataGridView1[i, j].Value = "0,5"; i++; break;
+                            case "0": dataGridView1[i, j].Value = "0"; i++; break;
+                            case "d": i++; break;
+                            case "": break;
+                            default:
+                                throw new Exception("Матрица в файле имеет посторонние элементы");
+                        }
+                    }
+                }
+                sr2.Close();
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+            results.Clear();
+            pairs.Clear();
+            for (int i = 0; i < listBox1.Items.Count; i++)
+            {
+                pairs.Add(new Pair<float, string>(0, Alternatives[i]));
+            }
+
+            PairedComparison(); // Вызов метода парных сравнений
+
+            for (int i = 0; i < listBox1.Items.Count; i++)
+            {
+                pairs[i].Second = (i + 1).ToString() + "." + pairs[i].Second;
+            }
+            //pairs.Add(new Pair<float, string>(0, (i + 1).ToString() + "." + Alternatives[i]));
+
+            //listBox1.Items.Clear(); // Очищение списка альтернатив
+            listBox2.Items.Clear(); // Очищение списка результатов
+            for (int i = 0; i < pairs.Count; i++)
+            {
+                listBox2.Items.Add(pairs[i].Second);
+            }
+
+            Results(); // Промежуточные результаты
+        }
+
+        private void Reload() // Открытие формы
+        {
+            try
+            {
+                // initProblemsNameFirstLabMethodComboBox();
+                alterCount = 0;
+                dataGridView1.Rows.Clear();
+                dataGridView1.Columns.Clear();
+                listBox1.Items.Clear();
+                listBox2.Items.Clear();
+                dataGridView2.Rows.Clear();
+                dataGridView2.Columns.Clear();
+
                 Problem.Text = Enter_Analyst.ChosenProblemA;
                 dataGridView1.AllowUserToAddRows = false;
                 dataGridView2.Columns.Add("inter_results", "Cj");
@@ -217,6 +389,32 @@ namespace Sisan1
             return isCheck;
         }
 
+        void InitSecondLabMatrixes()
+        {
+            for (int i = 0; i < ComboBoxExperts.Count; i++) //ищем для каждого эксперта
+            {
+
+            }
+        }
+
+        private void CountOtnositCoef()
+        {
+            SumForOtnositCoef = 0;
+            List<Tuple<string, double, List<double>>> TempListTuple = new List<Tuple<string, double, List<double>>>();
+            for (int i = 0; i < SecondLabExpertsPassed.Count; i++)
+            {
+                SumForOtnositCoef += SecondLabExpertsPassed[i].Item2;
+            }
+            Tuple<string, double, List<double>> tempTuple;
+            for (int i = 0; i < SecondLabExpertsPassed.Count; i++)
+            {
+                tempTuple = new Tuple<string, double, List<double>>(SecondLabExpertsPassed[i].Item1, SecondLabExpertsPassed[i].Item2 / SumForOtnositCoef, SecondLabExpertsPassed[i].Item3);
+                TempListTuple.Add(tempTuple);
+            }
+            SecondLabExpertsPassed = TempListTuple;
+
+        }
+
         private void AddAlternative(string db) //Добавление альтернативы
         {
             alterCount++;
@@ -348,7 +546,10 @@ namespace Sisan1
 
         private void ExpertNameFirstLabMethodComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (UserClicked >= 2)
+            {
+                Reload();
+            }
         }
 
         private void initProblemsNameFirstLabMethodComboBox()
@@ -367,6 +568,8 @@ namespace Sisan1
                                                   //{
                                                   //    File.ReadLines(s + "/Problems.txt")
                                                   //};
+
+                    Data.AllExpertsCoefForCurrrentProblem.Add(Tuple.Create(s.Remove(0, path.Length), tmpDouble));
                     ComboBoxExperts.Add(Tuple.Create(s.Remove(0, path.Length), tmpDouble, CurrentSession.Problems));
                 }
 
@@ -375,6 +578,18 @@ namespace Sisan1
 
             ExpertNameFirstLabMethodComboBox.DataSource = ComboBoxExperts;
             ExpertNameFirstLabMethodComboBox.DisplayMember = "Item1";
+        }
+
+        private ushort UserClicked;
+
+        private void ExpertNameFirstLabMethodComboBox_Click(object sender, EventArgs e)
+        {
+            UserClicked++;
+        }
+
+        private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -53,19 +53,24 @@
             this.AlternativeNeutral = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.AlternativeDisagree = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Alternative2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MethodsComboBox = new System.Windows.Forms.ComboBox();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlternativeScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.form2BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form2BindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(41, 43);
+            this.button1.Location = new System.Drawing.Point(124, 44);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(179, 25);
+            this.button1.Size = new System.Drawing.Size(182, 55);
             this.button1.TabIndex = 11;
             this.button1.Text = "Начать тестирование";
             this.button1.UseVisualStyleBackColor = true;
@@ -233,7 +238,7 @@
             this.AlternativeNeutral,
             this.AlternativeDisagree,
             this.Alternative2});
-            this.dataGridView1.Location = new System.Drawing.Point(15, 46);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 46);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(1323, 374);
             this.dataGridView1.TabIndex = 27;
@@ -278,6 +283,45 @@
             this.Alternative2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Alternative2.Width = 602;
             // 
+            // MethodsComboBox
+            // 
+            this.MethodsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.MethodsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.MethodsComboBox.FormattingEnabled = true;
+            this.MethodsComboBox.Location = new System.Drawing.Point(226, 18);
+            this.MethodsComboBox.Name = "MethodsComboBox";
+            this.MethodsComboBox.Size = new System.Drawing.Size(179, 21);
+            this.MethodsComboBox.TabIndex = 28;
+            this.MethodsComboBox.SelectedIndexChanged += new System.EventHandler(this.MethodsComboBox_SelectedIndexChanged);
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.AlternativeName,
+            this.AlternativeScore});
+            this.dataGridView2.Location = new System.Drawing.Point(11, 43);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(870, 379);
+            this.dataGridView2.TabIndex = 29;
+            this.dataGridView2.Visible = false;
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            // 
+            // AlternativeName
+            // 
+            this.AlternativeName.HeaderText = "Альтернатива";
+            this.AlternativeName.Name = "AlternativeName";
+            this.AlternativeName.ReadOnly = true;
+            this.AlternativeName.Width = 625;
+            // 
+            // AlternativeScore
+            // 
+            this.AlternativeScore.HeaderText = "Оценка";
+            this.AlternativeScore.Name = "AlternativeScore";
+            this.AlternativeScore.Width = 200;
+            // 
             // form2BindingSource
             // 
             this.form2BindingSource.DataSource = typeof(Sisan1.Form2);
@@ -287,6 +331,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1350, 461);
+            this.Controls.Add(this.dataGridView2);
+            this.Controls.Add(this.MethodsComboBox);
             this.Controls.Add(this.FinishButton);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.ProgressLabel);
@@ -306,6 +352,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.form2BindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -335,5 +382,9 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeNeutral;
         private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeDisagree;
         private System.Windows.Forms.DataGridViewTextBoxColumn Alternative2;
+        private System.Windows.Forms.ComboBox MethodsComboBox;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeScore;
     }
 }

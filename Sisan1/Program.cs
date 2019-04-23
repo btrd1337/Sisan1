@@ -16,6 +16,9 @@ namespace Sisan1
             Application.SetCompatibleTextRenderingDefault(false);
             Data.ExpertsList = new List<Tuple<string, double, List<string>>>();
             Data.ProblemsFileName = "ad.txt";
+            Data.Methods = new List<string>();
+            Data.Methods.Add("Метод парных сравнений");
+            Data.Methods.Add("Метод взвешенных экспертных оценок");
             Data.ExpertsNamesInited = false;
             Sessions InitAllProblems = new Sessions();
             InitAllProblems.LoadSession();
@@ -34,5 +37,7 @@ namespace Sisan1
         public static bool ExpertsNamesInited { set; get; }
         public static double CurrentCoefficient { set; get; }
         public static List<string> AllProblems { set; get; }
+        public static List<Tuple<string, double>> AllExpertsCoefForCurrrentProblem { set; get; }
+        public static List<string> Methods { set; get; }
     }
 }
