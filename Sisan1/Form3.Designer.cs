@@ -32,7 +32,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
             this.Problem = new System.Windows.Forms.Label();
-            this.MaximizeBox = false;
             this.label2 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -44,8 +43,8 @@
             this.buttonExit = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.AlternativesListDataGridView = new System.Windows.Forms.DataGridView();
-            this.SaveExitButton = new System.Windows.Forms.Button();
             this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SaveExitButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AlternativesListDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -173,6 +172,12 @@
             this.AlternativesListDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AlternativesListDataGridView_KeyDown);
             this.AlternativesListDataGridView.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AlternativesListDataGridView_KeyPress);
             // 
+            // AlternativeName
+            // 
+            this.AlternativeName.HeaderText = "Альтернативы";
+            this.AlternativeName.Name = "AlternativeName";
+            this.AlternativeName.Width = 525;
+            // 
             // SaveExitButton
             // 
             this.SaveExitButton.Location = new System.Drawing.Point(461, 10);
@@ -182,12 +187,6 @@
             this.SaveExitButton.Text = "Сохранить и выйти";
             this.SaveExitButton.UseVisualStyleBackColor = true;
             this.SaveExitButton.Click += new System.EventHandler(this.SaveExitButton_Click);
-            // 
-            // AlternativeName
-            // 
-            this.AlternativeName.HeaderText = "Альтернативы";
-            this.AlternativeName.Name = "AlternativeName";
-            this.AlternativeName.Width = 525;
             // 
             // Form3
             // 
@@ -202,9 +201,11 @@
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Problem);
+            this.MaximizeBox = false;
             this.Name = "Form3";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Работа со списком альтернатив";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form3_FormClosing);
             this.Load += new System.EventHandler(this.Form3_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AlternativesListDataGridView)).EndInit();

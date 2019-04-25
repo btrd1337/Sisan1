@@ -69,6 +69,7 @@
             this.Name = "ExpertLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ExpertLogin";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ExpertLogin_FormClosing);
             this.Load += new System.EventHandler(this.ExpertLogin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.form2BindingSource)).EndInit();
             this.ResumeLayout(false);

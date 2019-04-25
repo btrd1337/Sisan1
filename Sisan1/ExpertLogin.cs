@@ -85,5 +85,10 @@ namespace Sisan1
         {
 
         }
+
+        private void ExpertLogin_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

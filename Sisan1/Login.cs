@@ -35,5 +35,11 @@ namespace Sisan1
         {
   
         }
+
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+
+        }
     }
 }

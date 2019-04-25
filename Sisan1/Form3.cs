@@ -247,5 +247,10 @@ namespace Sisan1
                 }
             }
         }
+
+        private void Form3_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

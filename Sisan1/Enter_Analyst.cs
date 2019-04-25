@@ -299,5 +299,10 @@ namespace Sisan1
             makeExpert.Show();
             this.Hide();
         }
+
+        private void Enter_Analyst_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

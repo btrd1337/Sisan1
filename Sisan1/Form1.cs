@@ -11,12 +11,14 @@ namespace Sisan1
     {
         public Form1()
         {
+
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             Data.AllExpertsCoefForCurrrentProblem = new List<Tuple<string, double>>();
             Data.AllExpertsCoefForCurrrentProblem.Clear();
             UserClicked = 0;
             InitializeComponent();
             InitSecondLabPassedExperts();
+
         }
         List<Tuple<string, List<double>, List<string>>> ComboBoxExperts;
 
@@ -26,10 +28,33 @@ namespace Sisan1
         List<float> results = new List<float>();
         List<string> elements = new List<string>() { "1", "0,5", "0" };
         List<string> Alternatives = new List<string>();
+        
 
         int alterCount = 0;
         float r = 0;
         double SumForOtnositCoef;
+        int AllProblemsCountForCurrentProblem = 0;
+
+        void InitExpertCountForCurrentProblem()
+        {
+            string path = "data/Experts/";
+            foreach (string s in Directory.GetDirectories(path))
+            {
+                Data.ProblemsFileName = "data/Experts/" + s.Remove(0, path.Length) + "/Problems.txt";
+                Sessions CurrentSession = new Sessions();
+                CurrentSession.LoadSession();
+                for (int i=0;i<CurrentSession.Problems.Count;i++)
+                {
+                    if (CurrentSession.Problems[i]==Enter_Analyst.ChosenProblemA)
+                    {
+                        AllProblemsCountForCurrentProblem++;
+                    }
+                }
+
+            }
+            Data.ProblemsFileName = "ad.txt";
+
+        }
 
         void InitSecondLabPassedExperts()
         {
@@ -52,7 +77,7 @@ namespace Sisan1
                     }
                     sr1.Close();
 
-                    SecondLabExpertsPassed.Add(new Tuple<string, double, List<double>>(s.Remove(0, path.Length), CurrentSession.CofficientsList[CurrentSession.Problems.IndexOf(Enter_Analyst.ChosenProblemA)], tmpDouble)); //здесь поработать с индексом у коэф листа
+                    SecondLabExpertsPassed.Add(new Tuple<string, double, List<double>>(s.Remove(0, path.Length), CurrentSession.CofficientsList[CurrentSession.Problems.IndexOf(Enter_Analyst.ChosenProblemA)], tmpDouble));
 
                 }
 
@@ -81,18 +106,23 @@ namespace Sisan1
                 {
                     SecondLabResultVector.Add(Tuple.Create(Alternatives[i], tempList[i]));
                     dataGridView3.Rows.Add();
-                    dataGridView3.Rows[i].Cells[0].Value = Alternatives[i];
-                    dataGridView3.Rows[i].Cells[1].Value = tempList[i];
+                    dataGridView3.Rows[i].Cells[0].Value = i + 1;
+                    dataGridView3.Rows[i].Cells[1].Value = Alternatives[i];
+                    dataGridView3.Rows[i].Cells[2].Value = tempList[i];
                 }
+                dataGridView3.Sort(dataGridView3.Columns[2], System.ComponentModel.ListSortDirection.Descending);
             }
+
         }
 
         private void Form1_Load(object sender, EventArgs e) // Открытие формы
         {
             try
             {
+
                 UserClicked++;
                 Problem.Text = Enter_Analyst.ChosenProblemA;
+                InitExpertCountForCurrentProblem();
                 string Filename1 = "data/Alternatives_" + Enter_Analyst.ChosenProblemA;
                 var sr1 = new StreamReader(Filename1); // Сканируем файл
                 var text = new List<string>();
@@ -107,7 +137,7 @@ namespace Sisan1
                 sr1.Close();
                 CountOtnositCoef();
                 InitSecondLabResultTable();
-               // dataGridView1.Rows.Clear();
+                // dataGridView1.Rows.Clear();
                 if (initProblemsNameFirstLabMethodComboBox())
                 {
                     dataGridView1.AllowUserToAddRows = false;
@@ -177,7 +207,9 @@ namespace Sisan1
                     }
 
                     ResultsFirstLab();
+                    FirstLabExpertsPassedCountLabel.Text = "Пройдено " + ExpertNameFirstLabMethodComboBox.Items.Count.ToString() +" из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
                 }
+                SecondLabExpertsPassedCountLabel.Text = "Пройдено " + SecondLabExpertsPassed.Count.ToString() + " из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
 
             }
             catch (Exception err)
@@ -217,7 +249,7 @@ namespace Sisan1
                     counter++;
                 }
                 sr1.Close();
-                Tuple<string, double, List<string>> temp = (Tuple<string, double, List<string>>)ExpertNameFirstLabMethodComboBox.SelectedItem;
+                Tuple<string, List<double>, List<string>> temp = (Tuple<string, List<double>, List<string>>)ExpertNameFirstLabMethodComboBox.SelectedItem;
                 // Загрузка значений матрицы из файла
                 string Filename2 = "data/Experts/" + temp.Item1 + "/Matrix_" + Enter_Analyst.ChosenProblemA;
                 if (!File.Exists(Filename2))
@@ -452,7 +484,7 @@ namespace Sisan1
         void ResultsFirstLab()
         {
             dataGridViewLab1.Rows.Clear();
-            for (int i=0;i<results.Count;i++)
+            for (int i = 0; i < results.Count; i++)
             {
                 dataGridViewLab1.Rows.Add();
                 dataGridViewLab1.Rows[i].Cells[0].Value = i + 1;
@@ -557,7 +589,7 @@ namespace Sisan1
                                                   //{
                                                   //    File.ReadLines(s + "/Problems.txt")
                                                   //};
-                    CurrentSession.LoadCoefficients(s+"/Coefficient.txt");
+                    CurrentSession.LoadCoefficients(s + "/Coefficient.txt");
                     Data.AllExpertsCoefForCurrrentProblem.Add(Tuple.Create(s.Remove(0, path.Length), CurrentSession.CofficientsList[CurrentSession.Problems.IndexOf(Enter_Analyst.ChosenProblemA)]));
                     ComboBoxExperts.Add(Tuple.Create(s.Remove(0, path.Length), new List<double>(), CurrentSession.Problems));
                     temp++;
@@ -581,6 +613,11 @@ namespace Sisan1
         private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -214,6 +214,13 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
                     CurrentExpertProblemsSelected.Add(dataGridView1.Rows[i].Cells[0].Value.ToString());
                     CurrentExpertProblemsSelectedCoefficient.Add(Convert.ToDouble(dataGridView1.Rows[i].Cells[2].Value));
                 }
+                else
+                {
+                    if (File.Exists("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/SecondLab_"+ dataGridView1.Rows[i].Cells[0].Value.ToString()))
+                    {
+                        File.Delete("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/SecondLab_" + dataGridView1.Rows[i].Cells[0].Value.ToString());
+                    }
+                }
             }
             File.CreateText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Problems.txt").Close(); //чистим строчку
             File.CreateText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Coefficient.txt").Close(); //чистим строчку

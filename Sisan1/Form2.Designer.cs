@@ -47,17 +47,18 @@
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.MethodsComboBox = new System.Windows.Forms.ComboBox();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AlternativeScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Alternative1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AlternativeAgree = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.AlternativeNeutral = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.AlternativeDisagree = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Alternative2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MethodsComboBox = new System.Windows.Forms.ComboBox();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlternativeScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProgressLabel = new System.Windows.Forms.Label();
             this.Lab2Label = new System.Windows.Forms.Label();
+            this.CountWeightLabel = new System.Windows.Forms.Label();
             this.form2BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
@@ -237,45 +238,6 @@
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // MethodsComboBox
-            // 
-            this.MethodsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.MethodsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.MethodsComboBox.FormattingEnabled = true;
-            this.MethodsComboBox.Location = new System.Drawing.Point(226, 18);
-            this.MethodsComboBox.Name = "MethodsComboBox";
-            this.MethodsComboBox.Size = new System.Drawing.Size(179, 21);
-            this.MethodsComboBox.TabIndex = 28;
-            this.MethodsComboBox.SelectedIndexChanged += new System.EventHandler(this.MethodsComboBox_SelectedIndexChanged);
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.AlternativeName,
-            this.AlternativeScore});
-            this.dataGridView2.Location = new System.Drawing.Point(11, 41);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(870, 379);
-            this.dataGridView2.TabIndex = 29;
-            this.dataGridView2.Visible = false;
-            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
-            // 
-            // AlternativeName
-            // 
-            this.AlternativeName.HeaderText = "Альтернатива";
-            this.AlternativeName.Name = "AlternativeName";
-            this.AlternativeName.ReadOnly = true;
-            this.AlternativeName.Width = 625;
-            // 
-            // AlternativeScore
-            // 
-            this.AlternativeScore.HeaderText = "Оценка";
-            this.AlternativeScore.Name = "AlternativeScore";
-            this.AlternativeScore.Width = 200;
-            // 
             // Alternative1
             // 
             this.Alternative1.HeaderText = "Альтернатива 1";
@@ -316,6 +278,46 @@
             this.Alternative2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Alternative2.Width = 602;
             // 
+            // MethodsComboBox
+            // 
+            this.MethodsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.MethodsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.MethodsComboBox.FormattingEnabled = true;
+            this.MethodsComboBox.Location = new System.Drawing.Point(226, 18);
+            this.MethodsComboBox.Name = "MethodsComboBox";
+            this.MethodsComboBox.Size = new System.Drawing.Size(179, 21);
+            this.MethodsComboBox.TabIndex = 28;
+            this.MethodsComboBox.SelectedIndexChanged += new System.EventHandler(this.MethodsComboBox_SelectedIndexChanged);
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.AlternativeName,
+            this.AlternativeScore});
+            this.dataGridView2.Location = new System.Drawing.Point(11, 41);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(870, 379);
+            this.dataGridView2.TabIndex = 29;
+            this.dataGridView2.Visible = false;
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged);
+            // 
+            // AlternativeName
+            // 
+            this.AlternativeName.HeaderText = "Альтернатива";
+            this.AlternativeName.Name = "AlternativeName";
+            this.AlternativeName.ReadOnly = true;
+            this.AlternativeName.Width = 625;
+            // 
+            // AlternativeScore
+            // 
+            this.AlternativeScore.HeaderText = "Вес";
+            this.AlternativeScore.Name = "AlternativeScore";
+            this.AlternativeScore.Width = 200;
+            // 
             // ProgressLabel
             // 
             this.ProgressLabel.AutoSize = true;
@@ -332,10 +334,20 @@
             this.Lab2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.Lab2Label.Location = new System.Drawing.Point(204, 16);
             this.Lab2Label.Name = "Lab2Label";
-            this.Lab2Label.Size = new System.Drawing.Size(420, 20);
+            this.Lab2Label.Size = new System.Drawing.Size(395, 20);
             this.Lab2Label.TabIndex = 30;
-            this.Lab2Label.Text = "Введите оценку альтернативам по шкале от 0 до 100";
+            this.Lab2Label.Text = "Введите вес альтернативам по шкале от 0 до 100";
             this.Lab2Label.Visible = false;
+            // 
+            // CountWeightLabel
+            // 
+            this.CountWeightLabel.AutoSize = true;
+            this.CountWeightLabel.Location = new System.Drawing.Point(629, 20);
+            this.CountWeightLabel.Name = "CountWeightLabel";
+            this.CountWeightLabel.Size = new System.Drawing.Size(117, 13);
+            this.CountWeightLabel.TabIndex = 31;
+            this.CountWeightLabel.Text = "Общий вес = 0 из 100";
+            this.CountWeightLabel.Visible = false;
             // 
             // form2BindingSource
             // 
@@ -346,6 +358,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1350, 461);
+            this.Controls.Add(this.CountWeightLabel);
             this.Controls.Add(this.Lab2Label);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.MethodsComboBox);
@@ -363,6 +376,7 @@
             this.Name = "Form2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Эксперт";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
             this.Load += new System.EventHandler(this.Form2_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -394,8 +408,6 @@
         private System.Windows.Forms.Button FinishButton;
         private System.Windows.Forms.ComboBox MethodsComboBox;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeScore;
         private System.Windows.Forms.DataGridViewTextBoxColumn Alternative1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeAgree;
         private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeNeutral;
@@ -403,5 +415,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Alternative2;
         private System.Windows.Forms.Label ProgressLabel;
         private System.Windows.Forms.Label Lab2Label;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeScore;
+        private System.Windows.Forms.Label CountWeightLabel;
     }
 }

@@ -9,6 +9,7 @@ namespace Sisan1
     public partial class Form2 : Form
     {
         public static string ChosenProblem;
+        public static double SumScore { set; get; }
 
         Sessions CurrectSession = new Sessions();
         int CurrentProgress = 0;
@@ -21,7 +22,7 @@ namespace Sisan1
         public Form2()
         {
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
-
+            SumScore = 0;
             this.Location = new System.Drawing.Point(500, 284);
             InitializeComponent();
             for (int i = 0; i < Data.Methods.Count; i++)
@@ -34,6 +35,7 @@ namespace Sisan1
             CurrectSession.LoadSession();
             bindingSource1.DataSource = CurrectSession.Problems;
             comboBox1.DataSource = bindingSource1.DataSource;
+            Data.ProblemsFileName = "ad.txt";
         }
 
         List<string> Alternatives = new List<string>();
@@ -59,14 +61,19 @@ namespace Sisan1
 
         private void LoadSavedSecondLab()
         {
-            var sr2 = new StreamReader("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_SecondLab_" + Enter_Expert.ChosenProblem); // Сканируем файл
-                                                   // Удаляем из него все разделители
-            var Text = sr2.ReadToEnd().Split(new char[] { ' ', '\t', '\r', '\n', });
-            sr2.Close();
-            for (int i=0;i<dataGridView2.Rows.Count;i++)
+            if (File.Exists("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_SecondLab_" + Enter_Expert.ChosenProblem))
             {
-                if (Text[i] != "r")
-                    dataGridView2.Rows[i].Cells[1].Value = Text[i];
+                var sr2 = new StreamReader("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_SecondLab_" + Enter_Expert.ChosenProblem); // Сканируем файл
+                                                                                                                                               // Удаляем из него все разделители
+                var Text = sr2.ReadToEnd().Split(new char[] { ' ', '\t', '\r', '\n', });
+                sr2.Close();
+                for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                {
+                    if (Text[i] != "r")
+                    {
+                        dataGridView2.Rows[i].Cells[1].Value = Text[i];
+                    }
+                }
             }
         }
 
@@ -94,7 +101,7 @@ namespace Sisan1
                 //    AddAlternative(line);
                 //    counter++;
                 //}
-                //sr.Close();
+                //sr.Hide();
                 if (CurrentCheckBoxChecked == tmp)
                 {
                     FinishButton.Enabled = true;
@@ -298,6 +305,7 @@ namespace Sisan1
                     {
                         if (Alternatives.Count > 0)
                         {
+                            CountWeightLabel.Visible = true;
                             Lab2Label.Visible = true;
                             this.Size = new System.Drawing.Size(1000, 600);
                             this.Width = 900;
@@ -367,6 +375,7 @@ namespace Sisan1
                 {
                     output += Matrix[n, m] + "\t";
                 }
+
                 output += "\n";
             }
             File.WriteAllText(Filename, output);
@@ -690,16 +699,15 @@ namespace Sisan1
                     }
                 case 1:
                     {
-                        double SumScore = 0;
-                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
-                        {
-                            if (dataGridView2.Rows[i].Cells[1].Value != null)
-                            {
-                                SumScore += Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ','));
-                            }
-                        }
+                        //for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        //{
+                        //    if (dataGridView2.Rows[i].Cells[1].Value != null)
+                        //    {
+                        //        SumScore += Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ','));
+                        //    }
+                        //}
 
-                        if (SumScore != 100)
+                        if ((SumScore < SumScore - Math.Pow(10, -5)) && (SumScore > SumScore + Math.Pow(10, -5)))
                         {
                             MessageBox.Show("Сумма оценок альтернатив не равно 100");
                         }
@@ -711,6 +719,23 @@ namespace Sisan1
                                 tempList.Add(Convert.ToString(Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ',')) / 100));
                             }
                             File.WriteAllLines("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/SecondLab_" + Enter_Expert.ChosenProblem, tempList);
+                            string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_SecondLab_" + Enter_Expert.ChosenProblem;
+                            string output = string.Empty;
+                            for (int n = 0; n < dataGridView2.Rows.Count; n++)
+                            {
+                                if (dataGridView2.Rows[n].Cells[1].Value == null)
+                                {
+                                    output += "r";
+                                }
+                                else
+                                {
+                                    output += dataGridView2.Rows[n].Cells[1].Value.ToString();
+                                }
+
+                                output += "\n";
+                            }
+                            File.Delete(Filename);
+                            File.WriteAllText(Filename, output);
                             Login lgn = new Login();
                             this.Hide();
                             lgn.Show();
@@ -763,6 +788,50 @@ namespace Sisan1
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (dataGridView2.Visible)
+            {
+                string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_SecondLab_" + Enter_Expert.ChosenProblem;
+                string output = string.Empty;
+                for (int n = 0; n < dataGridView2.Rows.Count; n++)
+                {
+                    if (dataGridView2.Rows[n].Cells[1].Value == null)
+                    {
+                        output += "r";
+                    }
+                    else
+                    {
+                        output += dataGridView2.Rows[n].Cells[1].Value.ToString();
+                    }
+
+                    output += "\n";
+                }
+                File.Delete(Filename);
+                File.WriteAllText(Filename, output);
+
+            }
+
+            Application.Exit();
+        }
+
+        private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 1 && e.RowIndex > -1 && (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() != ""))
+            {
+                SumScore = 0;
+                for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                {
+                    if (i != e.RowIndex && (dataGridView2.Rows[i].Cells[e.ColumnIndex].Value != null && dataGridView2.Rows[i].Cells[e.ColumnIndex].Value.ToString() != ""))
+                    {
+                        SumScore += Convert.ToDouble(dataGridView2.Rows[i].Cells[e.ColumnIndex].Value.ToString().Replace('.', ','));
+                    }
+                }
+                SumScore += Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace('.', ','));
+                CountWeightLabel.Text = "Общий вес = " + Convert.ToString(SumScore) + " из 100";
+            }
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
