@@ -30,27 +30,34 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.buttonExit = new System.Windows.Forms.Button();
             this.Problem = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.ExpertNameFirstLabMethodComboBox = new System.Windows.Forms.ComboBox();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewLab1 = new System.Windows.Forms.DataGridView();
-            this.FirstLabExpertsPassedCountLabel = new System.Windows.Forms.Label();
-            this.SecondLabExpertsPassedCountLabel = new System.Windows.Forms.Label();
-            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Alternative = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewLab2 = new System.Windows.Forms.DataGridView();
             this.RowNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ResultScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewLab1 = new System.Windows.Forms.DataGridView();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Alternative = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FirstLabExpertsPassedCountLabel = new System.Windows.Forms.Label();
+            this.SecondLabExpertsPassedCountLabel = new System.Windows.Forms.Label();
+            this.AlternativesDataGridView = new System.Windows.Forms.DataGridView();
+            this.AlternativeNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlternativeNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewLab3FirstMethod = new System.Windows.Forms.DataGridView();
+            this.Lab3FirstMethodNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ThirdLabFirstMethodAlternative = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ThirdLabFirstMethodWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlternativesDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab3FirstMethod)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -60,40 +67,16 @@
             this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(137, 63);
+            this.dataGridView1.Location = new System.Drawing.Point(137, 174);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 50;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(112, 283);
+            this.dataGridView1.Size = new System.Drawing.Size(112, 172);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.Visible = false;
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(13, 43);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(151, 18);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Список альтернатив";
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.HorizontalScrollbar = true;
-            this.listBox1.IntegralHeight = false;
-            this.listBox1.Location = new System.Drawing.Point(11, 64);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBox1.Size = new System.Drawing.Size(254, 300);
-            this.listBox1.TabIndex = 3;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // openFileDialog1
             // 
@@ -145,31 +128,56 @@
             this.ExpertNameFirstLabMethodComboBox.SelectedIndexChanged += new System.EventHandler(this.ExpertNameFirstLabMethodComboBox_SelectedIndexChanged);
             this.ExpertNameFirstLabMethodComboBox.Click += new System.EventHandler(this.ExpertNameFirstLabMethodComboBox_Click);
             // 
-            // dataGridView3
+            // dataGridViewLab2
             // 
-            this.dataGridView3.AllowUserToAddRows = false;
-            this.dataGridView3.AllowUserToDeleteRows = false;
-            this.dataGridView3.AllowUserToResizeColumns = false;
-            this.dataGridView3.AllowUserToResizeRows = false;
-            this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewLab2.AllowUserToAddRows = false;
+            this.dataGridViewLab2.AllowUserToDeleteRows = false;
+            this.dataGridViewLab2.AllowUserToResizeColumns = false;
+            this.dataGridViewLab2.AllowUserToResizeRows = false;
+            this.dataGridViewLab2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.RowNumber,
             this.AlternativeName,
             this.ResultScore});
-            this.dataGridView3.Location = new System.Drawing.Point(541, 63);
-            this.dataGridView3.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.ReadOnly = true;
-            this.dataGridView3.RowHeadersVisible = false;
-            this.dataGridView3.RowHeadersWidth = 50;
-            this.dataGridView3.RowTemplate.Height = 24;
-            this.dataGridView3.Size = new System.Drawing.Size(242, 300);
-            this.dataGridView3.TabIndex = 20;
-            this.dataGridView3.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
+            this.dataGridViewLab2.Location = new System.Drawing.Point(541, 63);
+            this.dataGridViewLab2.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewLab2.Name = "dataGridViewLab2";
+            this.dataGridViewLab2.ReadOnly = true;
+            this.dataGridViewLab2.RowHeadersVisible = false;
+            this.dataGridViewLab2.RowHeadersWidth = 50;
+            this.dataGridViewLab2.RowTemplate.Height = 24;
+            this.dataGridViewLab2.Size = new System.Drawing.Size(242, 300);
+            this.dataGridViewLab2.TabIndex = 20;
+            this.dataGridViewLab2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
+            // 
+            // RowNumber
+            // 
+            this.RowNumber.HeaderText = "№";
+            this.RowNumber.Name = "RowNumber";
+            this.RowNumber.ReadOnly = true;
+            this.RowNumber.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.RowNumber.Width = 25;
+            // 
+            // AlternativeName
+            // 
+            this.AlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.AlternativeName.HeaderText = "Альтернатива";
+            this.AlternativeName.Name = "AlternativeName";
+            this.AlternativeName.ReadOnly = true;
+            this.AlternativeName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // ResultScore
+            // 
+            this.ResultScore.HeaderText = "Вес";
+            this.ResultScore.Name = "ResultScore";
+            this.ResultScore.ReadOnly = true;
+            this.ResultScore.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ResultScore.Width = 70;
             // 
             // dataGridViewLab1
             // 
             this.dataGridViewLab1.AllowUserToAddRows = false;
             this.dataGridViewLab1.AllowUserToDeleteRows = false;
+            this.dataGridViewLab1.AllowUserToResizeColumns = false;
             this.dataGridViewLab1.AllowUserToResizeRows = false;
             this.dataGridViewLab1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewLab1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -182,24 +190,6 @@
             this.dataGridViewLab1.RowHeadersVisible = false;
             this.dataGridViewLab1.Size = new System.Drawing.Size(242, 300);
             this.dataGridViewLab1.TabIndex = 21;
-            // 
-            // FirstLabExpertsPassedCountLabel
-            // 
-            this.FirstLabExpertsPassedCountLabel.AutoSize = true;
-            this.FirstLabExpertsPassedCountLabel.Location = new System.Drawing.Point(276, 367);
-            this.FirstLabExpertsPassedCountLabel.Name = "FirstLabExpertsPassedCountLabel";
-            this.FirstLabExpertsPassedCountLabel.Size = new System.Drawing.Size(154, 13);
-            this.FirstLabExpertsPassedCountLabel.TabIndex = 22;
-            this.FirstLabExpertsPassedCountLabel.Text = "Пройдено 0 из 0 экспертами";
-            // 
-            // SecondLabExpertsPassedCountLabel
-            // 
-            this.SecondLabExpertsPassedCountLabel.AutoSize = true;
-            this.SecondLabExpertsPassedCountLabel.Location = new System.Drawing.Point(541, 366);
-            this.SecondLabExpertsPassedCountLabel.Name = "SecondLabExpertsPassedCountLabel";
-            this.SecondLabExpertsPassedCountLabel.Size = new System.Drawing.Size(154, 13);
-            this.SecondLabExpertsPassedCountLabel.TabIndex = 23;
-            this.SecondLabExpertsPassedCountLabel.Text = "Пройдено 0 из 0 экспертами";
             // 
             // Number
             // 
@@ -226,46 +216,108 @@
             this.Weight.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Weight.Width = 50;
             // 
-            // RowNumber
+            // FirstLabExpertsPassedCountLabel
             // 
-            this.RowNumber.HeaderText = "№";
-            this.RowNumber.Name = "RowNumber";
-            this.RowNumber.ReadOnly = true;
-            this.RowNumber.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.RowNumber.Width = 25;
+            this.FirstLabExpertsPassedCountLabel.AutoSize = true;
+            this.FirstLabExpertsPassedCountLabel.Location = new System.Drawing.Point(276, 367);
+            this.FirstLabExpertsPassedCountLabel.Name = "FirstLabExpertsPassedCountLabel";
+            this.FirstLabExpertsPassedCountLabel.Size = new System.Drawing.Size(154, 13);
+            this.FirstLabExpertsPassedCountLabel.TabIndex = 22;
+            this.FirstLabExpertsPassedCountLabel.Text = "Пройдено 0 из 0 экспертами";
             // 
-            // AlternativeName
+            // SecondLabExpertsPassedCountLabel
             // 
-            this.AlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.AlternativeName.HeaderText = "Альтернатива";
-            this.AlternativeName.Name = "AlternativeName";
-            this.AlternativeName.ReadOnly = true;
-            this.AlternativeName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.SecondLabExpertsPassedCountLabel.AutoSize = true;
+            this.SecondLabExpertsPassedCountLabel.Location = new System.Drawing.Point(541, 366);
+            this.SecondLabExpertsPassedCountLabel.Name = "SecondLabExpertsPassedCountLabel";
+            this.SecondLabExpertsPassedCountLabel.Size = new System.Drawing.Size(154, 13);
+            this.SecondLabExpertsPassedCountLabel.TabIndex = 23;
+            this.SecondLabExpertsPassedCountLabel.Text = "Пройдено 0 из 0 экспертами";
             // 
-            // ResultScore
+            // AlternativesDataGridView
             // 
-            this.ResultScore.HeaderText = "Вес";
-            this.ResultScore.Name = "ResultScore";
-            this.ResultScore.ReadOnly = true;
-            this.ResultScore.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ResultScore.Width = 70;
+            this.AlternativesDataGridView.AllowUserToAddRows = false;
+            this.AlternativesDataGridView.AllowUserToDeleteRows = false;
+            this.AlternativesDataGridView.AllowUserToResizeColumns = false;
+            this.AlternativesDataGridView.AllowUserToResizeRows = false;
+            this.AlternativesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.AlternativesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.AlternativeNum,
+            this.AlternativeNameColumn});
+            this.AlternativesDataGridView.Location = new System.Drawing.Point(16, 63);
+            this.AlternativesDataGridView.Name = "AlternativesDataGridView";
+            this.AlternativesDataGridView.ReadOnly = true;
+            this.AlternativesDataGridView.RowHeadersVisible = false;
+            this.AlternativesDataGridView.Size = new System.Drawing.Size(242, 300);
+            this.AlternativesDataGridView.TabIndex = 24;
+            // 
+            // AlternativeNum
+            // 
+            this.AlternativeNum.HeaderText = "№";
+            this.AlternativeNum.Name = "AlternativeNum";
+            this.AlternativeNum.ReadOnly = true;
+            this.AlternativeNum.Width = 25;
+            // 
+            // AlternativeNameColumn
+            // 
+            this.AlternativeNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.AlternativeNameColumn.HeaderText = "Список альтернатив";
+            this.AlternativeNameColumn.Name = "AlternativeNameColumn";
+            this.AlternativeNameColumn.ReadOnly = true;
+            // 
+            // dataGridViewLab3FirstMethod
+            // 
+            this.dataGridViewLab3FirstMethod.AllowUserToAddRows = false;
+            this.dataGridViewLab3FirstMethod.AllowUserToDeleteRows = false;
+            this.dataGridViewLab3FirstMethod.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewLab3FirstMethod.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Lab3FirstMethodNum,
+            this.ThirdLabFirstMethodAlternative,
+            this.ThirdLabFirstMethodWeight});
+            this.dataGridViewLab3FirstMethod.Location = new System.Drawing.Point(803, 63);
+            this.dataGridViewLab3FirstMethod.Name = "dataGridViewLab3FirstMethod";
+            this.dataGridViewLab3FirstMethod.ReadOnly = true;
+            this.dataGridViewLab3FirstMethod.RowHeadersVisible = false;
+            this.dataGridViewLab3FirstMethod.Size = new System.Drawing.Size(242, 299);
+            this.dataGridViewLab3FirstMethod.TabIndex = 25;
+            // 
+            // Lab3FirstMethodNum
+            // 
+            this.Lab3FirstMethodNum.HeaderText = "№";
+            this.Lab3FirstMethodNum.Name = "Lab3FirstMethodNum";
+            this.Lab3FirstMethodNum.ReadOnly = true;
+            this.Lab3FirstMethodNum.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Lab3FirstMethodNum.Width = 25;
+            // 
+            // ThirdLabFirstMethodAlternative
+            // 
+            this.ThirdLabFirstMethodAlternative.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ThirdLabFirstMethodAlternative.HeaderText = "Альтерантива";
+            this.ThirdLabFirstMethodAlternative.Name = "ThirdLabFirstMethodAlternative";
+            this.ThirdLabFirstMethodAlternative.ReadOnly = true;
+            // 
+            // ThirdLabFirstMethodWeight
+            // 
+            this.ThirdLabFirstMethodWeight.HeaderText = "Вес";
+            this.ThirdLabFirstMethodWeight.Name = "ThirdLabFirstMethodWeight";
+            this.ThirdLabFirstMethodWeight.ReadOnly = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(800, 393);
+            this.ClientSize = new System.Drawing.Size(1054, 393);
+            this.Controls.Add(this.dataGridViewLab3FirstMethod);
+            this.Controls.Add(this.AlternativesDataGridView);
             this.Controls.Add(this.SecondLabExpertsPassedCountLabel);
             this.Controls.Add(this.FirstLabExpertsPassedCountLabel);
             this.Controls.Add(this.dataGridViewLab1);
-            this.Controls.Add(this.dataGridView3);
+            this.Controls.Add(this.dataGridViewLab2);
             this.Controls.Add(this.ExpertNameFirstLabMethodComboBox);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.Problem);
             this.Controls.Add(this.buttonExit);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
@@ -275,8 +327,10 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlternativesDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab3FirstMethod)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -284,15 +338,13 @@
 
         #endregion
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label label2;
-        protected System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.Label Problem;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox ExpertNameFirstLabMethodComboBox;
-        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.DataGridView dataGridViewLab2;
         private System.Windows.Forms.DataGridView dataGridViewLab1;
         private System.Windows.Forms.Label FirstLabExpertsPassedCountLabel;
         private System.Windows.Forms.Label SecondLabExpertsPassedCountLabel;
@@ -302,6 +354,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
         private System.Windows.Forms.DataGridViewTextBoxColumn Alternative;
         private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
+        private System.Windows.Forms.DataGridView AlternativesDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeNameColumn;
+        private System.Windows.Forms.DataGridView dataGridViewLab3FirstMethod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Lab3FirstMethodNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ThirdLabFirstMethodAlternative;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ThirdLabFirstMethodWeight;
     }
 }
 

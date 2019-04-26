@@ -105,14 +105,14 @@ namespace Sisan1
                 for (int i = 0; i < Alternatives.Count; i++)
                 {
                     SecondLabResultVector.Add(Tuple.Create(Alternatives[i], tempList[i]));
-                    dataGridView3.Rows.Add();
-                    dataGridView3.Rows[i].Cells[0].Value = i + 1;
-                    dataGridView3.Rows[i].Cells[1].Value = Alternatives[i];
-                    dataGridView3.Rows[i].Cells[2].Value = tempList[i];
+                    dataGridViewLab2.Rows.Add();
+                    dataGridViewLab2.Rows[i].Cells[0].Value = i + 1;
+                    dataGridViewLab2.Rows[i].Cells[1].Value = Alternatives[i];
+                    dataGridViewLab2.Rows[i].Cells[2].Value = tempList[i];
                 }
-                dataGridView3.Sort(dataGridView3.Columns[2], System.ComponentModel.ListSortDirection.Descending);
+                dataGridViewLab2.Sort(dataGridViewLab2.Columns[2], System.ComponentModel.ListSortDirection.Descending);
             }
-
+            
         }
 
         private void Form1_Load(object sender, EventArgs e) // Открытие формы
@@ -194,14 +194,14 @@ namespace Sisan1
                     sr2.Close();
                     results.Clear();
                     pairs.Clear();
-                    for (int p = 0; p < listBox1.Items.Count; p++)
+                    for (int p = 0; p < AlternativesDataGridView.Rows.Count; p++)
                     {
                         pairs.Add(new Pair<float, string>(0, Alternatives[p]));
                     }
 
                     PairedComparison(); // Вызов метода парных сравнений
 
-                    for (int p = 0; p < listBox1.Items.Count; p++)
+                    for (int p = 0; p < AlternativesDataGridView.Rows.Count; p++)
                     {
                         pairs[p].Second = (p + 1).ToString() + "." + pairs[p].Second;
                     }
@@ -227,7 +227,7 @@ namespace Sisan1
                 alterCount = 0;
                 dataGridView1.Rows.Clear();
                 dataGridView1.Columns.Clear();
-                listBox1.Items.Clear();
+                AlternativesDataGridView.Rows.Clear();
                 //listBox2.Items.Clear();
                 //dataGridView2.Rows.Clear();
                 //dataGridView2.Columns.Clear();
@@ -304,27 +304,21 @@ namespace Sisan1
             }
             results.Clear();
             pairs.Clear();
-            for (int i = 0; i < listBox1.Items.Count; i++)
+
+            for (int i = 0; i < AlternativesDataGridView.Rows.Count; i++)
             {
                 pairs.Add(new Pair<float, string>(0, Alternatives[i]));
             }
 
+
+            
             PairedComparison(); // Вызов метода парных сравнений
 
-            for (int i = 0; i < listBox1.Items.Count; i++)
+            for (int i = 0; i < AlternativesDataGridView.Rows.Count; i++)
             {
                 pairs[i].Second = (i + 1).ToString() + "." + pairs[i].Second;
             }
-            //pairs.Add(new Pair<float, string>(0, (i + 1).ToString() + "." + Alternatives[i]));
 
-            //listBox1.Items.Clear(); // Очищение списка альтернатив
-            //listBox2.Items.Clear(); // Очищение списка результатов
-            //for (int i = 0; i < pairs.Count; i++)
-            //{
-            //    listBox2.Items.Add(pairs[i].Second);
-            //}
-
-            //Results(); // Промежуточные результаты
             ResultsFirstLab();
         }
 
@@ -453,7 +447,7 @@ namespace Sisan1
         {
             alterCount++;
             Alternatives.Add(db);
-            listBox1.Items.Add(alterCount.ToString() + "." + db);
+            AlternativesDataGridView.Rows.Add(alterCount.ToString(), db);
 
             var column = new DataGridViewComboBoxColumn();
             column.HeaderText = "Z" + alterCount.ToString();
@@ -535,11 +529,6 @@ namespace Sisan1
         }
 
         private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

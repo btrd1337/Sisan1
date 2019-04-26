@@ -213,8 +213,10 @@ namespace Sisan1
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             if (comboBox1.SelectedItem != null)
             {
+                
                 string Filename2 = "data/Matrix_" + comboBox1.SelectedItem.ToString();
                 if (!System.IO.File.Exists(Filename2))
                 {

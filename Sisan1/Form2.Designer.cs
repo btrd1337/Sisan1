@@ -237,6 +237,7 @@
             this.dataGridView1.Visible = false;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
             // 
             // Alternative1
             // 
@@ -304,6 +305,7 @@
             this.dataGridView2.Visible = false;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged);
+            this.dataGridView2.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView2_EditingControlShowing);
             // 
             // AlternativeName
             // 
@@ -408,15 +410,15 @@
         private System.Windows.Forms.Button FinishButton;
         private System.Windows.Forms.ComboBox MethodsComboBox;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Alternative1;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeAgree;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeNeutral;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeDisagree;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Alternative2;
         private System.Windows.Forms.Label ProgressLabel;
         private System.Windows.Forms.Label Lab2Label;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeScore;
         private System.Windows.Forms.Label CountWeightLabel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Alternative1;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeAgree;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeNeutral;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeDisagree;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Alternative2;
     }
 }

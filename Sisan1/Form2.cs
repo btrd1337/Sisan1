@@ -79,6 +79,7 @@ namespace Sisan1
 
         private void Form2_Load(object sender, EventArgs e)
         {
+
             //Problem.Text = Enter_Expert.ChosenProblem;
             try
             {
@@ -707,7 +708,7 @@ namespace Sisan1
                         //    }
                         //}
 
-                        if ((SumScore < SumScore - Math.Pow(10, -5)) && (SumScore > SumScore + Math.Pow(10, -5)))
+                        if ((SumScore < 100.0 - Math.Pow(10, -5)) || (SumScore > 100.0 + Math.Pow(10, -5)))
                         {
                             MessageBox.Show("Сумма оценок альтернатив не равно 100");
                         }
@@ -716,6 +717,10 @@ namespace Sisan1
                             List<string> tempList = new List<string>();
                             for (int i = 0; i < dataGridView2.Rows.Count; i++)
                             {
+                                if(string.IsNullOrWhiteSpace(dataGridView2.Rows[i].Cells[1].Value.ToString()))
+                                {
+                                    dataGridView2.Rows[i].Cells[1].Value = "0";
+                                }
                                 tempList.Add(Convert.ToString(Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ',')) / 100));
                             }
                             File.WriteAllLines("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/SecondLab_" + Enter_Expert.ChosenProblem, tempList);
@@ -819,19 +824,47 @@ namespace Sisan1
 
         private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 1 && e.RowIndex > -1 && (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() != ""))
+            if (e.ColumnIndex == 1 && e.RowIndex > -1 && (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() != "" /*&& !string.IsNullOrWhiteSpace(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString())*/))
             {
                 SumScore = 0;
                 for (int i = 0; i < dataGridView2.Rows.Count; i++)
                 {
-                    if (i != e.RowIndex && (dataGridView2.Rows[i].Cells[e.ColumnIndex].Value != null && dataGridView2.Rows[i].Cells[e.ColumnIndex].Value.ToString() != ""))
+                    if ((dataGridView2.Rows[i].Cells[e.ColumnIndex].Value != null && dataGridView2.Rows[i].Cells[e.ColumnIndex].Value.ToString() != "" && !string.IsNullOrWhiteSpace(dataGridView2.Rows[i].Cells[e.ColumnIndex].Value.ToString())))
                     {
                         SumScore += Convert.ToDouble(dataGridView2.Rows[i].Cells[e.ColumnIndex].Value.ToString().Replace('.', ','));
                     }
                 }
-                SumScore += Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace('.', ','));
+                //SumScore += Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace('.', ','));
                 CountWeightLabel.Text = "Общий вес = " + Convert.ToString(SumScore) + " из 100";
             }
+        }
+
+        private void dataGridView1_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+
+        private void Column1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar!='.' && e.KeyChar!=',')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void dataGridView2_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress -= new KeyPressEventHandler(Column1_KeyPress);
+            if (dataGridView2.CurrentCell.ColumnIndex == 1) //Desired Column
+            {
+                TextBox tb = e.Control as TextBox;
+                if (tb != null)
+                {
+                    tb.KeyPress += new KeyPressEventHandler(Column1_KeyPress);
+                }
+            }
+
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
