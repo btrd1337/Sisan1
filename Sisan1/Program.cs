@@ -16,9 +16,12 @@ namespace Sisan1
             Application.SetCompatibleTextRenderingDefault(false);
             Data.ExpertsList = new List<Tuple<string, List<double>, List<string>>>();
             Data.ProblemsFileName = "ad.txt";
-            Data.Methods = new List<string>();
-            Data.Methods.Add("Метод парных сравнений");
-            Data.Methods.Add("Метод взвешенных экспертных оценок");
+            Data.Methods = new List<string>
+            {
+                "Метод парных сравнений",
+                "Метод взвешенных экспертных оценок",
+                "Метод предпочтений"
+            };
             Data.ExpertsNamesInited = false;
             Sessions InitAllProblems = new Sessions();
             InitAllProblems.LoadSession();

@@ -17,7 +17,8 @@ namespace Sisan1
             Data.AllExpertsCoefForCurrrentProblem.Clear();
             UserClicked = 0;
             InitializeComponent();
-            InitSecondLabPassedExperts();
+            InitPassedExperts("SecondLab");
+            InitPassedExperts("ThirdLabFirstMethod");
 
         }
         List<Tuple<string, List<double>, List<string>>> ComboBoxExperts;
@@ -25,10 +26,16 @@ namespace Sisan1
         List<Pair<float, string>> pairs = new List<Pair<float, string>>();
         List<Tuple<string, double>> SecondLabResultVector = new List<Tuple<string, double>>();//название альтернативы и итоговая оценка
         List<Tuple<string, double, List<double>>> SecondLabExpertsPassed = new List<Tuple<string, double, List<double>>>();
+        List<Tuple<string, double>> ThirdLabFirstMethodResultVector = new List<Tuple<string, double>>();//название альтернативы и итоговая оценка
+        List<Tuple<string, List<int>>> ThirdLabFirstMethodExpertsPassed = new List<Tuple<string, List<int>>>();
+        List<Tuple<string, List<int>>> ModifiedThirdLabFirstMethodMatrix;
+        List<int> ThirdLabFirstMethodSum = new List<int>();
+
+
         List<float> results = new List<float>();
         List<string> elements = new List<string>() { "1", "0,5", "0" };
         List<string> Alternatives = new List<string>();
-        
+
 
         int alterCount = 0;
         float r = 0;
@@ -43,9 +50,9 @@ namespace Sisan1
                 Data.ProblemsFileName = "data/Experts/" + s.Remove(0, path.Length) + "/Problems.txt";
                 Sessions CurrentSession = new Sessions();
                 CurrentSession.LoadSession();
-                for (int i=0;i<CurrentSession.Problems.Count;i++)
+                for (int i = 0; i < CurrentSession.Problems.Count; i++)
                 {
-                    if (CurrentSession.Problems[i]==Enter_Analyst.ChosenProblemA)
+                    if (CurrentSession.Problems[i] == Enter_Analyst.ChosenProblemA)
                     {
                         AllProblemsCountForCurrentProblem++;
                     }
@@ -56,28 +63,88 @@ namespace Sisan1
 
         }
 
-        void InitSecondLabPassedExperts()
+        void BuildModifiedMatrxThirdLabFirstMethod()
+        {
+            List<int> tmp = new List<int>(Alternatives.Count);
+            int TotalSum = 0;
+            ModifiedThirdLabFirstMethodMatrix = ThirdLabFirstMethodExpertsPassed.ToList();
+            for (int i=0;i<Alternatives.Count;i++)
+            {
+                tmp.Add(0);
+            }
+            for (int i = 0; i < ThirdLabFirstMethodExpertsPassed.Count; i++)
+            {
+                for (int j = 0; j < Alternatives.Count; j++)
+                {
+                    ModifiedThirdLabFirstMethodMatrix[i].Item2[j] = Alternatives.Count - ThirdLabFirstMethodExpertsPassed[i].Item2[j];
+                }
+
+            }
+
+            for (int i = 0; i < ThirdLabFirstMethodExpertsPassed.Count; i++)
+            {
+                for (int j = 0; j < Alternatives.Count; j++)
+                {
+                    tmp[j] += ModifiedThirdLabFirstMethodMatrix[i].Item2[j];
+                    TotalSum += ModifiedThirdLabFirstMethodMatrix[i].Item2[j];
+                }
+
+            }
+            for (int i = 0; i < Alternatives.Count; i++)
+            {
+                double tmpDouble = (double)(tmp[i]) / (double)(TotalSum);
+                ThirdLabFirstMethodResultVector.Add(Tuple.Create(Alternatives[i], tmpDouble));
+                dataGridViewLab3FirstMethod.Rows.Add();
+                dataGridViewLab3FirstMethod.Rows[i].Cells[0].Value = i + 1;
+                dataGridViewLab3FirstMethod.Rows[i].Cells[1].Value = ThirdLabFirstMethodResultVector[i].Item1;
+                dataGridViewLab3FirstMethod.Rows[i].Cells[2].Value = ThirdLabFirstMethodResultVector[i].Item2;
+            }
+            dataGridViewLab3FirstMethod.Sort(dataGridViewLab3FirstMethod.Columns[2], System.ComponentModel.ListSortDirection.Descending);
+
+        }
+
+        void InitPassedExperts(string LabName)
         {
             string path = "data/Experts/";
             foreach (string s in Directory.GetDirectories(path))
             {
-                if (File.Exists(s + "/SecondLab_" + Enter_Analyst.ChosenProblemA))
+                if (File.Exists(s + "/" + LabName + "_" + Enter_Analyst.ChosenProblemA))
                 {
                     Data.ProblemsFileName = "data/Experts/" + s.Remove(0, path.Length) + "/Problems.txt";
                     List<double> tmpDouble = new List<double>();
+                    List<int> tmpInt = new List<int>();
                     Sessions CurrentSession = new Sessions();
-                    CurrentSession.LoadCoefficients(s + "/Coefficient.txt");
+                    if (LabName == "SecondLab")
+                    {
+                        CurrentSession.LoadCoefficients(s + "/Coefficient.txt");
+                    }
                     CurrentSession.LoadSession();
-                    string Filename1 = s + "/SecondLab_" + Enter_Analyst.ChosenProblemA;
+                    string Filename1 = s + "/" + LabName + "_" + Enter_Analyst.ChosenProblemA;
                     var sr1 = new StreamReader(Filename1); // Сканируем файл
                     string line;
-                    while ((line = sr1.ReadLine()) != null)
+                    switch (LabName)
                     {
-                        tmpDouble.Add(Convert.ToDouble(line));
+                        case "SecondLab":
+                            {
+                                while ((line = sr1.ReadLine()) != null)
+                                {
+                                    tmpDouble.Add(Convert.ToDouble(line));
+                                }
+                                SecondLabExpertsPassed.Add(new Tuple<string, double, List<double>>(s.Remove(0, path.Length), CurrentSession.CofficientsList[CurrentSession.Problems.IndexOf(Enter_Analyst.ChosenProblemA)], tmpDouble));
+                                break;
+                            }
+                        case "ThirdLabFirstMethod":
+                            {
+                                while ((line = sr1.ReadLine()) != null)
+                                {
+                                    tmpInt.Add(Convert.ToInt32(line));
+                                }
+                                ThirdLabFirstMethodExpertsPassed.Add(new Tuple<string, List<int>>(s.Remove(0, path.Length), tmpInt));
+                                break;
+                            }
                     }
                     sr1.Close();
 
-                    SecondLabExpertsPassed.Add(new Tuple<string, double, List<double>>(s.Remove(0, path.Length), CurrentSession.CofficientsList[CurrentSession.Problems.IndexOf(Enter_Analyst.ChosenProblemA)], tmpDouble));
 
                 }
 
@@ -112,7 +179,36 @@ namespace Sisan1
                 }
                 dataGridViewLab2.Sort(dataGridViewLab2.Columns[2], System.ComponentModel.ListSortDirection.Descending);
             }
-            
+
+        }
+
+        private void InitThirdLabFirstMethodResultTable()
+        {
+            if (ThirdLabFirstMethodResultVector.Count != 0)
+            {
+                List<double> tempList = new List<double>(SecondLabExpertsPassed[0].Item3.Count);
+                for (int i = 0; i < Alternatives.Count; i++)
+                {
+                    tempList.Add(0);
+                }
+                for (int i = 0; i < SecondLabExpertsPassed.Count; i++)
+                {
+                    for (int j = 0; j < SecondLabExpertsPassed[i].Item3.Count; j++)
+                    {
+                        tempList[j] += SecondLabExpertsPassed[i].Item3[j] * SecondLabExpertsPassed[i].Item2;
+                    }
+                }
+                for (int i = 0; i < Alternatives.Count; i++)
+                {
+                    SecondLabResultVector.Add(Tuple.Create(Alternatives[i], tempList[i]));
+                    dataGridViewLab2.Rows.Add();
+                    dataGridViewLab2.Rows[i].Cells[0].Value = i + 1;
+                    dataGridViewLab2.Rows[i].Cells[1].Value = Alternatives[i];
+                    dataGridViewLab2.Rows[i].Cells[2].Value = tempList[i];
+                }
+                dataGridViewLab2.Sort(dataGridViewLab2.Columns[2], System.ComponentModel.ListSortDirection.Descending);
+            }
+
         }
 
         private void Form1_Load(object sender, EventArgs e) // Открытие формы
@@ -137,7 +233,9 @@ namespace Sisan1
                 sr1.Close();
                 CountOtnositCoef();
                 InitSecondLabResultTable();
-                // dataGridView1.Rows.Clear();
+                //суда третья лаба третью три
+
+                BuildModifiedMatrxThirdLabFirstMethod();
                 if (initProblemsNameFirstLabMethodComboBox())
                 {
                     dataGridView1.AllowUserToAddRows = false;
@@ -207,9 +305,10 @@ namespace Sisan1
                     }
 
                     ResultsFirstLab();
-                    FirstLabExpertsPassedCountLabel.Text = "Пройдено " + ExpertNameFirstLabMethodComboBox.Items.Count.ToString() +" из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
+                    FirstLabExpertsPassedCountLabel.Text = "Пройдено " + ExpertNameFirstLabMethodComboBox.Items.Count.ToString() + " из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
                 }
                 SecondLabExpertsPassedCountLabel.Text = "Пройдено " + SecondLabExpertsPassed.Count.ToString() + " из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
+                ThirdLabFirstMethodExpertsPassedCountLabel.Text = "Пройдено " + ThirdLabFirstMethodExpertsPassed.Count.ToString() + " из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
 
             }
             catch (Exception err)
@@ -311,7 +410,7 @@ namespace Sisan1
             }
 
 
-            
+
             PairedComparison(); // Вызов метода парных сравнений
 
             for (int i = 0; i < AlternativesDataGridView.Rows.Count; i++)
@@ -355,33 +454,6 @@ namespace Sisan1
             pairs.Sort(CompareClass.Compare); // Сортировка весов альтернатив
         }
 
-        //private void button7_Click(object sender, EventArgs e) // Упорядочить список
-        //{
-        //    results.Clear();
-        //    pairs.Clear();
-        //    for (int i = 0; i < listBox1.Items.Count; i++)
-        //    {
-        //        pairs.Add(new Pair<float, string>(0, Alternatives[i]));
-        //    }
-
-        //    PairedComparison(); // Вызов метода парных сравнений
-
-        //    for (int i = 0; i < listBox1.Items.Count; i++)
-        //    {
-        //        pairs[i].Second = (i + 1).ToString() + "." + pairs[i].Second;
-        //    }
-        //    //pairs.Add(new Pair<float, string>(0, (i + 1).ToString() + "." + Alternatives[i]));
-
-        //    //listBox1.Items.Clear(); // Очищение списка альтернатив
-        //    listBox2.Items.Clear(); // Очищение списка результатов
-        //    for (int i = 0; i < pairs.Count; i++)
-        //    {
-        //        listBox2.Items.Add(pairs[i].Second);
-        //    }
-
-        //    Results(); // Промежуточные результаты
-        //    ResultsFirstLab();
-        //}
 
         bool Checking_grid() // Проверка матрицы на корректность данных
         {
@@ -417,13 +489,6 @@ namespace Sisan1
             return isCheck;
         }
 
-        void InitSecondLabMatrixes()
-        {
-            for (int i = 0; i < ComboBoxExperts.Count; i++) //ищем для каждого эксперта
-            {
-
-            }
-        }
 
         private void CountOtnositCoef()
         {
@@ -449,7 +514,7 @@ namespace Sisan1
             Alternatives.Add(db);
             AlternativesDataGridView.Rows.Add(alterCount.ToString(), db);
 
-            var column = new DataGridViewComboBoxColumn();
+            DataGridViewComboBoxColumn column = new DataGridViewComboBoxColumn();
             column.HeaderText = "Z" + alterCount.ToString();
             column.Name = "Z" + alterCount.ToString();
             column.Items.AddRange(new object[] { "1", "0,5", "0" });
@@ -607,6 +672,11 @@ namespace Sisan1
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void dataGridViewLab3FirstMethod_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -41,7 +41,5 @@ C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.csproj.GenerateResourc
 C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.csproj.CoreCompileInputs.cache
 C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.exe
 C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.pdb
-C:\Users\btrd\source\repos\Sisan1\Sisan1\bin\Debug\Database1.mdf
-C:\Users\btrd\source\repos\Sisan1\Sisan1\bin\Debug\Database1_log.ldf
 C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.ExpertLogin.resources
 C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Debug\Sisan1.MakeExpert.resources

@@ -33,19 +33,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.button1 = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.buttonPrev = new System.Windows.Forms.Button();
-            this.buttonNext = new System.Windows.Forms.Button();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.FinishButton = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.buttonExit = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Alternative1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AlternativeAgree = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -56,11 +48,9 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AlternativeScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProgressLabel = new System.Windows.Forms.Label();
             this.Lab2Label = new System.Windows.Forms.Label();
             this.CountWeightLabel = new System.Windows.Forms.Label();
             this.form2BindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -79,77 +69,6 @@
             this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.buttonPrev);
-            this.groupBox1.Controls.Add(this.buttonNext);
-            this.groupBox1.Controls.Add(this.radioButton3);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(15, 199);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(427, 165);
-            this.groupBox1.TabIndex = 12;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Выберите наилучший вариант";
-            this.groupBox1.Visible = false;
-            // 
-            // buttonPrev
-            // 
-            this.buttonPrev.Location = new System.Drawing.Point(6, 136);
-            this.buttonPrev.Name = "buttonPrev";
-            this.buttonPrev.Size = new System.Drawing.Size(75, 23);
-            this.buttonPrev.TabIndex = 4;
-            this.buttonPrev.Text = "Назад";
-            this.buttonPrev.UseVisualStyleBackColor = true;
-            this.buttonPrev.Click += new System.EventHandler(this.buttonPrev_Click);
-            // 
-            // buttonNext
-            // 
-            this.buttonNext.Location = new System.Drawing.Point(346, 136);
-            this.buttonNext.Name = "buttonNext";
-            this.buttonNext.Size = new System.Drawing.Size(75, 23);
-            this.buttonNext.TabIndex = 3;
-            this.buttonNext.Text = "Далее";
-            this.buttonNext.UseVisualStyleBackColor = true;
-            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(6, 102);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(145, 17);
-            this.radioButton3.TabIndex = 2;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Варианты равнозначны";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(6, 69);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(85, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "radioButton2";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 36);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(85, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-            // 
             // FinishButton
             // 
             this.FinishButton.Enabled = false;
@@ -160,18 +79,6 @@
             this.FinishButton.Text = "Закончить";
             this.FinishButton.UseVisualStyleBackColor = true;
             this.FinishButton.Click += new System.EventHandler(this.FinishButton_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.label2.Location = new System.Drawing.Point(11, 58);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(234, 24);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "Тестирование пройдено";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label2.Visible = false;
             // 
             // buttonExit
             // 
@@ -207,22 +114,15 @@
             this.comboBox1.Size = new System.Drawing.Size(179, 21);
             this.comboBox1.TabIndex = 25;
             this.comboBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox1_DrawItem);
-            this.comboBox1.DropDown += new System.EventHandler(this.comboBox1_DrawItem);
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            this.comboBox1.Click += new System.EventHandler(this.comboBox1_DrawItem);
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(15, 173);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(427, 16);
-            this.progressBar1.TabIndex = 17;
-            this.progressBar1.Visible = false;
+            this.comboBox1.Click += new System.EventHandler(this.comboBox1_Click);
+            this.comboBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.comboBox1_MouseClick);
             // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Alternative1,
@@ -230,8 +130,9 @@
             this.AlternativeNeutral,
             this.AlternativeDisagree,
             this.Alternative2});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 46);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 44);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(1323, 374);
             this.dataGridView1.TabIndex = 27;
             this.dataGridView1.Visible = false;
@@ -294,12 +195,15 @@
             // 
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.AllowUserToResizeColumns = false;
+            this.dataGridView2.AllowUserToResizeRows = false;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.AlternativeName,
             this.AlternativeScore});
-            this.dataGridView2.Location = new System.Drawing.Point(11, 41);
+            this.dataGridView2.Location = new System.Drawing.Point(11, 45);
             this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.Size = new System.Drawing.Size(870, 379);
             this.dataGridView2.TabIndex = 29;
             this.dataGridView2.Visible = false;
@@ -309,10 +213,10 @@
             // 
             // AlternativeName
             // 
+            this.AlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.AlternativeName.HeaderText = "Альтернатива";
             this.AlternativeName.Name = "AlternativeName";
             this.AlternativeName.ReadOnly = true;
-            this.AlternativeName.Width = 625;
             // 
             // AlternativeScore
             // 
@@ -320,21 +224,11 @@
             this.AlternativeScore.Name = "AlternativeScore";
             this.AlternativeScore.Width = 200;
             // 
-            // ProgressLabel
-            // 
-            this.ProgressLabel.AutoSize = true;
-            this.ProgressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ProgressLabel.Location = new System.Drawing.Point(146, 173);
-            this.ProgressLabel.Name = "ProgressLabel";
-            this.ProgressLabel.Size = new System.Drawing.Size(41, 13);
-            this.ProgressLabel.TabIndex = 26;
-            this.ProgressLabel.Text = "label1";
-            // 
             // Lab2Label
             // 
             this.Lab2Label.AutoSize = true;
             this.Lab2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.Lab2Label.Location = new System.Drawing.Point(204, 16);
+            this.Lab2Label.Location = new System.Drawing.Point(338, 9);
             this.Lab2Label.Name = "Lab2Label";
             this.Lab2Label.Size = new System.Drawing.Size(395, 20);
             this.Lab2Label.TabIndex = 30;
@@ -366,13 +260,9 @@
             this.Controls.Add(this.MethodsComboBox);
             this.Controls.Add(this.FinishButton);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.ProgressLabel);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.buttonExit);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
             this.MaximizeBox = false;
             this.Name = "Form2";
@@ -380,8 +270,6 @@
             this.Text = "Эксперт";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
             this.Load += new System.EventHandler(this.Form2_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
@@ -393,32 +281,23 @@
 
         #endregion
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.Button buttonNext;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonExit;
-        private System.Windows.Forms.Button buttonPrev;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.BindingSource bindingSource1;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource form2BindingSource;
         private System.Windows.Forms.Button FinishButton;
         private System.Windows.Forms.ComboBox MethodsComboBox;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.Label ProgressLabel;
         private System.Windows.Forms.Label Lab2Label;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeScore;
         private System.Windows.Forms.Label CountWeightLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn Alternative1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeAgree;
         private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeNeutral;
         private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeDisagree;
         private System.Windows.Forms.DataGridViewTextBoxColumn Alternative2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeScore;
     }
 }

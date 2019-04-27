@@ -39,9 +39,7 @@
             this.AnalyticsFormButton = new System.Windows.Forms.Button();
             this.ProcessingToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.DeleteToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.database1DataSet = new Sisan1.Database1DataSet();
             this.alternativesTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.alternativesTableTableAdapter = new Sisan1.Database1DataSetTableAdapters.AlternativesTableTableAdapter();
             this.database1DataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.database1DataSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.alternativesTableBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -49,7 +47,6 @@
             this.EditProblemButton = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.database1DataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.alternativesTableBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSetBindingSource1)).BeginInit();
@@ -138,35 +135,6 @@
             // 
             this.DeleteToolTip.ToolTipTitle = "Удалить проблему";
             // 
-            // database1DataSet
-            // 
-            this.database1DataSet.DataSetName = "Database1DataSet";
-            this.database1DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // alternativesTableBindingSource
-            // 
-            this.alternativesTableBindingSource.DataMember = "AlternativesTable";
-            this.alternativesTableBindingSource.DataSource = this.database1DataSet;
-            // 
-            // alternativesTableTableAdapter
-            // 
-            this.alternativesTableTableAdapter.ClearBeforeFill = true;
-            // 
-            // database1DataSetBindingSource
-            // 
-            this.database1DataSetBindingSource.DataSource = this.database1DataSet;
-            this.database1DataSetBindingSource.Position = 0;
-            // 
-            // database1DataSetBindingSource1
-            // 
-            this.database1DataSetBindingSource1.DataSource = this.database1DataSet;
-            this.database1DataSetBindingSource1.Position = 0;
-            // 
-            // alternativesTableBindingSource1
-            // 
-            this.alternativesTableBindingSource1.DataMember = "AlternativesTable";
-            this.alternativesTableBindingSource1.DataSource = this.database1DataSet;
-            // 
             // EditExpertsButton
             // 
             this.EditExpertsButton.Location = new System.Drawing.Point(44, 128);
@@ -212,7 +180,6 @@
             this.Load += new System.EventHandler(this.Enter_Analyst_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.database1DataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.alternativesTableBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSetBindingSource1)).EndInit();
@@ -226,9 +193,7 @@
         private System.Windows.Forms.Button NewProblem;
         private System.Windows.Forms.Button Exit;
         private System.Windows.Forms.Button Delete1;
-        private Database1DataSet database1DataSet;
         private System.Windows.Forms.BindingSource alternativesTableBindingSource;
-        private Database1DataSetTableAdapters.AlternativesTableTableAdapter alternativesTableTableAdapter;
         private System.Windows.Forms.BindingSource database1DataSetBindingSource;
         private System.Windows.Forms.BindingSource alternativesTableBindingSource1;
         private System.Windows.Forms.BindingSource database1DataSetBindingSource1;

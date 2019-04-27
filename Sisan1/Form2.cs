@@ -10,14 +10,11 @@ namespace Sisan1
     {
         public static string ChosenProblem;
         public static double SumScore { set; get; }
-
-        Sessions CurrectSession = new Sessions();
-        int CurrentProgress = 0;
+        Sessions CurrentSession = new Sessions();
         int tmp = 0;
         public void initChosen()
         {
             Enter_Expert.ChosenProblem = comboBox1.SelectedItem.ToString();
-            //Problem.Text = Enter_Expert.ChosenProblem;
         }
         public Form2()
         {
@@ -32,15 +29,21 @@ namespace Sisan1
 
             MethodsComboBox.SelectedIndex = 0;
             Data.ProblemsFileName = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Problems.txt";
-            CurrectSession.LoadSession();
-            bindingSource1.DataSource = CurrectSession.Problems;
-            comboBox1.DataSource = bindingSource1.DataSource;
+            CurrentSession.LoadSession();
+            
+            for (int i=0;i<CurrentSession.Problems.Count;i++)
+            {
+                comboBox1.Items.Add(CurrentSession.Problems[i]);
+            }
+            comboBox1.SelectedIndex = 0;
+
+            //bindingSource1.DataSource = CurrentSession.Problems;
+            //comboBox1.DataSource = bindingSource1.DataSource;
             Data.ProblemsFileName = "ad.txt";
         }
 
         List<string> Alternatives = new List<string>();
         int alterCount = 0;
-        int i = 0, j = 1;
         string[,] Matrix;
 
         private void AddAlternative(string db) // Добавление альтернативы
@@ -49,22 +52,13 @@ namespace Sisan1
             Alternatives.Add(db);
         }
 
-        private void DrawNext(int i, int j)
-        {
-            radioButton1.Text = Alternatives[i].ToString();
-            radioButton2.Text = Alternatives[j].ToString();
-            if ((i == 0) && (j == 1))
-            {
-                buttonPrev.Visible = false;
-            }
-        }
 
-        private void LoadSavedSecondLab()
+        private void LoadSaved(string MethodName)
         {
-            if (File.Exists("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_SecondLab_" + Enter_Expert.ChosenProblem))
+            if (File.Exists("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_" + MethodName + "_" + Enter_Expert.ChosenProblem))
             {
-                var sr2 = new StreamReader("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_SecondLab_" + Enter_Expert.ChosenProblem); // Сканируем файл
-                                                                                                                                               // Удаляем из него все разделители
+                var sr2 = new StreamReader("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_" + MethodName + "_" + Enter_Expert.ChosenProblem); // Сканируем файл
+                                                                                                                                                        // Удаляем из него все разделители
                 var Text = sr2.ReadToEnd().Split(new char[] { ' ', '\t', '\r', '\n', });
                 sr2.Close();
                 for (int i = 0; i < dataGridView2.Rows.Count; i++)
@@ -79,30 +73,10 @@ namespace Sisan1
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
-            //Problem.Text = Enter_Expert.ChosenProblem;
             try
             {
                 this.Width = 439;
                 this.Height = 160;
-                //if (CurrectSession.Problems.Count > 0)
-                //{
-                //comboBox1.Items[1].ToString() = Problems[0];
-                //Problem1.Visible = true;
-                //}
-                //Enter_Expert.ChosenProblem = comboBox1.SelectedItem.ToString();
-                //Problem.Text = Enter_Expert.ChosenProblem;
-                //string Filename = "data/Alternatives_" + Enter_Expert.ChosenProblem;
-                //var sr = new StreamReader(Filename); // Сканируем файл
-                //var text = new List<string>();
-
-                //string line;
-                //while ((line = sr.ReadLine()) != null)
-                //{
-                //    AddAlternative(line);
-                //    counter++;
-                //}
-                //sr.Hide();
                 if (CurrentCheckBoxChecked == tmp)
                 {
                     FinishButton.Enabled = true;
@@ -128,32 +102,24 @@ namespace Sisan1
                     {
                         if (Alternatives.Count > 1)
                         {
+                            tmp = 0;
+                            for (int i = 1; i < Alternatives.Count; i++)
+                            {
+                                tmp += i;
+                            }
                             int k = 0;
                             this.Size = new System.Drawing.Size(1000, 600);
                             this.Width = 1366;
                             this.Height = 500;
 
-                            initProgressBar();
                             comboBox1.Visible = false;
-                            buttonPrev.Visible = false;
-                            buttonNext.Visible = false;
                             this.Location = new System.Drawing.Point(2, 30);
                             Matrix = new string[Alternatives.Count, Alternatives.Count];
                             for (int n = 0; n < Alternatives.Count; n++)
                             {
                                 Matrix[n, n] = "d";
                             }
-
                             button1.Visible = false;
-                            //groupBox1.Visible = true;
-                            //buttonNext.Enabled = false;
-                            DrawNext(i, j);
-                            initProgressBar();
-                            //DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn();
-                            //dataGridView1.Columns.AddRange(checkBoxColumn);
-                            //dataGridView1.DataSource = Alternatives;
-                            //for (int questionCount = 0; questionCount < tmp; questionCount++)
-                            //{
                             dataGridView1.DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
                             dataGridView1.Visible = true;
                             dataGridView1.Columns[1].ReadOnly = false;
@@ -290,15 +256,6 @@ namespace Sisan1
                                 }
                             }
                             sr2.Close();
-                            //for (int i = 0; i < Alternatives.Count; i++)
-                            //{
-                            //    for (int j=i;j<Alternatives.Count;j++)
-                            //    {
-                            //        dataGridView1.Rows[tempInt].Cells[]
-                            //            tempInt++;
-                            //    }
-
-                            //}
                         }
                         break;
                     }
@@ -314,8 +271,6 @@ namespace Sisan1
                             this.Location = new System.Drawing.Point(233, 60);
 
                             comboBox1.Visible = false;
-                            buttonPrev.Visible = false;
-                            buttonNext.Visible = false;
                             dataGridView2.Visible = true;
                             FinishButton.Location = new Point(450, 426);
                             FinishButton.Enabled = true;
@@ -324,46 +279,42 @@ namespace Sisan1
                                 dataGridView2.Rows.Add();
                                 dataGridView2.Rows[i].Cells[0].Value = Alternatives[i];
                             }
-                            LoadSavedSecondLab();
+                            LoadSaved("SecondLab");
                         }
                         break;
                     }
+                case 2: //Третья лаба первый метод
+                    {
+                        if (Alternatives.Count > 0)
+                        {
+                            Lab2Label.Visible = true;
+                            Lab2Label.Text = "Введите вес альтернатив (от 1 до "+ Alternatives.Count + "). 1 - наиболее предпочтительной, 2 - менее предпочтительной и тд.";
+                            this.Size = new System.Drawing.Size(1000, 600);
+                            this.Width = 900;
+                            this.Height = 500;
+                            this.Location = new System.Drawing.Point(233, 60);
+
+                            comboBox1.Visible = false;
+                            dataGridView2.Visible = true;
+                            FinishButton.Location = new Point(450, 426);
+                            FinishButton.Enabled = true;
+                            ((DataGridViewTextBoxColumn)dataGridView2.Columns["AlternativeScore"]).MaxInputLength = 2;
+                            for (int i = 0; i < Alternatives.Count; i++)
+                            {
+                                dataGridView2.Rows.Add();
+                                dataGridView2.Rows[i].Cells[0].Value = Alternatives[i];
+
+                            }
+                            LoadSaved("ThirdLabFirstMethod");
+                            MessageBox.Show(MethodsComboBox.SelectedIndex.ToString());
+                        }
+
+                        break;
+                    }
             }
+            button1.Visible = false;
             MethodsComboBox.Visible = false;
 
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            RadioButton radioButton1 = (RadioButton)sender;
-            if (radioButton1.Checked)
-            {
-                Matrix[i, j] = "1";
-                Matrix[j, i] = "0";
-                buttonNext.Enabled = true;
-            }
-        }
-
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            RadioButton radioButton2 = (RadioButton)sender;
-            if (radioButton2.Checked)
-            {
-                Matrix[i, j] = "0";
-                Matrix[j, i] = "1";
-                buttonNext.Enabled = true;
-            }
-        }
-
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
-        {
-            RadioButton radioButton3 = (RadioButton)sender;
-            if (radioButton3.Checked)
-            {
-                Matrix[i, j] = "0,5";
-                Matrix[j, i] = "0,5";
-                buttonNext.Enabled = true;
-            }
         }
 
         private void buttonExit_Click(object sender, EventArgs e)
@@ -386,102 +337,15 @@ namespace Sisan1
             lgn.Show();
         }
 
-        private void buttonPrev_Click(object sender, EventArgs e)
-        {
-            //progressBar1.Value--;
-            CurrentProgress--;
-            ProgressLabel.Text = "Пройдено " + CurrentProgress.ToString() + " из " + tmp.ToString() + " вопросов";
-
-            if (j > i + 1)
-            {
-                j--;
-            }
-            else
-            {
-                i--;
-                j = alterCount - 1;
-            }
-            DrawNext(i, j);
-
-            radioButton1.Checked = false;
-            radioButton2.Checked = false;
-            radioButton3.Checked = false;
-            if (Matrix[i, j] == "1")
-            {
-                radioButton1.Checked = true;
-            }
-
-            if (Matrix[i, j] == "0")
-            {
-                radioButton2.Checked = true;
-            }
-
-            if (Matrix[i, j] == "0,5")
-            {
-                radioButton3.Checked = true;
-            }
-        }
-
-        private void initProgressBar()
-        {
-            tmp = 0;
-            for (int i = 1; i < Alternatives.Count; i++)
-            {
-                tmp += i;
-            }
-            ProgressLabel.Text = "Пройдено " + CurrentProgress.ToString() + " из " + tmp.ToString() + " вопросов";
-            //progressBar1.Minimum = 0;
-            //progressBar1.Maximum = tmp;
-            //progressBar1.Step = 1;
-            //progressBar1.Visible = true;
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.Visible)
-            {
-                string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_Matrix_" + Enter_Expert.ChosenProblem;
-                string output = string.Empty;
-                for (int n = 0; n < alterCount; n++)
-                {
-                    for (int m = 0; m < alterCount; m++)
-                    {
-                        output += Matrix[n, m] + "\t";
-                    }
-                    output += "\n";
-                }
-                File.Delete(Filename);
-                File.WriteAllText(Filename, output);
-            }
-            if (dataGridView2.Visible)
-            {
-                string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_SecondLab_" + Enter_Expert.ChosenProblem;
-                string output = string.Empty;
-                for (int n = 0; n < dataGridView2.Rows.Count; n++)
-                {
-                    if (dataGridView2.Rows[n].Cells[1].Value == null)
-                    {
-                        output += "r";
-                    }
-                    else
-                    {
-                        output += dataGridView2.Rows[n].Cells[1].Value.ToString();
-                    }
-
-                    output += "\n";
-                }
-                File.Delete(Filename);
-                File.WriteAllText(Filename, output);
-
-            }
+            SaveSessionInFile();
             Data.ProblemsFileName = "ad.txt";
             Login lgn = new Login();
             this.Hide();
             lgn.Show();
 
-            //Login form = new Login();
-            //this.Hide();
-            //form.Show();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -513,8 +377,6 @@ namespace Sisan1
                     comboBox1.SelectedIndex++;
                 }
             }
-
-
 
             Enter_Expert.ChosenProblem = comboBox1.SelectedItem.ToString();
             //Problem.Text = Enter_Expert.ChosenProblem;
@@ -700,14 +562,6 @@ namespace Sisan1
                     }
                 case 1:
                     {
-                        //for (int i = 0; i < dataGridView2.Rows.Count; i++)
-                        //{
-                        //    if (dataGridView2.Rows[i].Cells[1].Value != null)
-                        //    {
-                        //        SumScore += Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ','));
-                        //    }
-                        //}
-
                         if ((SumScore < 100.0 - Math.Pow(10, -5)) || (SumScore > 100.0 + Math.Pow(10, -5)))
                         {
                             MessageBox.Show("Сумма оценок альтернатив не равно 100");
@@ -717,7 +571,7 @@ namespace Sisan1
                             List<string> tempList = new List<string>();
                             for (int i = 0; i < dataGridView2.Rows.Count; i++)
                             {
-                                if(string.IsNullOrWhiteSpace(dataGridView2.Rows[i].Cells[1].Value.ToString()))
+                                if (string.IsNullOrWhiteSpace(dataGridView2.Rows[i].Cells[1].Value.ToString()))
                                 {
                                     dataGridView2.Rows[i].Cells[1].Value = "0";
                                 }
@@ -748,6 +602,40 @@ namespace Sisan1
                         }
                         break;
                     }
+                case 2:
+                    {
+                        List<string> tempList = new List<string>();
+                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        {
+                            if (string.IsNullOrWhiteSpace(dataGridView2.Rows[i].Cells[1].Value.ToString()))
+                            {
+                                dataGridView2.Rows[i].Cells[1].Value = "0";
+                            }
+                            tempList.Add(Convert.ToString(Convert.ToByte(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ',')) / 100));
+                        }
+                        File.WriteAllLines("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/ThirdLabFirstMethod_" + Enter_Expert.ChosenProblem, tempList);
+                        string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/ThirdLabFirstMethod_" + Enter_Expert.ChosenProblem;
+                        string output = string.Empty;
+                        for (int n = 0; n < dataGridView2.Rows.Count; n++)
+                        {
+                            if (dataGridView2.Rows[n].Cells[1].Value == null)
+                            {
+                                output += "r";
+                            }
+                            else
+                            {
+                                output += dataGridView2.Rows[n].Cells[1].Value.ToString();
+                            }
+
+                            output += "\n";
+                        }
+                        File.Delete(Filename);
+                        File.WriteAllText(Filename, output);
+                        Login lgn = new Login();
+                        this.Hide();
+                        lgn.Show();
+                        break;
+                    }
 
             }
 
@@ -759,6 +647,12 @@ namespace Sisan1
             if (comboBox1.SelectedItem != null)
             {
                 string Filename2 = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Matrix_" + comboBox1.SelectedItem.ToString();
+                switch (MethodsComboBox.SelectedIndex)
+                {
+                    case 0: { Filename2 = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Matrix_" + comboBox1.SelectedItem.ToString(); break; }
+                    case 1: { Filename2 = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/SecondLab_" + comboBox1.SelectedItem.ToString(); break; }
+                    case 2: { Filename2 = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/ThirdLabFirstMethod_" + comboBox1.SelectedItem.ToString(); break; }
+                }
                 if (!System.IO.File.Exists(Filename2))
                 {
                     using (Brush br = new SolidBrush(Color.LightPink))
@@ -780,13 +674,12 @@ namespace Sisan1
             }
         }
 
-        private void comboBox1_DrawItem(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void MethodsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //comboBox1.Items.Add("");
+            comboBox1.Invalidate();
+            //comboBox1.Items.RemoveAt(comboBox1.Items.Count-1);
 
         }
 
@@ -795,11 +688,41 @@ namespace Sisan1
 
         }
 
-        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        private void SaveSessionInFile()
         {
+            if (dataGridView1.Visible)
+            {
+                string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_Matrix_" + Enter_Expert.ChosenProblem;
+                string output = string.Empty;
+                for (int n = 0; n < alterCount; n++)
+                {
+                    for (int m = 0; m < alterCount; m++)
+                    {
+                        output += Matrix[n, m] + "\t";
+                    }
+                    output += "\n";
+                }
+                File.Delete(Filename);
+                File.WriteAllText(Filename, output);
+            }
+            else
             if (dataGridView2.Visible)
             {
-                string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_SecondLab_" + Enter_Expert.ChosenProblem;
+                string Filename = "someString";
+                switch (MethodsComboBox.SelectedIndex)
+                {
+                    case 1:
+                        {
+                            Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_SecondLab_" + Enter_Expert.ChosenProblem;
+                            break;
+                        }
+                    case 2:
+                        {
+                            Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_ThirdLabFirstMethod_" + Enter_Expert.ChosenProblem;
+                            break;
+                        }
+
+                }
                 string output = string.Empty;
                 for (int n = 0; n < dataGridView2.Rows.Count; n++)
                 {
@@ -816,26 +739,65 @@ namespace Sisan1
                 }
                 File.Delete(Filename);
                 File.WriteAllText(Filename, output);
-
             }
+        }
 
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveSessionInFile();
             Application.Exit();
+
         }
 
         private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 1 && e.RowIndex > -1 && (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() != "" /*&& !string.IsNullOrWhiteSpace(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString())*/))
+            switch (MethodsComboBox.SelectedIndex)
             {
-                SumScore = 0;
-                for (int i = 0; i < dataGridView2.Rows.Count; i++)
-                {
-                    if ((dataGridView2.Rows[i].Cells[e.ColumnIndex].Value != null && dataGridView2.Rows[i].Cells[e.ColumnIndex].Value.ToString() != "" && !string.IsNullOrWhiteSpace(dataGridView2.Rows[i].Cells[e.ColumnIndex].Value.ToString())))
+                case 1:
                     {
-                        SumScore += Convert.ToDouble(dataGridView2.Rows[i].Cells[e.ColumnIndex].Value.ToString().Replace('.', ','));
+                        if (e.ColumnIndex == 1 && e.RowIndex > -1 && (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() != "" /*&& !string.IsNullOrWhiteSpace(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString())*/))
+                        {
+                            SumScore = 0;
+                            for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                            {
+                                if ((dataGridView2.Rows[i].Cells[e.ColumnIndex].Value != null && dataGridView2.Rows[i].Cells[e.ColumnIndex].Value.ToString() != "" && !string.IsNullOrWhiteSpace(dataGridView2.Rows[i].Cells[e.ColumnIndex].Value.ToString())))
+                                {
+                                    SumScore += Convert.ToDouble(dataGridView2.Rows[i].Cells[e.ColumnIndex].Value.ToString().Replace('.', ','));
+                                }
+                            }
+                            CountWeightLabel.Text = "Общий вес = " + Convert.ToString(SumScore) + " из 100";
+                        }
+
+                        break;
                     }
-                }
-                //SumScore += Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace('.', ','));
-                CountWeightLabel.Text = "Общий вес = " + Convert.ToString(SumScore) + " из 100";
+                case 2:
+                    {
+                        if (e.ColumnIndex == 1 && e.RowIndex > -1)
+                        {
+                            if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && Convert.ToByte(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value) > dataGridView2.Rows.Count || Convert.ToByte(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value) < 1)
+                            {
+                                dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
+                                CurrentCheckBoxChecked++;
+                            }
+                            else
+                            {
+                                dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = default(Color);
+                            }
+                        }
+                        bool LockFinishButton = false;
+                        for (int i = 0; i < dataGridView2.Rows.Count && LockFinishButton == false; i++)
+                        {
+                            if (Convert.ToByte(dataGridView2.Rows[i].Cells[1].Value) > dataGridView2.Rows.Count || Convert.ToByte(dataGridView2.Rows[i].Cells[1].Value) == 0)
+                                LockFinishButton = true;
+                        }
+                        if (LockFinishButton == true)
+                        {
+                            FinishButton.Enabled = false;
+                        }
+                        else
+                            FinishButton.Enabled = true;
+                        break;
+                    }
             }
         }
 
@@ -847,9 +809,25 @@ namespace Sisan1
 
         private void Column1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar!='.' && e.KeyChar!=',')
+            switch (MethodsComboBox.SelectedIndex)
             {
-                e.Handled = true;
+                case 1:
+                    {
+                        if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != ',')
+                        {
+                            e.Handled = true;
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+
+                        if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                        {
+                            e.Handled = true;
+                        }
+                        break;
+                    }
             }
         }
 
@@ -867,61 +845,14 @@ namespace Sisan1
 
         }
 
-        private void buttonNext_Click(object sender, EventArgs e)
+        private void comboBox1_Click(object sender, EventArgs e)
         {
-            buttonPrev.Visible = true;
 
-            //progressBar1.Value++;
-            CurrentProgress++;
-            ProgressLabel.Text = "Пройдено " + CurrentProgress.ToString() + " из " + tmp.ToString() + " вопросов";
+        }
 
-            radioButton1.Checked = false;
-            radioButton2.Checked = false;
-            radioButton3.Checked = false;
-            buttonNext.Enabled = false;
-            if (j < alterCount - 1)
-            {
-                j++;
-                DrawNext(i, j);
-            }
-            else
-            {
-                if ((i == alterCount - 2) && (j == alterCount - 1))
-                {
-                    groupBox1.Visible = false;
-                    buttonExit.Visible = true; // Сохранение матрицы в файл и выход
-                    this.Width = 260;
-                    this.Height = 140;
+        private void comboBox1_MouseClick(object sender, MouseEventArgs e)
+        {
 
-                    label2.Visible = true; // Надпись спасибо что прошли тест
-                    comboBox1.Visible = false;
-                    progressBar1.Visible = false;
-                }
-                else
-                {
-                    i++;
-                    j = i + 1;
-                    DrawNext(i, j);
-                }
-            }
-
-            radioButton1.Checked = false;
-            radioButton2.Checked = false;
-            radioButton3.Checked = false;
-            if (Matrix[i, j] == "1")
-            {
-                radioButton1.Checked = true;
-            }
-
-            if (Matrix[i, j] == "0")
-            {
-                radioButton2.Checked = true;
-            }
-
-            if (Matrix[i, j] == "0,5")
-            {
-                radioButton3.Checked = true;
-            }
         }
     }
 }

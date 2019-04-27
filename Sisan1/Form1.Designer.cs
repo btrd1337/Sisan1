@@ -53,6 +53,7 @@
             this.Lab3FirstMethodNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ThirdLabFirstMethodAlternative = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ThirdLabFirstMethodWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ThirdLabFirstMethodExpertsPassedCountLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab1)).BeginInit();
@@ -228,7 +229,7 @@
             // SecondLabExpertsPassedCountLabel
             // 
             this.SecondLabExpertsPassedCountLabel.AutoSize = true;
-            this.SecondLabExpertsPassedCountLabel.Location = new System.Drawing.Point(541, 366);
+            this.SecondLabExpertsPassedCountLabel.Location = new System.Drawing.Point(538, 367);
             this.SecondLabExpertsPassedCountLabel.Name = "SecondLabExpertsPassedCountLabel";
             this.SecondLabExpertsPassedCountLabel.Size = new System.Drawing.Size(154, 13);
             this.SecondLabExpertsPassedCountLabel.TabIndex = 23;
@@ -280,6 +281,7 @@
             this.dataGridViewLab3FirstMethod.RowHeadersVisible = false;
             this.dataGridViewLab3FirstMethod.Size = new System.Drawing.Size(242, 299);
             this.dataGridViewLab3FirstMethod.TabIndex = 25;
+            this.dataGridViewLab3FirstMethod.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLab3FirstMethod_CellContentClick);
             // 
             // Lab3FirstMethodNum
             // 
@@ -302,12 +304,22 @@
             this.ThirdLabFirstMethodWeight.Name = "ThirdLabFirstMethodWeight";
             this.ThirdLabFirstMethodWeight.ReadOnly = true;
             // 
+            // ThirdLabFirstMethodExpertsPassedCountLabel
+            // 
+            this.ThirdLabFirstMethodExpertsPassedCountLabel.AutoSize = true;
+            this.ThirdLabFirstMethodExpertsPassedCountLabel.Location = new System.Drawing.Point(800, 367);
+            this.ThirdLabFirstMethodExpertsPassedCountLabel.Name = "ThirdLabFirstMethodExpertsPassedCountLabel";
+            this.ThirdLabFirstMethodExpertsPassedCountLabel.Size = new System.Drawing.Size(154, 13);
+            this.ThirdLabFirstMethodExpertsPassedCountLabel.TabIndex = 26;
+            this.ThirdLabFirstMethodExpertsPassedCountLabel.Text = "Пройдено 0 из 0 экспертами";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1054, 393);
+            this.Controls.Add(this.ThirdLabFirstMethodExpertsPassedCountLabel);
             this.Controls.Add(this.dataGridViewLab3FirstMethod);
             this.Controls.Add(this.AlternativesDataGridView);
             this.Controls.Add(this.SecondLabExpertsPassedCountLabel);
@@ -361,6 +373,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Lab3FirstMethodNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn ThirdLabFirstMethodAlternative;
         private System.Windows.Forms.DataGridViewTextBoxColumn ThirdLabFirstMethodWeight;
+        private System.Windows.Forms.Label ThirdLabFirstMethodExpertsPassedCountLabel;
     }
 }
 

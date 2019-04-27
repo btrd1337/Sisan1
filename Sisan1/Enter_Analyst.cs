@@ -128,7 +128,6 @@ namespace Sisan1
         private void Enter_Analyst_Load(object sender, EventArgs e)
         {
             // TODO: данная строка кода позволяет загрузить данные в таблицу "database1DataSet.AlternativesTable". При необходимости она может быть перемещена или удалена.
-            this.alternativesTableTableAdapter.Fill(this.database1DataSet.AlternativesTable);
             DeleteToolTip.SetToolTip(this.Delete1, "Удалить проблему");
             ProcessingToolTip.SetToolTip(this.AnalyticsFormButton, "Перейти к обработке");
             comboBox1.DrawItem += comboBox1_DrawItem;
