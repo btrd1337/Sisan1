@@ -54,11 +54,17 @@
             this.ThirdLabFirstMethodAlternative = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ThirdLabFirstMethodWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ThirdLabFirstMethodExpertsPassedCountLabel = new System.Windows.Forms.Label();
+            this.dataGridViewRankMethod = new System.Windows.Forms.DataGridView();
+            this.dataGridViewRankMethodNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewRankMethodAlterntaive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewRankMethodWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RankMethodExpertsPassedLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlternativesDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab3FirstMethod)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRankMethod)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -313,12 +319,60 @@
             this.ThirdLabFirstMethodExpertsPassedCountLabel.TabIndex = 26;
             this.ThirdLabFirstMethodExpertsPassedCountLabel.Text = "Пройдено 0 из 0 экспертами";
             // 
+            // dataGridViewRankMethod
+            // 
+            this.dataGridViewRankMethod.AllowUserToAddRows = false;
+            this.dataGridViewRankMethod.AllowUserToDeleteRows = false;
+            this.dataGridViewRankMethod.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewRankMethod.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewRankMethodNum,
+            this.dataGridViewRankMethodAlterntaive,
+            this.dataGridViewRankMethodWeight});
+            this.dataGridViewRankMethod.Location = new System.Drawing.Point(1067, 63);
+            this.dataGridViewRankMethod.Name = "dataGridViewRankMethod";
+            this.dataGridViewRankMethod.ReadOnly = true;
+            this.dataGridViewRankMethod.RowHeadersVisible = false;
+            this.dataGridViewRankMethod.Size = new System.Drawing.Size(242, 299);
+            this.dataGridViewRankMethod.TabIndex = 27;
+            // 
+            // dataGridViewRankMethodNum
+            // 
+            this.dataGridViewRankMethodNum.HeaderText = "№";
+            this.dataGridViewRankMethodNum.Name = "dataGridViewRankMethodNum";
+            this.dataGridViewRankMethodNum.ReadOnly = true;
+            this.dataGridViewRankMethodNum.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewRankMethodNum.Width = 25;
+            // 
+            // dataGridViewRankMethodAlterntaive
+            // 
+            this.dataGridViewRankMethodAlterntaive.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewRankMethodAlterntaive.HeaderText = "Альтерантива";
+            this.dataGridViewRankMethodAlterntaive.Name = "dataGridViewRankMethodAlterntaive";
+            this.dataGridViewRankMethodAlterntaive.ReadOnly = true;
+            // 
+            // dataGridViewRankMethodWeight
+            // 
+            this.dataGridViewRankMethodWeight.HeaderText = "Вес";
+            this.dataGridViewRankMethodWeight.Name = "dataGridViewRankMethodWeight";
+            this.dataGridViewRankMethodWeight.ReadOnly = true;
+            // 
+            // RankMethodExpertsPassedLabel
+            // 
+            this.RankMethodExpertsPassedLabel.AutoSize = true;
+            this.RankMethodExpertsPassedLabel.Location = new System.Drawing.Point(1064, 367);
+            this.RankMethodExpertsPassedLabel.Name = "RankMethodExpertsPassedLabel";
+            this.RankMethodExpertsPassedLabel.Size = new System.Drawing.Size(154, 13);
+            this.RankMethodExpertsPassedLabel.TabIndex = 28;
+            this.RankMethodExpertsPassedLabel.Text = "Пройдено 0 из 0 экспертами";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1054, 393);
+            this.ClientSize = new System.Drawing.Size(1321, 393);
+            this.Controls.Add(this.RankMethodExpertsPassedLabel);
+            this.Controls.Add(this.dataGridViewRankMethod);
             this.Controls.Add(this.ThirdLabFirstMethodExpertsPassedCountLabel);
             this.Controls.Add(this.dataGridViewLab3FirstMethod);
             this.Controls.Add(this.AlternativesDataGridView);
@@ -343,6 +397,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlternativesDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab3FirstMethod)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRankMethod)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -374,6 +429,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ThirdLabFirstMethodAlternative;
         private System.Windows.Forms.DataGridViewTextBoxColumn ThirdLabFirstMethodWeight;
         private System.Windows.Forms.Label ThirdLabFirstMethodExpertsPassedCountLabel;
+        private System.Windows.Forms.DataGridView dataGridViewRankMethod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewRankMethodNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewRankMethodAlterntaive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewRankMethodWeight;
+        private System.Windows.Forms.Label RankMethodExpertsPassedLabel;
     }
 }
 

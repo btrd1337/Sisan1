@@ -30,8 +30,8 @@ namespace Sisan1
             MethodsComboBox.SelectedIndex = 0;
             Data.ProblemsFileName = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Problems.txt";
             CurrentSession.LoadSession();
-            
-            for (int i=0;i<CurrentSession.Problems.Count;i++)
+
+            for (int i = 0; i < CurrentSession.Problems.Count; i++)
             {
                 comboBox1.Items.Add(CurrentSession.Problems[i]);
             }
@@ -288,7 +288,7 @@ namespace Sisan1
                         if (Alternatives.Count > 0)
                         {
                             Lab2Label.Visible = true;
-                            Lab2Label.Text = "Введите вес альтернатив (от 1 до "+ Alternatives.Count + "). 1 - наиболее предпочтительной, 2 - менее предпочтительной и тд.";
+                            Lab2Label.Text = "Введите вес альтернатив (от 1 до " + Alternatives.Count + "). 1 - наиболее предпочтительной, 2 - менее предпочтительной и тд.";
                             this.Size = new System.Drawing.Size(1000, 600);
                             this.Width = 900;
                             this.Height = 500;
@@ -309,6 +309,32 @@ namespace Sisan1
                             MessageBox.Show(MethodsComboBox.SelectedIndex.ToString());
                         }
 
+                        break;
+                    }
+                case 3:
+                    {
+                        if (Alternatives.Count > 0)
+                        {
+                            Lab2Label.Visible = true;
+                            Lab2Label.Text = "Введите вес альтернатив (от 0 до 10)";
+                            this.Size = new System.Drawing.Size(1000, 600);
+                            this.Width = 900;
+                            this.Height = 500;
+                            this.Location = new System.Drawing.Point(233, 60);
+
+                            comboBox1.Visible = false;
+                            dataGridView2.Visible = true;
+                            FinishButton.Location = new Point(450, 426);
+                            FinishButton.Enabled = true;
+                            for (int i = 0; i < Alternatives.Count; i++)
+                            {
+                                dataGridView2.Rows.Add();
+                                dataGridView2.Rows[i].Cells[0].Value = Alternatives[i];
+
+                            }
+                            LoadSaved("RankMethod");
+                            MessageBox.Show(MethodsComboBox.SelectedIndex.ToString());
+                        }
                         break;
                     }
             }
@@ -588,7 +614,7 @@ namespace Sisan1
                                 }
                                 else
                                 {
-                                    output += dataGridView2.Rows[n].Cells[1].Value.ToString();
+                                    output += dataGridView2.Rows[n].Cells[1].Value.ToString().Replace('.', ',');
                                 }
 
                                 output += "\n";
@@ -636,6 +662,40 @@ namespace Sisan1
                         lgn.Show();
                         break;
                     }
+                case 3:
+                    {
+                        List<string> tempList = new List<string>();
+                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        {
+                            if (string.IsNullOrWhiteSpace(dataGridView2.Rows[i].Cells[1].Value.ToString()))
+                            {
+                                dataGridView2.Rows[i].Cells[1].Value = "0";
+                            }
+                            tempList.Add(Convert.ToString(Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ',')) / 100));
+                        }
+                        File.WriteAllLines("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/RankMethod_" + Enter_Expert.ChosenProblem, tempList);
+                        string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/RankMethod_" + Enter_Expert.ChosenProblem;
+                        string output = string.Empty;
+                        for (int n = 0; n < dataGridView2.Rows.Count; n++)
+                        {
+                            if (dataGridView2.Rows[n].Cells[1].Value == null)
+                            {
+                                output += "r";
+                            }
+                            else
+                            {
+                                output += dataGridView2.Rows[n].Cells[1].Value.ToString().Replace('.', ',');
+                            }
+
+                            output += "\n";
+                        }
+                        File.Delete(Filename);
+                        File.WriteAllText(Filename, output);
+                        Login lgn = new Login();
+                        this.Hide();
+                        lgn.Show();
+                        break;
+                    }
 
             }
 
@@ -652,6 +712,7 @@ namespace Sisan1
                     case 0: { Filename2 = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Matrix_" + comboBox1.SelectedItem.ToString(); break; }
                     case 1: { Filename2 = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/SecondLab_" + comboBox1.SelectedItem.ToString(); break; }
                     case 2: { Filename2 = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/ThirdLabFirstMethod_" + comboBox1.SelectedItem.ToString(); break; }
+                    case 3: { Filename2 = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/RankMethod_" + comboBox1.SelectedItem.ToString(); break; }
                 }
                 if (!System.IO.File.Exists(Filename2))
                 {
@@ -674,7 +735,7 @@ namespace Sisan1
             }
         }
 
-        
+
         private void MethodsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //comboBox1.Items.Add("");
@@ -721,6 +782,12 @@ namespace Sisan1
                             Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_ThirdLabFirstMethod_" + Enter_Expert.ChosenProblem;
                             break;
                         }
+                    case 3:
+                        {
+                            Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_RankMethod_" + Enter_Expert.ChosenProblem;
+                            break;
+
+                        }
 
                 }
                 string output = string.Empty;
@@ -753,7 +820,7 @@ namespace Sisan1
         {
             switch (MethodsComboBox.SelectedIndex)
             {
-                case 1:
+                case 1: //парных сравнений
                     {
                         if (e.ColumnIndex == 1 && e.RowIndex > -1 && (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() != "" /*&& !string.IsNullOrWhiteSpace(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString())*/))
                         {
@@ -770,7 +837,7 @@ namespace Sisan1
 
                         break;
                     }
-                case 2:
+                case 2: //первый метод 3 лабы
                     {
                         if (e.ColumnIndex == 1 && e.RowIndex > -1)
                         {
@@ -788,14 +855,55 @@ namespace Sisan1
                         for (int i = 0; i < dataGridView2.Rows.Count && LockFinishButton == false; i++)
                         {
                             if (Convert.ToByte(dataGridView2.Rows[i].Cells[1].Value) > dataGridView2.Rows.Count || Convert.ToByte(dataGridView2.Rows[i].Cells[1].Value) == 0)
+                            {
                                 LockFinishButton = true;
+                            }
                         }
                         if (LockFinishButton == true)
                         {
                             FinishButton.Enabled = false;
                         }
                         else
+                        {
                             FinishButton.Enabled = true;
+                        }
+
+                        break;
+                    }
+                case 3: //метод ранга
+                    {
+                        if (e.ColumnIndex == 1 && e.RowIndex > -1)
+                        {
+                            if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace('.', ',')) > 10.0 || Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace('.', ',')) < 0.0)
+                            {
+                                dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
+                                CurrentCheckBoxChecked++;
+                            }
+                            else
+                            {
+                                dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = default(Color);
+                            }
+                        }
+                        bool LockFinishButton = false;
+                        for (int i = 0; i < dataGridView2.Rows.Count && LockFinishButton == false; i++)
+                        {
+                            if (dataGridView2.Rows[i].Cells[1].Value != null)
+                            {
+                                if (Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ',')) > 10.0 || Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ',')) < 0.0)
+                                {
+                                    LockFinishButton = true;
+                                }
+                            }
+                        }
+                        if (LockFinishButton == true)
+                        {
+                            FinishButton.Enabled = false;
+                        }
+                        else
+                        {
+                            FinishButton.Enabled = true;
+                        }
+
                         break;
                     }
             }
@@ -811,7 +919,7 @@ namespace Sisan1
         {
             switch (MethodsComboBox.SelectedIndex)
             {
-                case 1:
+                case 1: //взвешенных
                     {
                         if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != ',')
                         {
@@ -819,10 +927,18 @@ namespace Sisan1
                         }
                         break;
                     }
-                case 2:
+                case 2://предпочтений
                     {
 
                         if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                        {
+                            e.Handled = true;
+                        }
+                        break;
+                    }
+                case 3://ранга
+                    {
+                        if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != ',')
                         {
                             e.Handled = true;
                         }

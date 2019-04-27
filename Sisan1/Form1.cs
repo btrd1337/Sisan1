@@ -19,6 +19,7 @@ namespace Sisan1
             InitializeComponent();
             InitPassedExperts("SecondLab");
             InitPassedExperts("ThirdLabFirstMethod");
+            InitPassedExperts("RankMethod");
 
         }
         List<Tuple<string, List<double>, List<string>>> ComboBoxExperts;
@@ -29,6 +30,9 @@ namespace Sisan1
         List<Tuple<string, double>> ThirdLabFirstMethodResultVector = new List<Tuple<string, double>>();//название альтернативы и итоговая оценка
         List<Tuple<string, List<int>>> ThirdLabFirstMethodExpertsPassed = new List<Tuple<string, List<int>>>();
         List<Tuple<string, List<int>>> ModifiedThirdLabFirstMethodMatrix;
+        List<Tuple<string, double>> RankMethodResultVector = new List<Tuple<string, double>>();//название альтернативы и итоговая оценка
+        List<Tuple<string, List<double>>> RankMethodExpertsPassed = new List<Tuple<string, List<double>>>();
+
         List<int> ThirdLabFirstMethodSum = new List<int>();
 
 
@@ -65,42 +69,92 @@ namespace Sisan1
 
         void BuildModifiedMatrxThirdLabFirstMethod()
         {
-            List<int> tmp = new List<int>(Alternatives.Count);
-            int TotalSum = 0;
-            ModifiedThirdLabFirstMethodMatrix = ThirdLabFirstMethodExpertsPassed.ToList();
-            for (int i=0;i<Alternatives.Count;i++)
+            if (ThirdLabFirstMethodExpertsPassed.Count > 0)
             {
-                tmp.Add(0);
-            }
-            for (int i = 0; i < ThirdLabFirstMethodExpertsPassed.Count; i++)
-            {
-                for (int j = 0; j < Alternatives.Count; j++)
+                List<int> tmp = new List<int>(Alternatives.Count);
+                int TotalSum = 0;
+                ModifiedThirdLabFirstMethodMatrix = ThirdLabFirstMethodExpertsPassed.ToList();
+                for (int i = 0; i < Alternatives.Count; i++)
                 {
-                    ModifiedThirdLabFirstMethodMatrix[i].Item2[j] = Alternatives.Count - ThirdLabFirstMethodExpertsPassed[i].Item2[j];
+                    tmp.Add(0);
+                }
+                for (int i = 0; i < ThirdLabFirstMethodExpertsPassed.Count; i++)
+                {
+                    for (int j = 0; j < Alternatives.Count; j++)
+                    {
+                        ModifiedThirdLabFirstMethodMatrix[i].Item2[j] = Alternatives.Count - ThirdLabFirstMethodExpertsPassed[i].Item2[j];
+                    }
+
                 }
 
-            }
-
-            for (int i = 0; i < ThirdLabFirstMethodExpertsPassed.Count; i++)
-            {
-                for (int j = 0; j < Alternatives.Count; j++)
+                for (int i = 0; i < ThirdLabFirstMethodExpertsPassed.Count; i++)
                 {
-                    tmp[j] += ModifiedThirdLabFirstMethodMatrix[i].Item2[j];
-                    TotalSum += ModifiedThirdLabFirstMethodMatrix[i].Item2[j];
+                    for (int j = 0; j < Alternatives.Count; j++)
+                    {
+                        tmp[j] += ModifiedThirdLabFirstMethodMatrix[i].Item2[j];
+                        TotalSum += ModifiedThirdLabFirstMethodMatrix[i].Item2[j];
+                    }
+
+                }
+                double SumRows = 0;
+                for (int i = 0; i < Alternatives.Count; i++)
+                {
+                    double tmpDouble = (double)(tmp[i]) / (double)(TotalSum);
+                    ThirdLabFirstMethodResultVector.Add(Tuple.Create(Alternatives[i], tmpDouble));
+                    dataGridViewLab3FirstMethod.Rows.Add();
+                    dataGridViewLab3FirstMethod.Rows[i].Cells[0].Value = i + 1;
+                    dataGridViewLab3FirstMethod.Rows[i].Cells[1].Value = ThirdLabFirstMethodResultVector[i].Item1;
+                    dataGridViewLab3FirstMethod.Rows[i].Cells[2].Value = ThirdLabFirstMethodResultVector[i].Item2;
+                    SumRows += ThirdLabFirstMethodResultVector[i].Item2;
+                }
+                dataGridViewLab3FirstMethod.Sort(dataGridViewLab3FirstMethod.Columns[2], System.ComponentModel.ListSortDirection.Descending);
+                dataGridViewLab3FirstMethod.Rows.Add(null, "Sum", SumRows);
+            }
+        }
+
+        private void InitRankMethodResultTable()
+        {
+            if (RankMethodExpertsPassed.Count > 0)
+            {
+                List<double> tmp = new List<double>(Alternatives.Count);
+                List<double> SumOfRow = new List<double>();
+                for (int i = 0; i < RankMethodExpertsPassed.Count; i++)
+                {
+                    SumOfRow.Add(0);
                 }
 
-            }
-            for (int i = 0; i < Alternatives.Count; i++)
-            {
-                double tmpDouble = (double)(tmp[i]) / (double)(TotalSum);
-                ThirdLabFirstMethodResultVector.Add(Tuple.Create(Alternatives[i], tmpDouble));
-                dataGridViewLab3FirstMethod.Rows.Add();
-                dataGridViewLab3FirstMethod.Rows[i].Cells[0].Value = i + 1;
-                dataGridViewLab3FirstMethod.Rows[i].Cells[1].Value = ThirdLabFirstMethodResultVector[i].Item1;
-                dataGridViewLab3FirstMethod.Rows[i].Cells[2].Value = ThirdLabFirstMethodResultVector[i].Item2;
-            }
-            dataGridViewLab3FirstMethod.Sort(dataGridViewLab3FirstMethod.Columns[2], System.ComponentModel.ListSortDirection.Descending);
+                for (int i = 0; i < Alternatives.Count; i++)
+                {
+                    tmp.Add(0);
+                }
+                for (int i = 0; i < RankMethodExpertsPassed.Count; i++) //для нормирования
+                {
+                    for (int j = 0; j < Alternatives.Count; j++)
+                    {
+                        SumOfRow[i] += RankMethodExpertsPassed[i].Item2[j];
 
+                    }
+                }
+                for (int i = 0; i < RankMethodExpertsPassed.Count; i++) //отнормировали
+                {
+                    for (int j = 0; j < Alternatives.Count; j++)
+                    {
+                        RankMethodExpertsPassed[i].Item2[j] /= SumOfRow[i];
+                        tmp[j] += RankMethodExpertsPassed[i].Item2[j];
+                    }
+                }
+
+                for (int i = 0; i < Alternatives.Count; i++)
+                {
+                    RankMethodResultVector.Add(Tuple.Create(Alternatives[i], tmp[i] / RankMethodExpertsPassed.Count));
+                    dataGridViewRankMethod.Rows.Add();
+                    dataGridViewRankMethod.Rows[i].Cells[0].Value = i + 1;
+                    dataGridViewRankMethod.Rows[i].Cells[1].Value = RankMethodResultVector[i].Item1;
+                    dataGridViewRankMethod.Rows[i].Cells[2].Value = RankMethodResultVector[i].Item2;
+                }
+                dataGridViewRankMethod.Sort(dataGridViewRankMethod.Columns[2], System.ComponentModel.ListSortDirection.Descending);
+
+            }
         }
 
         void InitPassedExperts(string LabName)
@@ -142,6 +196,17 @@ namespace Sisan1
                                 ThirdLabFirstMethodExpertsPassed.Add(new Tuple<string, List<int>>(s.Remove(0, path.Length), tmpInt));
                                 break;
                             }
+                        case "RankMethod":
+                            {
+                                while ((line = sr1.ReadLine()) != null)
+                                {
+                                    tmpDouble.Add(Convert.ToDouble(line));
+                                }
+                                RankMethodExpertsPassed.Add(new Tuple<string, List<double>>(s.Remove(0, path.Length), tmpDouble));
+
+                                break;
+                            }
+
                     }
                     sr1.Close();
 
@@ -236,6 +301,9 @@ namespace Sisan1
                 //суда третья лаба третью три
 
                 BuildModifiedMatrxThirdLabFirstMethod();
+
+                InitRankMethodResultTable();
+
                 if (initProblemsNameFirstLabMethodComboBox())
                 {
                     dataGridView1.AllowUserToAddRows = false;
@@ -309,6 +377,7 @@ namespace Sisan1
                 }
                 SecondLabExpertsPassedCountLabel.Text = "Пройдено " + SecondLabExpertsPassed.Count.ToString() + " из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
                 ThirdLabFirstMethodExpertsPassedCountLabel.Text = "Пройдено " + ThirdLabFirstMethodExpertsPassed.Count.ToString() + " из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
+                RankMethodExpertsPassedLabel.Text = "Пройдено " + RankMethodExpertsPassed.Count.ToString() + " из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
 
             }
             catch (Exception err)
