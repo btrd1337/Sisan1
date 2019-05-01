@@ -78,6 +78,7 @@
             this.FinishButton.TabIndex = 5;
             this.FinishButton.Text = "Закончить";
             this.FinishButton.UseVisualStyleBackColor = true;
+            this.FinishButton.Visible = false;
             this.FinishButton.Click += new System.EventHandler(this.FinishButton_Click);
             // 
             // buttonExit
@@ -228,7 +229,7 @@
             // 
             this.Lab2Label.AutoSize = true;
             this.Lab2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.Lab2Label.Location = new System.Drawing.Point(338, 9);
+            this.Lab2Label.Location = new System.Drawing.Point(37, 18);
             this.Lab2Label.Name = "Lab2Label";
             this.Lab2Label.Size = new System.Drawing.Size(395, 20);
             this.Lab2Label.TabIndex = 30;

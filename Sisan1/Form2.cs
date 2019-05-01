@@ -82,7 +82,7 @@ namespace Sisan1
                     FinishButton.Enabled = true;
                 }
 
-                FinishButton.Visible = true;
+                //FinishButton.Visible = true;
                 button1.Visible = true;
             }
             catch (Exception ex)
@@ -96,6 +96,7 @@ namespace Sisan1
         public void button1_Click(object sender, EventArgs e) // Начать тестирование
         {
             int questionCount = 0;
+            FinishButton.Visible = true;
             switch (MethodsComboBox.SelectedIndex)
             {
                 case 0:
@@ -358,7 +359,7 @@ namespace Sisan1
             }
             File.WriteAllText(Filename, output);
 
-            Login lgn = new Login();
+            Form2 lgn = new Form2();
             this.Hide();
             lgn.Show();
         }
@@ -368,9 +369,20 @@ namespace Sisan1
         {
             SaveSessionInFile();
             Data.ProblemsFileName = "ad.txt";
-            Login lgn = new Login();
-            this.Hide();
-            lgn.Show();
+            if (FinishButton.Visible == true)
+            {
+                Form2 lgn = new Form2();
+                this.Hide();
+                lgn.Show();
+
+            }
+            else
+            {
+                Login lgn = new Login();
+                this.Hide();
+                lgn.Show();
+
+            }
 
         }
 
@@ -581,7 +593,7 @@ namespace Sisan1
                         }
                         File.WriteAllText(Filename, output);
                         Data.ProblemsFileName = "ad.txt";
-                        Login lgn = new Login();
+                        Form2 lgn = new Form2();
                         this.Hide();
                         lgn.Show();
                         break;
@@ -621,7 +633,7 @@ namespace Sisan1
                             }
                             File.Delete(Filename);
                             File.WriteAllText(Filename, output);
-                            Login lgn = new Login();
+                            Form2 lgn = new Form2();
                             this.Hide();
                             lgn.Show();
 
@@ -657,7 +669,7 @@ namespace Sisan1
                         }
                         File.Delete(Filename);
                         File.WriteAllText(Filename, output);
-                        Login lgn = new Login();
+                        Form2 lgn = new Form2();
                         this.Hide();
                         lgn.Show();
                         break;
@@ -691,7 +703,7 @@ namespace Sisan1
                         }
                         File.Delete(Filename);
                         File.WriteAllText(Filename, output);
-                        Login lgn = new Login();
+                        Form2 lgn = new Form2();
                         this.Hide();
                         lgn.Show();
                         break;

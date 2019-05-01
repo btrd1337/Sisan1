@@ -32,13 +32,13 @@
             this.AddExpertButton = new System.Windows.Forms.Button();
             this.ExpertNameTextBox = new System.Windows.Forms.TextBox();
             this.ExpertNameLabel = new System.Windows.Forms.Label();
-            this.ExpertListComboBox = new System.Windows.Forms.ComboBox();
+            this.ProblemsListComboBox = new System.Windows.Forms.ComboBox();
             this.Exit = new System.Windows.Forms.Button();
             this.EditExpertGroupBox = new System.Windows.Forms.GroupBox();
             this.DeleteExpert = new System.Windows.Forms.Button();
             this.SaveEditButton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ProblemNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ExpertNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Coefficient = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EditExpertGroupBox.SuspendLayout();
@@ -72,16 +72,16 @@
             this.ExpertNameLabel.TabIndex = 2;
             this.ExpertNameLabel.Text = "ФИО Эксперта";
             // 
-            // ExpertListComboBox
+            // ProblemsListComboBox
             // 
-            this.ExpertListComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ExpertListComboBox.FormattingEnabled = true;
-            this.ExpertListComboBox.Location = new System.Drawing.Point(13, 137);
-            this.ExpertListComboBox.Name = "ExpertListComboBox";
-            this.ExpertListComboBox.Size = new System.Drawing.Size(334, 21);
-            this.ExpertListComboBox.TabIndex = 5;
-            this.ExpertListComboBox.SelectedIndexChanged += new System.EventHandler(this.ExpertListComboBox_SelectedIndexChanged);
-            this.ExpertListComboBox.Click += new System.EventHandler(this.ExpertListComboBox_Click);
+            this.ProblemsListComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ProblemsListComboBox.FormattingEnabled = true;
+            this.ProblemsListComboBox.Location = new System.Drawing.Point(13, 137);
+            this.ProblemsListComboBox.Name = "ProblemsListComboBox";
+            this.ProblemsListComboBox.Size = new System.Drawing.Size(334, 21);
+            this.ProblemsListComboBox.TabIndex = 5;
+            this.ProblemsListComboBox.SelectedIndexChanged += new System.EventHandler(this.ExpertListComboBox_SelectedIndexChanged);
+            this.ProblemsListComboBox.Click += new System.EventHandler(this.ExpertListComboBox_Click);
             // 
             // Exit
             // 
@@ -114,6 +114,7 @@
             this.DeleteExpert.TabIndex = 14;
             this.DeleteExpert.Text = "Удалить";
             this.DeleteExpert.UseVisualStyleBackColor = true;
+            this.DeleteExpert.Visible = false;
             this.DeleteExpert.Click += new System.EventHandler(this.DeleteExpert_Click);
             // 
             // SaveEditButton
@@ -133,7 +134,7 @@
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ProblemNameColumn,
+            this.ExpertNameColumn,
             this.CheckBoxColumn,
             this.Coefficient});
             this.dataGridView1.Location = new System.Drawing.Point(6, 19);
@@ -143,12 +144,12 @@
             this.dataGridView1.TabIndex = 12;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // ProblemNameColumn
+            // ExpertNameColumn
             // 
-            this.ProblemNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ProblemNameColumn.HeaderText = "Проблема";
-            this.ProblemNameColumn.Name = "ProblemNameColumn";
-            this.ProblemNameColumn.ReadOnly = true;
+            this.ExpertNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ExpertNameColumn.HeaderText = "Эксперт";
+            this.ExpertNameColumn.Name = "ExpertNameColumn";
+            this.ExpertNameColumn.ReadOnly = true;
             // 
             // CheckBoxColumn
             // 
@@ -158,7 +159,7 @@
             // 
             // Coefficient
             // 
-            this.Coefficient.HeaderText = "Коэф";
+            this.Coefficient.HeaderText = "Вес";
             this.Coefficient.Name = "Coefficient";
             this.Coefficient.ReadOnly = true;
             // 
@@ -169,13 +170,14 @@
             this.ClientSize = new System.Drawing.Size(474, 418);
             this.Controls.Add(this.EditExpertGroupBox);
             this.Controls.Add(this.Exit);
-            this.Controls.Add(this.ExpertListComboBox);
+            this.Controls.Add(this.ProblemsListComboBox);
             this.Controls.Add(this.ExpertNameLabel);
             this.Controls.Add(this.ExpertNameTextBox);
             this.Controls.Add(this.AddExpertButton);
             this.Name = "MakeExpert";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MakeExpert";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MakeExpert_FormClosing);
             this.Load += new System.EventHandler(this.MakeExpert_Load);
             this.EditExpertGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -191,11 +193,11 @@
         private System.Windows.Forms.Label ExpertNameLabel;
         private System.Windows.Forms.Button Exit;
         private System.Windows.Forms.GroupBox EditExpertGroupBox;
-        private System.Windows.Forms.ComboBox ExpertListComboBox;
+        private System.Windows.Forms.ComboBox ProblemsListComboBox;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button SaveEditButton;
         private System.Windows.Forms.Button DeleteExpert;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProblemNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ExpertNameColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn CheckBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Coefficient;
     }

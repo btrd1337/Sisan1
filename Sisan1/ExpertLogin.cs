@@ -90,5 +90,12 @@ namespace Sisan1
         {
             Application.Exit();
         }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            Login lgn = new Login();
+            this.Hide();
+            lgn.Show();
+        }
     }
 }
