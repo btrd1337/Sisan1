@@ -17,9 +17,23 @@ namespace Sisan1
             Data.AllExpertsCoefForCurrrentProblem.Clear();
             UserClicked = 0;
             InitializeComponent();
+            string Filename1 = "data/Alternatives_" + Enter_Analyst.ChosenProblemA;
+            var sr1 = new StreamReader(Filename1); // Сканируем файл
+            var text = new List<string>();
+
+            int counter = 0;
+            string line;
+            while ((line = sr1.ReadLine()) != null)
+            {
+                AddAlternative(line);
+                counter++;
+            }
+            sr1.Close();
+            ScaleSize = Convert.ToInt32(File.ReadAllText("data/ScaleSize_" + Enter_Analyst.ChosenProblemA));
             InitPassedExperts("SecondLab");
             InitPassedExperts("ThirdLabFirstMethod");
             InitPassedExperts("RankMethod");
+            initExpertsPassedLab4();
 
         }
         List<Tuple<string, List<double>, List<string>>> ComboBoxExperts;
@@ -32,15 +46,19 @@ namespace Sisan1
         List<Tuple<string, List<int>>> ModifiedThirdLabFirstMethodMatrix;
         List<Tuple<string, double>> RankMethodResultVector = new List<Tuple<string, double>>();//название альтернативы и итоговая оценка
         List<Tuple<string, List<double>>> RankMethodExpertsPassed = new List<Tuple<string, List<double>>>();
-
+        List<Tuple<string, string[,]>> Lab4MethodExpertsPassed = new List<Tuple<string, string[,]>>();
+        List<Tuple<string, double>> Lab4ResultVector = new List<Tuple<string, double>>();
         List<int> ThirdLabFirstMethodSum = new List<int>();
+
+        string[,] MatrixLab4;
+
 
 
         List<float> results = new List<float>();
         List<string> elements = new List<string>() { "1", "0,5", "0" };
         List<string> Alternatives = new List<string>();
 
-
+        int ScaleSize;
         int alterCount = 0;
         float r = 0;
         double SumForOtnositCoef;
@@ -64,6 +82,97 @@ namespace Sisan1
 
             }
             Data.ProblemsFileName = "ad.txt";
+
+        }
+
+        void InitLab4ResultTable()
+        {
+            List<double> SumOfSums = new List<double>();
+            List<List<int>> SumOfRow = new List<List<int>>();
+            List<double> tmp = new List<double>();
+            List<List<double>> NormSumOfRows = new List<List<double>>();
+            for (UInt16 ex = 0; ex < Lab4MethodExpertsPassed.Count; ex++)
+            {
+                NormSumOfRows.Add(new List<double>());
+                SumOfRow.Add(new List<int>());
+                for (int i = 0; i < Alternatives.Count; i++)
+                {
+                    tmp.Add(0.0);
+                    SumOfRow[ex].Add(0);
+                    NormSumOfRows[ex].Add(0.0);
+
+                }
+                for (int i = 0; i < Alternatives.Count; i++)
+                {
+                    for (int j = 0; j < Alternatives.Count; j++)
+                    {
+                        if (Lab4MethodExpertsPassed[ex].Item2[i, j] != "d")
+                        {
+                            SumOfRow[ex][i] += Convert.ToInt32(Lab4MethodExpertsPassed[ex].Item2[i, j]);
+                        }
+                    }
+                }
+                for (int i = 0; i < Alternatives.Count; i++)
+                {
+                    NormSumOfRows[ex][i] = Convert.ToDouble(SumOfRow[ex][i]) / Convert.ToDouble(Alternatives.Count * (Alternatives.Count - 1) * ScaleSize);
+                }
+
+                //for (int i = 0; i < Alternatives.Count; i++)
+                //{
+                //    tmp.Add(0);
+                //}
+                //for (int i = 0; i < RankMethodExpertsPassed.Count; i++) //для нормирования
+                //{
+                //    for (int j = 0; j < Alternatives.Count; j++)
+                //    {
+                //        SumOfRow[i] += RankMethodExpertsPassed[i].Item2[j];
+
+                //    }
+                //}
+                //for (int i = 0; i < RankMethodExpertsPassed.Count; i++) //отнормировали
+                //{
+                //    for (int j = 0; j < Alternatives.Count; j++)
+                //    {
+                //        RankMethodExpertsPassed[i].Item2[j] /= SumOfRow[i];
+                //        tmp[j] += RankMethodExpertsPassed[i].Item2[j];
+                //    }
+                //}
+
+                //for (int i = 0; i < Alternatives.Count; i++)
+                //{
+                //    RankMethodResultVector.Add(Tuple.Create(Alternatives[i], tmp[i] / RankMethodExpertsPassed.Count));
+                //    dataGridViewRankMethod.Rows.Add();
+                //    dataGridViewRankMethod.Rows[i].Cells[1].Value = Convert.ToString(i + 1) + ". " + RankMethodResultVector[i].Item1;
+                //    dataGridViewRankMethod.Rows[i].Cells[2].Value = RankMethodResultVector[i].Item2;
+                //}
+                //dataGridViewRankMethod.Sort(dataGridViewRankMethod.Columns[2], System.ComponentModel.ListSortDirection.Descending);
+                //for (int i = 0; i < Alternatives.Count; i++)
+                //{
+                //    dataGridViewRankMethod.Rows[i].Cells[0].Value = i + 1;
+                //}
+
+
+            }
+
+            for (UInt16 i = 0; i < Alternatives.Count; i++)
+            {
+                for (int j = 0; j < Lab4MethodExpertsPassed.Count; j++)
+                {
+                    tmp[i] += NormSumOfRows[j][i];
+                }
+                Lab4ResultVector.Add(Tuple.Create(Alternatives[i], tmp[i]));
+                dataGridViewLab4.Rows.Add();
+                dataGridViewLab4.Rows[i].Cells[1].Value = Convert.ToString(i + 1) + ". " + Lab4ResultVector[i].Item1;
+                dataGridViewLab4.Rows[i].Cells[2].Value = Lab4ResultVector[i].Item2;
+            }
+            dataGridViewLab4.Sort(dataGridViewLab4.Columns[2], System.ComponentModel.ListSortDirection.Descending);
+            for (int i = 0; i < Alternatives.Count; i++)
+            {
+                dataGridViewLab4.Rows[i].Cells[0].Value = i + 1;
+            }
+
+
+
 
         }
 
@@ -246,7 +355,7 @@ namespace Sisan1
                     dataGridViewLab2.Rows[i].Cells[2].Value = tempList[i];
                 }
                 dataGridViewLab2.Sort(dataGridViewLab2.Columns[2], System.ComponentModel.ListSortDirection.Descending);
-                for (int i=0;i<Alternatives.Count;i++)
+                for (int i = 0; i < Alternatives.Count; i++)
                 {
                     dataGridViewLab2.Rows[i].Cells[0].Value = i + 1;
                 }
@@ -262,19 +371,8 @@ namespace Sisan1
 
                 UserClicked++;
                 Problem.Text = Enter_Analyst.ChosenProblemA;
-                InitExpertCountForCurrentProblem();
-                string Filename1 = "data/Alternatives_" + Enter_Analyst.ChosenProblemA;
-                var sr1 = new StreamReader(Filename1); // Сканируем файл
-                var text = new List<string>();
 
-                int counter = 0;
-                string line;
-                while ((line = sr1.ReadLine()) != null)
-                {
-                    AddAlternative(line);
-                    counter++;
-                }
-                sr1.Close();
+                InitExpertCountForCurrentProblem();
                 CountOtnositCoef();
                 InitSecondLabResultTable();
                 //суда третья лаба третью три
@@ -282,7 +380,7 @@ namespace Sisan1
                 BuildModifiedMatrxThirdLabFirstMethod();
 
                 InitRankMethodResultTable();
-
+                InitLab4ResultTable();
                 if (initProblemsNameFirstLabMethodComboBox())
                 {
                     dataGridView1.AllowUserToAddRows = false;
@@ -357,6 +455,7 @@ namespace Sisan1
                 SecondLabExpertsPassedCountLabel.Text = "Пройдено " + SecondLabExpertsPassed.Count.ToString() + " из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
                 ThirdLabFirstMethodExpertsPassedCountLabel.Text = "Пройдено " + ThirdLabFirstMethodExpertsPassed.Count.ToString() + " из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
                 RankMethodExpertsPassedLabel.Text = "Пройдено " + RankMethodExpertsPassed.Count.ToString() + " из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
+                FourthLabExpertsPassedCountLabel.Text = "Пройдено " + Lab4MethodExpertsPassed.Count.ToString() + " из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
 
             }
             catch (Exception err)
@@ -390,6 +489,7 @@ namespace Sisan1
 
                 int counter = 0;
                 string line;
+                Alternatives.Clear();
                 while ((line = sr1.ReadLine()) != null)
                 {
                     AddAlternative(line);
@@ -605,32 +705,7 @@ namespace Sisan1
 
         }
 
-        //void Results() // Результаты
-        //{
-        //    dataGridView2.Columns.RemoveAt(0);
-        //    dataGridView2.Columns.Add("inter_results", "Cj");
-        //    dataGridView2.Columns[0].Width = 100;
-        //    dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-        //    //dataGridView2.Columns[1].Width = 53;
 
-        //    for (int i = 0; i < alterCount; i++)
-        //    {
-        //        dataGridView2.Rows.Add();
-        //        dataGridView2.Rows[i].HeaderCell.Value = "Z" + (i + 1).ToString();
-        //    }
-
-        //    var sum = 0.0f;
-        //    if (results.Count > 0)
-        //    {
-        //        for (int i = 0; i < alterCount; i++)
-        //        {
-        //            sum += results[i];
-        //            dataGridView2[0, i].Value = results[i].ToString();
-        //        }
-        //    }
-        //    dataGridView2.Rows[alterCount].HeaderCell.Value = "Sum";
-        //    dataGridView2[0, alterCount].Value = sum.ToString();
-        //}
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
@@ -709,6 +784,83 @@ namespace Sisan1
             return temp > 0 ? true : false;
         }
 
+
+        private bool initExpertsPassedLab4()
+        {
+            int temp = 0;
+
+            MatrixLab4 = null;
+            string path = "data/Experts/";
+            foreach (string s in Directory.GetDirectories(path))
+            {
+                if (File.Exists(s + "/Coefficient.txt") && File.Exists(s + "/Problems.txt") && File.Exists(s + "/FourthLab_" + Enter_Analyst.ChosenProblemA))
+                {
+                    MatrixLab4 = new string[Alternatives.Count, Alternatives.Count];
+                    for (int n = 0; n < Alternatives.Count; n++)
+                    {
+                        MatrixLab4[n, n] = "d";
+                    }
+                    int tempInt = 0;
+                    string Filename2 = s + "/FourthLab_" + Enter_Analyst.ChosenProblemA;
+
+                    var sr2 = new StreamReader(Filename2); // Сканируем файл
+                                                           // Удаляем из него все разделители
+                    var Text = sr2.ReadToEnd().Split(new char[] { ' ', '\t', '\r', '\n', });
+                    for (int v = 0; v < Text.Length; v++)
+                    {
+                        if (tempInt == alterCount)
+                        {
+                            Text[v] = "r";
+                            tempInt = -1;
+                        }
+                        tempInt++;
+                    }
+
+                    var j = 0;
+                    var i = 0;
+                    for (var k = 0; k < Text.Length; k++)
+                    {
+                        // Переход на следующую строку
+                        if (i == alterCount)
+                        {
+                            j++;
+                            i = 0;
+                        }
+                        if (i == j && Text[k] != "d") // Проверка на диагональный элемент
+                        {
+                            throw new Exception("Матрица в файле имеет посторонние элементы на диагонали \n + Примечение: диагональный элемент в файле должен быть помечен символом d");
+                        }
+
+                        else
+                        {
+                            {
+                                switch (Text[k])// Добвление значений в матрицу
+                                {
+                                    case "d": i++; break;
+                                    case "": i++; break;
+                                    case "r": break;
+                                    default:
+                                        {
+                                            MatrixLab4[j, i] = Text[k];
+                                            MatrixLab4[i, j] = (ScaleSize - Convert.ToInt32(Text[k])).ToString();
+                                            i++;
+                                            break;
+                                        };
+                                }
+                            }
+                        }
+                    }
+                    sr2.Close();
+
+                    Lab4MethodExpertsPassed.Add(Tuple.Create(s.Remove(0, path.Length), MatrixLab4));
+                    temp++;
+                }
+
+            }
+            Data.ProblemsFileName = "ad.txt";
+
+            return temp > 0 ? true : false;
+        }
         private ushort UserClicked;
 
         private void ExpertNameFirstLabMethodComboBox_Click(object sender, EventArgs e)

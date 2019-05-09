@@ -233,8 +233,8 @@ namespace Sisan1
                                                 dataGridViewLab4.Rows[ConvertQuestionNumberFromText].Cells[2].Value = (ScaleSize - Convert.ToInt32(Text[k])).ToString();
                                                 ConvertQuestionNumberFromText++;
                                             }
-                                            MatrixLab4[i, j] = Text[k];
-                                            MatrixLab4[j, i] = (ScaleSize - Convert.ToInt32(Text[k])).ToString();
+                                            MatrixLab4[j, i] = Text[k];
+                                            MatrixLab4[i, j] = (ScaleSize - Convert.ToInt32(Text[k])).ToString();
                                             i++;
                                             break;
                                         };
