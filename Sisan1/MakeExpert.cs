@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Sisan1 //В этой формочке еще и удалять и редактировать экспертов будет можно (со временем)
 {
@@ -157,6 +158,7 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
                 if (File.Exists("data/Experts/" + Data.ExpertsList[i].Item1 + "/Matrix_" + ProblemsListComboBox.SelectedItem.ToString()) || File.Exists("data/Experts/" + Data.ExpertsList[i].Item1 + "/SecondLab_" + ProblemsListComboBox.SelectedItem.ToString()) || File.Exists("data/Experts/" + Data.ExpertsList[i].Item1 + "/ThirdLabFirstMethod_" + ProblemsListComboBox.SelectedItem.ToString()) || File.Exists("data/Experts/" + Data.ExpertsList[i].Item1 + "/RankMethod_" + ProblemsListComboBox.SelectedItem.ToString()))
                 {
                     dataGridView1.Rows[i].Cells[1].ReadOnly = true;
+                    dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
                 }
             }
             Data.ProblemsFileName = "ad.txt";

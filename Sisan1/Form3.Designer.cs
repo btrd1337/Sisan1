@@ -38,15 +38,17 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.buttonExit = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.AlternativesListDataGridView = new System.Windows.Forms.DataGridView();
             this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SaveExitButton = new System.Windows.Forms.Button();
+            this.ForthLabLabel = new System.Windows.Forms.Label();
+            this.FourthLabNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AlternativesListDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FourthLabNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // Problem
@@ -130,18 +132,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(410, 10);
-            this.button8.Margin = new System.Windows.Forms.Padding(2);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(171, 27);
-            this.button8.TabIndex = 9;
-            this.button8.Text = "Ввод альтернатив из файла";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Visible = false;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -188,14 +178,32 @@
             this.SaveExitButton.UseVisualStyleBackColor = true;
             this.SaveExitButton.Click += new System.EventHandler(this.SaveExitButton_Click);
             // 
+            // ForthLabLabel
+            // 
+            this.ForthLabLabel.AutoSize = true;
+            this.ForthLabLabel.Location = new System.Drawing.Point(364, 42);
+            this.ForthLabLabel.Name = "ForthLabLabel";
+            this.ForthLabLabel.Size = new System.Drawing.Size(112, 13);
+            this.ForthLabLabel.TabIndex = 26;
+            this.ForthLabLabel.Text = "Размерность шкалы";
+            // 
+            // FourthLabNumericUpDown
+            // 
+            this.FourthLabNumericUpDown.Location = new System.Drawing.Point(482, 40);
+            this.FourthLabNumericUpDown.Name = "FourthLabNumericUpDown";
+            this.FourthLabNumericUpDown.Size = new System.Drawing.Size(99, 20);
+            this.FourthLabNumericUpDown.TabIndex = 28;
+            this.FourthLabNumericUpDown.ValueChanged += new System.EventHandler(this.FourthLabNumericUpDown_ValueChanged);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 285);
+            this.Controls.Add(this.FourthLabNumericUpDown);
+            this.Controls.Add(this.ForthLabLabel);
             this.Controls.Add(this.SaveExitButton);
             this.Controls.Add(this.AlternativesListDataGridView);
-            this.Controls.Add(this.button8);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.listBox1);
@@ -209,6 +217,7 @@
             this.Load += new System.EventHandler(this.Form3_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AlternativesListDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FourthLabNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,7 +229,6 @@
         private System.Windows.Forms.Label label2;
         protected System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
@@ -230,5 +238,7 @@
         private System.Windows.Forms.DataGridView AlternativesListDataGridView;
         private System.Windows.Forms.Button SaveExitButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
+        private System.Windows.Forms.Label ForthLabLabel;
+        private System.Windows.Forms.NumericUpDown FourthLabNumericUpDown;
     }
 }

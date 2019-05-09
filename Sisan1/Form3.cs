@@ -26,6 +26,10 @@ namespace Sisan1
         private void Form3_Load(object sender, EventArgs e)
         {
             Problem.Text = Enter_Analyst.ChosenProblemA;
+            if (File.Exists("data/ScaleSize_" + Enter_Analyst.ChosenProblemA))
+            {
+                FourthLabNumericUpDown.Value = Convert.ToDecimal(File.ReadAllText("data/ScaleSize_" + Enter_Analyst.ChosenProblemA));
+            }
         }
 
         private void AddAlternative(string db) // Добавление альтернативы
@@ -197,7 +201,7 @@ namespace Sisan1
         private void SaveExitButton_Click(object sender, EventArgs e)
         {
             Alternatives.Clear();
-            
+
             for (int i = 0; i < AlternativesListDataGridView.Rows.Count - 1; i++)
             {
                 Alternatives.Add(Convert.ToString(AlternativesListDataGridView.Rows[i].Cells[0].Value));
@@ -211,6 +215,7 @@ namespace Sisan1
                 output += Alternatives[n] + "\n";
             }
             System.IO.File.WriteAllText(Filename, output);
+                System.IO.File.WriteAllText("data/ScaleSize_" + Enter_Analyst.ChosenProblemA, FourthLabNumericUpDown.Value.ToString());
             
             //Login lgn = new Login();
             //this.Hide();
@@ -251,6 +256,11 @@ namespace Sisan1
         private void Form3_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void FourthLabNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

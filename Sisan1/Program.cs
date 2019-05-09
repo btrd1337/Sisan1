@@ -21,7 +21,8 @@ namespace Sisan1
                 "Метод парных сравнений",
                 "Метод взвешенных экспертных оценок",
                 "Метод предпочтений",
-                "Метод ранга"
+                "Метод ранга",
+                "Метод полного попарного сопастовления"
             };
             Data.ExpertsNamesInited = false;
             Sessions InitAllProblems = new Sessions();

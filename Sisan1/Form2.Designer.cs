@@ -50,16 +50,23 @@
             this.AlternativeScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lab2Label = new System.Windows.Forms.Label();
             this.CountWeightLabel = new System.Windows.Forms.Label();
+            this.ProblemNameLabel = new System.Windows.Forms.Label();
+            this.dataGridViewLab4 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.form2BindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form2BindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(124, 44);
+            this.button1.Location = new System.Drawing.Point(125, 67);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(182, 55);
@@ -72,7 +79,7 @@
             // FinishButton
             // 
             this.FinishButton.Enabled = false;
-            this.FinishButton.Location = new System.Drawing.Point(683, 426);
+            this.FinishButton.Location = new System.Drawing.Point(684, 449);
             this.FinishButton.Name = "FinishButton";
             this.FinishButton.Size = new System.Drawing.Size(75, 23);
             this.FinishButton.TabIndex = 5;
@@ -83,7 +90,7 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(41, 14);
+            this.buttonExit.Location = new System.Drawing.Point(42, 37);
             this.buttonExit.Margin = new System.Windows.Forms.Padding(2);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(178, 27);
@@ -96,7 +103,7 @@
             // button2
             // 
             this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.Location = new System.Drawing.Point(11, 17);
+            this.button2.Location = new System.Drawing.Point(12, 40);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(21, 21);
@@ -110,11 +117,12 @@
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(41, 17);
+            this.comboBox1.Location = new System.Drawing.Point(42, 40);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(179, 21);
             this.comboBox1.TabIndex = 25;
             this.comboBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox1_DrawItem);
+            this.comboBox1.DropDown += new System.EventHandler(this.comboBox1_DropDown);
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             this.comboBox1.Click += new System.EventHandler(this.comboBox1_Click);
             this.comboBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.comboBox1_MouseClick);
@@ -131,7 +139,7 @@
             this.AlternativeNeutral,
             this.AlternativeDisagree,
             this.Alternative2});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 44);
+            this.dataGridView1.Location = new System.Drawing.Point(13, 67);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(1323, 374);
@@ -183,14 +191,17 @@
             // 
             // MethodsComboBox
             // 
+            this.MethodsComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.MethodsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.MethodsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.MethodsComboBox.FormattingEnabled = true;
-            this.MethodsComboBox.Location = new System.Drawing.Point(226, 18);
+            this.MethodsComboBox.Location = new System.Drawing.Point(227, 41);
             this.MethodsComboBox.Name = "MethodsComboBox";
             this.MethodsComboBox.Size = new System.Drawing.Size(179, 21);
             this.MethodsComboBox.TabIndex = 28;
+            this.MethodsComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.MethodsComboBox_DrawItem);
             this.MethodsComboBox.SelectedIndexChanged += new System.EventHandler(this.MethodsComboBox_SelectedIndexChanged);
+            this.MethodsComboBox.MouseHover += new System.EventHandler(this.MethodsComboBox_MouseHover);
             // 
             // dataGridView2
             // 
@@ -202,13 +213,14 @@
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.AlternativeName,
             this.AlternativeScore});
-            this.dataGridView2.Location = new System.Drawing.Point(11, 45);
+            this.dataGridView2.Location = new System.Drawing.Point(12, 68);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.Size = new System.Drawing.Size(870, 379);
             this.dataGridView2.TabIndex = 29;
             this.dataGridView2.Visible = false;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            this.dataGridView2.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellEndEdit);
             this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged);
             this.dataGridView2.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView2_EditingControlShowing);
             // 
@@ -218,18 +230,20 @@
             this.AlternativeName.HeaderText = "Альтернатива";
             this.AlternativeName.Name = "AlternativeName";
             this.AlternativeName.ReadOnly = true;
+            this.AlternativeName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // AlternativeScore
             // 
             this.AlternativeScore.HeaderText = "Вес";
             this.AlternativeScore.Name = "AlternativeScore";
+            this.AlternativeScore.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.AlternativeScore.Width = 200;
             // 
             // Lab2Label
             // 
             this.Lab2Label.AutoSize = true;
             this.Lab2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.Lab2Label.Location = new System.Drawing.Point(37, 18);
+            this.Lab2Label.Location = new System.Drawing.Point(38, 39);
             this.Lab2Label.Name = "Lab2Label";
             this.Lab2Label.Size = new System.Drawing.Size(395, 20);
             this.Lab2Label.TabIndex = 30;
@@ -239,12 +253,67 @@
             // CountWeightLabel
             // 
             this.CountWeightLabel.AutoSize = true;
-            this.CountWeightLabel.Location = new System.Drawing.Point(629, 20);
+            this.CountWeightLabel.Location = new System.Drawing.Point(630, 43);
             this.CountWeightLabel.Name = "CountWeightLabel";
             this.CountWeightLabel.Size = new System.Drawing.Size(117, 13);
             this.CountWeightLabel.TabIndex = 31;
             this.CountWeightLabel.Text = "Общий вес = 0 из 100";
             this.CountWeightLabel.Visible = false;
+            // 
+            // ProblemNameLabel
+            // 
+            this.ProblemNameLabel.AutoSize = true;
+            this.ProblemNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ProblemNameLabel.Location = new System.Drawing.Point(12, 9);
+            this.ProblemNameLabel.Name = "ProblemNameLabel";
+            this.ProblemNameLabel.Size = new System.Drawing.Size(121, 20);
+            this.ProblemNameLabel.TabIndex = 32;
+            this.ProblemNameLabel.Text = "Проблема ли";
+            this.ProblemNameLabel.Visible = false;
+            // 
+            // dataGridViewLab4
+            // 
+            this.dataGridViewLab4.AllowUserToAddRows = false;
+            this.dataGridViewLab4.AllowUserToDeleteRows = false;
+            this.dataGridViewLab4.AllowUserToResizeColumns = false;
+            this.dataGridViewLab4.AllowUserToResizeRows = false;
+            this.dataGridViewLab4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewLab4.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4});
+            this.dataGridViewLab4.Location = new System.Drawing.Point(12, 69);
+            this.dataGridViewLab4.Name = "dataGridViewLab4";
+            this.dataGridViewLab4.RowHeadersVisible = false;
+            this.dataGridViewLab4.Size = new System.Drawing.Size(1326, 378);
+            this.dataGridViewLab4.TabIndex = 33;
+            this.dataGridViewLab4.Visible = false;
+            this.dataGridViewLab4.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLab4_CellEndEdit);
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.HeaderText = "Альтернатива 1";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = " ";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = " ";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column4.HeaderText = "Альтернатива 2";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
             // 
             // form2BindingSource
             // 
@@ -254,7 +323,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1350, 461);
+            this.ClientSize = new System.Drawing.Size(1350, 477);
+            this.Controls.Add(this.dataGridViewLab4);
+            this.Controls.Add(this.ProblemNameLabel);
             this.Controls.Add(this.CountWeightLabel);
             this.Controls.Add(this.Lab2Label);
             this.Controls.Add(this.dataGridView2);
@@ -274,6 +345,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.form2BindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -298,7 +370,13 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeNeutral;
         private System.Windows.Forms.DataGridViewCheckBoxColumn AlternativeDisagree;
         private System.Windows.Forms.DataGridViewTextBoxColumn Alternative2;
+        private System.Windows.Forms.Label ProblemNameLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeScore;
+        private System.Windows.Forms.DataGridView dataGridViewLab4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
     }
 }

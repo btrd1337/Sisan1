@@ -132,6 +132,7 @@ namespace Sisan1
             ProcessingToolTip.SetToolTip(this.AnalyticsFormButton, "Перейти к обработке");
             comboBox1.DrawItem += comboBox1_DrawItem;
             comboBox1.DrawMode = DrawMode.OwnerDrawFixed;
+
             RefreshForm();
         }
         private bool IsExpertCheckedAlternative()
@@ -256,6 +257,7 @@ namespace Sisan1
 
         private void comboBox1_DrawItem(object sender, DrawItemEventArgs e)
         {
+            
             if (comboBox1.SelectedItem != null)
             {
                 string Filename2 = "data/Matrix_" + comboBox1.SelectedItem.ToString();

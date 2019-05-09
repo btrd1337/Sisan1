@@ -100,7 +100,7 @@
             this.EditExpertGroupBox.Controls.Add(this.dataGridView1);
             this.EditExpertGroupBox.Location = new System.Drawing.Point(13, 164);
             this.EditExpertGroupBox.Name = "EditExpertGroupBox";
-            this.EditExpertGroupBox.Size = new System.Drawing.Size(425, 215);
+            this.EditExpertGroupBox.Size = new System.Drawing.Size(449, 215);
             this.EditExpertGroupBox.TabIndex = 10;
             this.EditExpertGroupBox.TabStop = false;
             this.EditExpertGroupBox.Text = "Редактирование";
@@ -108,7 +108,7 @@
             // 
             // DeleteExpert
             // 
-            this.DeleteExpert.Location = new System.Drawing.Point(349, 48);
+            this.DeleteExpert.Location = new System.Drawing.Point(373, 48);
             this.DeleteExpert.Name = "DeleteExpert";
             this.DeleteExpert.Size = new System.Drawing.Size(70, 25);
             this.DeleteExpert.TabIndex = 14;
@@ -119,7 +119,7 @@
             // 
             // SaveEditButton
             // 
-            this.SaveEditButton.Location = new System.Drawing.Point(349, 19);
+            this.SaveEditButton.Location = new System.Drawing.Point(373, 19);
             this.SaveEditButton.Name = "SaveEditButton";
             this.SaveEditButton.Size = new System.Drawing.Size(70, 23);
             this.SaveEditButton.TabIndex = 13;
@@ -140,7 +140,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(6, 19);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(333, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(361, 190);
             this.dataGridView1.TabIndex = 12;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -159,7 +159,7 @@
             // 
             // Coefficient
             // 
-            this.Coefficient.HeaderText = "Вес";
+            this.Coefficient.HeaderText = "Уровень компетеции";
             this.Coefficient.Name = "Coefficient";
             this.Coefficient.ReadOnly = true;
             // 
@@ -167,7 +167,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 418);
+            this.ClientSize = new System.Drawing.Size(474, 393);
             this.Controls.Add(this.EditExpertGroupBox);
             this.Controls.Add(this.Exit);
             this.Controls.Add(this.ProblemsListComboBox);
