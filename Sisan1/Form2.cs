@@ -22,7 +22,7 @@ namespace Sisan1
         {
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             SumScore = 0;
-            this.Location = new System.Drawing.Point(500, 284);
+            this.Location = new System.Drawing.Point(510, 284);
             InitializeComponent();
             for (int i = 0; i < Data.Methods.Count; i++)
             {
@@ -229,9 +229,15 @@ namespace Sisan1
                                         {
                                             if (i > j)
                                             {
+                                                if (Convert.ToInt32(Text[k]) < 0 || Convert.ToInt32(Text[k]) > ScaleSize)
+                                                {
+                                                    dataGridViewLab4.Rows[ConvertQuestionNumberFromText].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
+                                                    CurrentCheckBoxChecked--;
+                                                }
                                                 dataGridViewLab4.Rows[ConvertQuestionNumberFromText].Cells[1].Value = Text[k];
                                                 dataGridViewLab4.Rows[ConvertQuestionNumberFromText].Cells[2].Value = (ScaleSize - Convert.ToInt32(Text[k])).ToString();
                                                 ConvertQuestionNumberFromText++;
+                                                CurrentCheckBoxChecked++;
                                             }
                                             MatrixLab4[j, i] = Text[k];
                                             MatrixLab4[i, j] = (ScaleSize - Convert.ToInt32(Text[k])).ToString();
@@ -252,7 +258,7 @@ namespace Sisan1
         {
             try
             {
-                this.Width = 439;
+                this.Width = 450;
                 this.Height = 180;
                 if (CurrentCheckBoxChecked == tmp)
                 {
@@ -366,7 +372,7 @@ namespace Sisan1
                         if (Alternatives.Count > 0)
                         {
                             Lab2Label.Visible = true;
-                            Lab2Label.Text = "Пронумеруйте от 1.." + Alternatives.Count + " начиная с более предпочтительного";
+                            Lab2Label.Text = "Пронумеруйте от 1.." + Alternatives.Count + ", начиная с более предпочтительного";
                             this.Size = new System.Drawing.Size(1000, 630);
                             this.Width = 905;
                             this.Height = 520;
@@ -421,7 +427,11 @@ namespace Sisan1
                             dataGridViewLab4.Visible = true;
                             Lab2Label.Visible = true;
                             ScaleSize = Convert.ToInt32(File.ReadAllText("data/ScaleSize_" + Enter_Expert.ChosenProblem));
-                            Lab2Label.Text = "Размерность шкалы " + ScaleSize;
+                            Lab2Label.Text = "Распределите шкалу между двумя альтернативами, в зависимости от предпочтений";
+                            CountWeightLabel.Location = new System.Drawing.Point(1158, 14);
+                            //CountWeightLabel.Font.Size = 10;
+                            CountWeightLabel.Visible = true;
+                            CountWeightLabel.Text = "Размерность шкалы " + ScaleSize;
                             this.Size = new System.Drawing.Size(1000, 630);
                             this.Width = 1366;
                             this.Height = 520;
@@ -460,7 +470,7 @@ namespace Sisan1
 
 
                             comboBox1.Visible = false;
-                            FinishButton.Enabled = true;
+                            FinishButton.Enabled = false;
 
                             LoadSaved("FourthLab");
                         }
@@ -720,6 +730,7 @@ namespace Sisan1
                             output += "\n";
                         }
                         File.WriteAllText(Filename, output);
+                        File.WriteAllText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_Matrix_" + Enter_Expert.ChosenProblem, output);
                         Data.ProblemsFileName = "ad.txt";
                         Form2 lgn = new Form2();
                         this.Hide();
@@ -734,23 +745,20 @@ namespace Sisan1
                         }
                         else
                         {
-                            List<string> tempList = new List<string>();
-                            for (int i = 0; i < dataGridView2.Rows.Count; i++)
-                            {
-                                if (string.IsNullOrWhiteSpace(dataGridView2.Rows[i].Cells[1].Value.ToString()))
-                                {
-                                    dataGridView2.Rows[i].Cells[1].Value = "0";
-                                }
-                                tempList.Add(Convert.ToString(Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ',')) / 100));
-                            }
-                            File.WriteAllLines("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/SecondLab_" + Enter_Expert.ChosenProblem, tempList);
-                            string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_SecondLab_" + Enter_Expert.ChosenProblem;
+                            bool flag = false;
+                            string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/SecondLab_" + Enter_Expert.ChosenProblem;
                             string output = string.Empty;
                             for (int n = 0; n < dataGridView2.Rows.Count; n++)
                             {
                                 if (dataGridView2.Rows[n].Cells[1].Value == null)
                                 {
-                                    output += "r";
+                                    if (!flag)
+                                    {
+                                        MessageBox.Show("Неверно заполнено");
+                                    }
+
+                                    flag = true;
+
                                 }
                                 else
                                 {
@@ -759,34 +767,34 @@ namespace Sisan1
 
                                 output += "\n";
                             }
-                            File.Delete(Filename);
-                            File.WriteAllText(Filename, output);
-                            Form2 lgn = new Form2();
-                            this.Hide();
-                            lgn.Show();
-
+                            if (!flag)
+                            {
+                                File.Delete(Filename);
+                                File.WriteAllText(Filename, output);
+                                File.WriteAllText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_SecondLab_" + Enter_Expert.ChosenProblem, output);
+                                Form2 lgn = new Form2();
+                                this.Hide();
+                                lgn.Show();
+                            }
                         }
                         break;
                     }
                 case 2:
                     {
-                        List<string> tempList = new List<string>();
-                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
-                        {
-                            if (string.IsNullOrWhiteSpace(dataGridView2.Rows[i].Cells[1].Value.ToString()))
-                            {
-                                dataGridView2.Rows[i].Cells[1].Value = "0";
-                            }
-                            tempList.Add(Convert.ToString(Convert.ToByte(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ',')) / 100));
-                        }
-                        File.WriteAllLines("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/ThirdLabFirstMethod_" + Enter_Expert.ChosenProblem, tempList);
+                        bool flag = false;
                         string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/ThirdLabFirstMethod_" + Enter_Expert.ChosenProblem;
                         string output = string.Empty;
                         for (int n = 0; n < dataGridView2.Rows.Count; n++)
                         {
                             if (dataGridView2.Rows[n].Cells[1].Value == null)
                             {
-                                output += "r";
+                                if (!flag)
+                                {
+                                    MessageBox.Show("Неверно заполнено");
+                                }
+
+                                flag = true;
+
                             }
                             else
                             {
@@ -795,32 +803,32 @@ namespace Sisan1
 
                             output += "\n";
                         }
-                        File.Delete(Filename);
-                        File.WriteAllText(Filename, output);
-                        Form2 lgn = new Form2();
-                        this.Hide();
-                        lgn.Show();
+                        if (!flag)
+                        {
+                            File.Delete(Filename);
+                            File.WriteAllText(Filename, output);
+                            File.WriteAllText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_ThirdLabFirstMethod_" + Enter_Expert.ChosenProblem, output);
+                            Form2 lgn = new Form2();
+                            this.Hide();
+                            lgn.Show();
+                        }
                         break;
                     }
                 case 3:
                     {
-                        List<string> tempList = new List<string>();
-                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
-                        {
-                            if (string.IsNullOrWhiteSpace(dataGridView2.Rows[i].Cells[1].Value.ToString()))
-                            {
-                                dataGridView2.Rows[i].Cells[1].Value = "0";
-                            }
-                            tempList.Add(Convert.ToString(Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ',')) / 100));
-                        }
-                        File.WriteAllLines("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/RankMethod_" + Enter_Expert.ChosenProblem, tempList);
+                        bool flag = false;
                         string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/RankMethod_" + Enter_Expert.ChosenProblem;
                         string output = string.Empty;
                         for (int n = 0; n < dataGridView2.Rows.Count; n++)
                         {
                             if (dataGridView2.Rows[n].Cells[1].Value == null)
                             {
-                                output += "r";
+                                if (!flag)
+                                {
+                                    MessageBox.Show("Неверно заполнено");
+                                }
+
+                                flag = true;
                             }
                             else
                             {
@@ -829,38 +837,62 @@ namespace Sisan1
 
                             output += "\n";
                         }
-                        File.Delete(Filename);
-                        File.WriteAllText(Filename, output);
-                        Form2 lgn = new Form2();
-                        this.Hide();
-                        lgn.Show();
+                        if (!flag)
+                        {
+                            File.Delete(Filename);
+                            File.WriteAllText(Filename, output);
+                            File.WriteAllText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_RankMethod_" + Enter_Expert.ChosenProblem, output);
+
+                            Form2 lgn = new Form2();
+                            this.Hide();
+                            lgn.Show();
+                        }
                         break;
                     }
                 case 4:
                     {
+                        bool flag = false;
                         string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/FourthLab_" + Enter_Expert.ChosenProblem;
                         //File.Delete("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_Matrix_" + Enter_Expert.ChosenProblem);
                         string output = string.Empty;
                         //здесь надо забить MatrixLab4 (шо же я натворил)
-                        for (int i=0;i<dataGridViewLab4.Rows.Count;i++)
+                        for (int i = 0; i < dataGridViewLab4.Rows.Count; i++)
                         {
-                            MatrixLab4[Array[i][0],Array[i][1]] = dataGridViewLab4.Rows[i].Cells[1].Value.ToString();
-                            MatrixLab4[Array[i][1], Array[i][0]] = dataGridViewLab4.Rows[i].Cells[2].Value.ToString();
+                            if (dataGridViewLab4.Rows[i].Cells[1].Value != null && dataGridViewLab4.Rows[i].Cells[2].Value != null)
+                            {
+                                MatrixLab4[Array[i][0], Array[i][1]] = dataGridViewLab4.Rows[i].Cells[1].Value.ToString();
+                                MatrixLab4[Array[i][1], Array[i][0]] = dataGridViewLab4.Rows[i].Cells[2].Value.ToString();
+                            }
+                            else
+                            {
+                                if (!flag)
+                                {
+                                    MessageBox.Show("Неверно заполнено");
+                                }
+
+                                flag = true;
+
+                            }
 
                         }
-                        for (int n = 0; n < alterCount; n++)
+                        if (!flag)
                         {
-                            for (int m = 0; m < alterCount; m++)
+                            for (int n = 0; n < alterCount; n++)
                             {
-                                output += MatrixLab4[n, m] + "\t";
+                                for (int m = 0; m < alterCount; m++)
+                                {
+                                    output += MatrixLab4[n, m] + "\t";
+                                }
+                                output += "\n";
                             }
-                            output += "\n";
+                            File.WriteAllText(Filename, output);
+                            File.WriteAllText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_FourthLab_" + Enter_Expert.ChosenProblem, output);
+                            Data.ProblemsFileName = "ad.txt";
+                            Form2 lgn = new Form2();
+                            this.Hide();
+                            lgn.Show();
+
                         }
-                        File.WriteAllText(Filename, output);
-                        Data.ProblemsFileName = "ad.txt";
-                        Form2 lgn = new Form2();
-                        this.Hide();
-                        lgn.Show();
                         break;
 
                     }
@@ -996,6 +1028,21 @@ namespace Sisan1
             else
                 if (dataGridViewLab4.Visible)
             {
+                for (int i = 0; i < dataGridViewLab4.Rows.Count; i++)
+                {
+                    if (dataGridViewLab4.Rows[i].Cells[1].Value != null && dataGridViewLab4.Rows[i].Cells[2].Value != null)
+                    {
+                        MatrixLab4[Array[i][0], Array[i][1]] = dataGridViewLab4.Rows[i].Cells[1].Value.ToString();
+                        MatrixLab4[Array[i][1], Array[i][0]] = dataGridViewLab4.Rows[i].Cells[2].Value.ToString();
+                    }
+                    else
+                    {
+                        MatrixLab4[Array[i][0], Array[i][1]] = "";
+                        MatrixLab4[Array[i][1], Array[i][0]] = "";
+
+                    }
+                }
+
                 string Filename = "data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Temp_FourthLab_" + Enter_Expert.ChosenProblem;
                 string output = string.Empty;
                 for (int n = 0; n < alterCount; n++)
@@ -1058,6 +1105,15 @@ namespace Sisan1
                         }
                         break;
                     }
+                case 4://полного попарного сопастовления
+                    {
+                        if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                        {
+                            e.Handled = true;
+                        }
+                        break;
+                    }
+
             }
         }
 
@@ -1129,7 +1185,7 @@ namespace Sisan1
         {
 
         }
-
+        int m = 0;
         private void dataGridView2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -1154,16 +1210,39 @@ namespace Sisan1
                     }
                 case 2: //первый метод 3 лабы
                     {
+                        bool flag = false;
                         if (e.ColumnIndex == 1 && e.RowIndex > -1)
                         {
+                            for (int i = 0; i < ColorRedRows.Count && !flag; i++)
+                            {
+                                for (int j = 0; !flag && j< ColorRedRows[i].Item1.Count; j++)
+                                {
+                                    if (ColorRedRows[i].Item1[j] == e.RowIndex /*&& ColorRedRows[i].Item2 == dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString()*/)
+                                    {
+                                        dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = default(Color);
+                                        for (int b=0;b< ColorRedRows[i].Item1.Count;b++)
+                                            dataGridView2.Rows[ColorRedRows[i].Item1[b]].DefaultCellStyle.BackColor = default(Color);
+                                        flag = true;
+                                        ColorRedRows[i].Item1.RemoveAt(j);
+                                        if (ColorRedRows[i].Item1.Count < 2)
+                                            ColorRedRows.RemoveAt(i);
+
+                                    }
+                                }
+                            }
+                            if (flag)
+                            {
+                                m--;
+                            }
                             if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && Convert.ToByte(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value) > dataGridView2.Rows.Count || Convert.ToByte(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value) < 1)
                             {
                                 dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
-                                CurrentCheckBoxChecked++;
+                                CurrentCheckBoxChecked--;
                             }
                             else
                             {
                                 dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = default(Color);
+                                CurrentCheckBoxChecked++;
                             }
                         }
                         bool LockFinishButton = false;
@@ -1180,9 +1259,15 @@ namespace Sisan1
                             {
                                 if (j != i && dataGridView2.Rows[j].Cells[1].Value != null && dataGridView2.Rows[i].Cells[1].Value != null)
                                 {
-                                    if (dataGridView2.Rows[i].Cells[1].Value.ToString() == dataGridView2.Rows[j].Cells[1].Value.ToString())
+                                    if (dataGridView2.Rows[i].Cells[1].Value.ToString() == dataGridView2.Rows[j].Cells[1].Value.ToString() && dataGridView2.Rows[i].DefaultCellStyle.BackColor != Color.FromArgb(252, 228, 214))
                                     {
-                                        dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
+                                        dataGridView2.Rows[i].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
+                                        dataGridView2.Rows[j].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
+                                        ColorRedRows.Add(Tuple.Create(new List<int>(), dataGridView2.Rows[i].Cells[1].Value.ToString()));
+                                        ColorRedRows[m].Item1.Add(i);
+                                        ColorRedRows[m].Item1.Add(j);
+                                        m++;
+                                        CurrentCheckBoxChecked--;
                                         LockFinishButton = true;
                                     }
                                 }
@@ -1203,14 +1288,18 @@ namespace Sisan1
                     {
                         if (e.ColumnIndex == 1 && e.RowIndex > -1)
                         {
-                            if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace('.', ',')) > 10.0 || Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace('.', ',')) < 0.0)
+                            if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
                             {
-                                dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
-                                CurrentCheckBoxChecked++;
-                            }
-                            else
-                            {
-                                dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = default(Color);
+                                if (Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace('.', ',')) > 10.0 || Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace('.', ',')) < 0.0)
+                                {
+                                    dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
+                                    CurrentCheckBoxChecked--;
+                                }
+                                else
+                                {
+                                    dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = default(Color);
+                                    CurrentCheckBoxChecked++;
+                                }
                             }
                         }
                         bool LockFinishButton = false;
@@ -1240,25 +1329,29 @@ namespace Sisan1
 
         private void dataGridViewLab4_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if ((e.ColumnIndex == 1 || e.ColumnIndex==2) && e.RowIndex > -1)
+            if ((e.ColumnIndex == 1 || e.ColumnIndex == 2) && e.RowIndex > -1)
             {
-                if (dataGridViewLab4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && Convert.ToInt32(dataGridViewLab4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) > ScaleSize || Convert.ToInt32(dataGridViewLab4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) < 0)
+                if (dataGridViewLab4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
                 {
-                    dataGridViewLab4.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
-                    CurrentCheckBoxChecked++;
+                    if (Convert.ToInt32(dataGridViewLab4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) > ScaleSize || Convert.ToInt32(dataGridViewLab4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) < 0)
+                    {
+                        dataGridViewLab4.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
+                        CurrentCheckBoxChecked--;
+                    }
+                    else
+                    {
+                        dataGridViewLab4.Rows[e.RowIndex].DefaultCellStyle.BackColor = default(Color);
+                        CurrentCheckBoxChecked++;
+                    }
+                    dataGridViewLab4.Rows[e.RowIndex].Cells[(e.ColumnIndex % 2) + 1].Value = ScaleSize - Convert.ToInt32(dataGridViewLab4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
                 }
-                else
-                {
-                    dataGridViewLab4.Rows[e.RowIndex].DefaultCellStyle.BackColor = default(Color);
-                }
-                dataGridViewLab4.Rows[e.RowIndex].Cells[(e.ColumnIndex % 2) + 1].Value = ScaleSize-Convert.ToInt32(dataGridViewLab4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
             }
             bool LockFinishButton = false;
             for (int i = 0; i < dataGridViewLab4.Rows.Count && LockFinishButton == false; i++)
             {
                 if (dataGridViewLab4.Rows[i].Cells[e.ColumnIndex].Value != null)
                 {
-                    if (Convert.ToInt32(dataGridViewLab4.Rows[i].Cells[e.ColumnIndex].Value.ToString()) > ScaleSize || Convert.ToInt32(dataGridViewLab4.Rows[i].Cells[e.ColumnIndex].Value.ToString()) < 0)
+                    if (Convert.ToInt32(dataGridViewLab4.Rows[i].Cells[e.ColumnIndex].Value.ToString()) > ScaleSize || Convert.ToInt32(dataGridViewLab4.Rows[i].Cells[e.ColumnIndex].Value.ToString()) < 0 || dataGridViewLab4.Rows[e.RowIndex].DefaultCellStyle.BackColor == Color.FromArgb(252, 228, 214))
                     {
                         LockFinishButton = true;
                     }
@@ -1269,6 +1362,11 @@ namespace Sisan1
                     //}
                 }
             }
+            if (CurrentCheckBoxChecked < tmp)
+            {
+                LockFinishButton = true;
+            }
+
             if (LockFinishButton == true)
             {
                 FinishButton.Enabled = false;
@@ -1278,6 +1376,27 @@ namespace Sisan1
                 FinishButton.Enabled = true;
             }
 
+        }
+
+        List<Tuple<List<int>, string>> ColorRedRows = new List<Tuple<List<int>, string>>(); //номер колонки и значение в ней
+
+        private void dataGridViewLab4_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress -= new KeyPressEventHandler(Column1_KeyPress);
+            if (dataGridViewLab4.CurrentCell.ColumnIndex == 1) //Desired Column
+            {
+                TextBox tb = e.Control as TextBox;
+                if (tb != null)
+                {
+                    tb.KeyPress += new KeyPressEventHandler(Column1_KeyPress);
+                }
+            }
+
+        }
+
+        private void helpbutton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Зеленым цветом обозначена та проблема, на которую вы дали оценку всеми методами\nЖелтым цветом обозначена та пробелма, на которую вы дали оценку хотя бы одним методом\nКрасным цветом обозначена та проблема, на которую вы не дали свою экспертную оценку");
         }
     }
 }

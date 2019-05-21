@@ -56,6 +56,7 @@
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.helpbutton = new System.Windows.Forms.Button();
             this.form2BindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -117,7 +118,7 @@
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(42, 40);
+            this.comboBox1.Location = new System.Drawing.Point(38, 40);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(179, 21);
             this.comboBox1.TabIndex = 25;
@@ -195,7 +196,7 @@
             this.MethodsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.MethodsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.MethodsComboBox.FormattingEnabled = true;
-            this.MethodsComboBox.Location = new System.Drawing.Point(227, 41);
+            this.MethodsComboBox.Location = new System.Drawing.Point(223, 40);
             this.MethodsComboBox.Name = "MethodsComboBox";
             this.MethodsComboBox.Size = new System.Drawing.Size(179, 21);
             this.MethodsComboBox.TabIndex = 28;
@@ -243,7 +244,7 @@
             // 
             this.Lab2Label.AutoSize = true;
             this.Lab2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.Lab2Label.Location = new System.Drawing.Point(38, 39);
+            this.Lab2Label.Location = new System.Drawing.Point(38, 41);
             this.Lab2Label.Name = "Lab2Label";
             this.Lab2Label.Size = new System.Drawing.Size(395, 20);
             this.Lab2Label.TabIndex = 30;
@@ -253,9 +254,10 @@
             // CountWeightLabel
             // 
             this.CountWeightLabel.AutoSize = true;
+            this.CountWeightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CountWeightLabel.Location = new System.Drawing.Point(630, 43);
             this.CountWeightLabel.Name = "CountWeightLabel";
-            this.CountWeightLabel.Size = new System.Drawing.Size(117, 13);
+            this.CountWeightLabel.Size = new System.Drawing.Size(140, 16);
             this.CountWeightLabel.TabIndex = 31;
             this.CountWeightLabel.Text = "Общий вес = 0 из 100";
             this.CountWeightLabel.Visible = false;
@@ -290,6 +292,7 @@
             this.dataGridViewLab4.TabIndex = 33;
             this.dataGridViewLab4.Visible = false;
             this.dataGridViewLab4.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLab4_CellEndEdit);
+            this.dataGridViewLab4.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridViewLab4_EditingControlShowing);
             // 
             // Column1
             // 
@@ -297,16 +300,19 @@
             this.Column1.HeaderText = "Альтернатива 1";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column2
             // 
             this.Column2.HeaderText = " ";
             this.Column2.Name = "Column2";
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column3
             // 
             this.Column3.HeaderText = " ";
             this.Column3.Name = "Column3";
+            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column4
             // 
@@ -314,6 +320,17 @@
             this.Column4.HeaderText = "Альтернатива 2";
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
+            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // helpbutton
+            // 
+            this.helpbutton.Location = new System.Drawing.Point(408, 39);
+            this.helpbutton.Name = "helpbutton";
+            this.helpbutton.Size = new System.Drawing.Size(22, 22);
+            this.helpbutton.TabIndex = 34;
+            this.helpbutton.Text = "?";
+            this.helpbutton.UseVisualStyleBackColor = true;
+            this.helpbutton.Click += new System.EventHandler(this.helpbutton_Click);
             // 
             // form2BindingSource
             // 
@@ -324,10 +341,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1350, 477);
+            this.Controls.Add(this.Lab2Label);
+            this.Controls.Add(this.helpbutton);
             this.Controls.Add(this.dataGridViewLab4);
             this.Controls.Add(this.ProblemNameLabel);
             this.Controls.Add(this.CountWeightLabel);
-            this.Controls.Add(this.Lab2Label);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.MethodsComboBox);
             this.Controls.Add(this.FinishButton);
@@ -378,5 +396,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.Button helpbutton;
     }
 }

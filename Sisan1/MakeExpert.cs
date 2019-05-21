@@ -155,7 +155,7 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
             }
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                if (File.Exists("data/Experts/" + Data.ExpertsList[i].Item1 + "/Matrix_" + ProblemsListComboBox.SelectedItem.ToString()) || File.Exists("data/Experts/" + Data.ExpertsList[i].Item1 + "/SecondLab_" + ProblemsListComboBox.SelectedItem.ToString()) || File.Exists("data/Experts/" + Data.ExpertsList[i].Item1 + "/ThirdLabFirstMethod_" + ProblemsListComboBox.SelectedItem.ToString()) || File.Exists("data/Experts/" + Data.ExpertsList[i].Item1 + "/RankMethod_" + ProblemsListComboBox.SelectedItem.ToString()))
+                if (File.Exists("data/Experts/" + Data.ExpertsList[i].Item1 + "/Matrix_" + ProblemsListComboBox.SelectedItem.ToString()) || File.Exists("data/Experts/" + Data.ExpertsList[i].Item1 + "/SecondLab_" + ProblemsListComboBox.SelectedItem.ToString()) || File.Exists("data/Experts/" + Data.ExpertsList[i].Item1 + "/ThirdLabFirstMethod_" + ProblemsListComboBox.SelectedItem.ToString()) || File.Exists("data/Experts/" + Data.ExpertsList[i].Item1 + "/RankMethod_" + ProblemsListComboBox.SelectedItem.ToString()) || File.Exists("data/Experts/" + Data.ExpertsList[i].Item1 + "/FourthLab_" + ProblemsListComboBox.SelectedItem.ToString()))
                 {
                     dataGridView1.Rows[i].Cells[1].ReadOnly = true;
                     dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;

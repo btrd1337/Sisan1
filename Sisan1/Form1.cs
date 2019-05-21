@@ -87,6 +87,7 @@ namespace Sisan1
 
         void InitLab4ResultTable()
         {
+
             List<double> SumOfSums = new List<double>();
             List<List<int>> SumOfRow = new List<List<int>>();
             List<double> tmp = new List<double>();
@@ -116,64 +117,26 @@ namespace Sisan1
                 {
                     NormSumOfRows[ex][i] = Convert.ToDouble(SumOfRow[ex][i]) / Convert.ToDouble(Alternatives.Count * (Alternatives.Count - 1) * ScaleSize);
                 }
-
-                //for (int i = 0; i < Alternatives.Count; i++)
-                //{
-                //    tmp.Add(0);
-                //}
-                //for (int i = 0; i < RankMethodExpertsPassed.Count; i++) //для нормирования
-                //{
-                //    for (int j = 0; j < Alternatives.Count; j++)
-                //    {
-                //        SumOfRow[i] += RankMethodExpertsPassed[i].Item2[j];
-
-                //    }
-                //}
-                //for (int i = 0; i < RankMethodExpertsPassed.Count; i++) //отнормировали
-                //{
-                //    for (int j = 0; j < Alternatives.Count; j++)
-                //    {
-                //        RankMethodExpertsPassed[i].Item2[j] /= SumOfRow[i];
-                //        tmp[j] += RankMethodExpertsPassed[i].Item2[j];
-                //    }
-                //}
-
-                //for (int i = 0; i < Alternatives.Count; i++)
-                //{
-                //    RankMethodResultVector.Add(Tuple.Create(Alternatives[i], tmp[i] / RankMethodExpertsPassed.Count));
-                //    dataGridViewRankMethod.Rows.Add();
-                //    dataGridViewRankMethod.Rows[i].Cells[1].Value = Convert.ToString(i + 1) + ". " + RankMethodResultVector[i].Item1;
-                //    dataGridViewRankMethod.Rows[i].Cells[2].Value = RankMethodResultVector[i].Item2;
-                //}
-                //dataGridViewRankMethod.Sort(dataGridViewRankMethod.Columns[2], System.ComponentModel.ListSortDirection.Descending);
-                //for (int i = 0; i < Alternatives.Count; i++)
-                //{
-                //    dataGridViewRankMethod.Rows[i].Cells[0].Value = i + 1;
-                //}
-
-
             }
-
-            for (UInt16 i = 0; i < Alternatives.Count; i++)
+            if (Lab4MethodExpertsPassed.Count > 0)
             {
-                for (int j = 0; j < Lab4MethodExpertsPassed.Count; j++)
+                for (UInt16 i = 0; i < Alternatives.Count; i++)
                 {
-                    tmp[i] += NormSumOfRows[j][i];
+                    for (int j = 0; j < Lab4MethodExpertsPassed.Count; j++)
+                    {
+                        tmp[i] += NormSumOfRows[j][i];
+                    }
+                    Lab4ResultVector.Add(Tuple.Create(Alternatives[i], tmp[i]));
+                    dataGridViewLab4.Rows.Add();
+                    dataGridViewLab4.Rows[i].Cells[1].Value = Convert.ToString(i + 1) + ". " + Lab4ResultVector[i].Item1;
+                    dataGridViewLab4.Rows[i].Cells[2].Value = Lab4ResultVector[i].Item2;
                 }
-                Lab4ResultVector.Add(Tuple.Create(Alternatives[i], tmp[i]));
-                dataGridViewLab4.Rows.Add();
-                dataGridViewLab4.Rows[i].Cells[1].Value = Convert.ToString(i + 1) + ". " + Lab4ResultVector[i].Item1;
-                dataGridViewLab4.Rows[i].Cells[2].Value = Lab4ResultVector[i].Item2;
+                dataGridViewLab4.Sort(dataGridViewLab4.Columns[2], System.ComponentModel.ListSortDirection.Descending);
+                for (int i = 0; i < Alternatives.Count; i++)
+                {
+                    dataGridViewLab4.Rows[i].Cells[0].Value = i + 1;
+                }
             }
-            dataGridViewLab4.Sort(dataGridViewLab4.Columns[2], System.ComponentModel.ListSortDirection.Descending);
-            for (int i = 0; i < Alternatives.Count; i++)
-            {
-                dataGridViewLab4.Rows[i].Cells[0].Value = i + 1;
-            }
-
-
-
-
         }
 
         void BuildModifiedMatrxThirdLabFirstMethod()
@@ -656,34 +619,51 @@ namespace Sisan1
 
         }
 
+        private bool IsExpertCheckedAlternative(string Method)
+        {
+            string path = "data/Experts/";
+            foreach (string s in Directory.GetDirectories(path))
+            {
+                if (File.Exists(s + "/" + Method + "_" + Enter_Analyst.ChosenProblemA))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         private void AddAlternative(string db) //Добавление альтернативы
         {
             alterCount++;
             Alternatives.Add(db);
-            AlternativesDataGridView.Rows.Add(alterCount.ToString(), db);
-
-            DataGridViewComboBoxColumn column = new DataGridViewComboBoxColumn();
-            column.HeaderText = "Z" + alterCount.ToString();
-            column.Name = "Z" + alterCount.ToString();
-            column.Items.AddRange(new object[] { "1", "0,5", "0" });
-            column.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
-            column.DisplayStyleForCurrentCellOnly = true;
-            dataGridView1.Columns.Add(column);
-            dataGridView1.Rows.Add();
-            dataGridView1.Rows[alterCount - 1].HeaderCell.Value = "Z" + alterCount.ToString();
-            dataGridView1.Columns[alterCount - 1].Width = 30;
-
-            for (int i = 0; i < alterCount; i++)
+            if (IsExpertCheckedAlternative("Matrix"))
             {
-                if (i != alterCount - 1)
+                AlternativesDataGridView.Rows.Add(alterCount.ToString(), db);
+
+                DataGridViewComboBoxColumn column = new DataGridViewComboBoxColumn();
+                column.HeaderText = "Z" + alterCount.ToString();
+                column.Name = "Z" + alterCount.ToString();
+                column.Items.AddRange(new object[] { "1", "0,5", "0" });
+                column.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
+                column.DisplayStyleForCurrentCellOnly = true;
+                dataGridView1.Columns.Add(column);
+                dataGridView1.Rows.Add();
+                dataGridView1.Rows[alterCount - 1].HeaderCell.Value = "Z" + alterCount.ToString();
+                dataGridView1.Columns[alterCount - 1].Width = 30;
+
+                for (int i = 0; i < alterCount; i++)
                 {
-                    dataGridView1[i, alterCount - 1].Value = "0";
-                    dataGridView1[alterCount - 1, i].Value = "1";
-                }
-                else // Диагональный элемент
-                {
-                    dataGridView1[i, alterCount - 1].ReadOnly = true;
-                    dataGridView1[i, alterCount - 1].Style.BackColor = Color.Red;
+                    if (i != alterCount - 1)
+                    {
+                        dataGridView1[i, alterCount - 1].Value = "0";
+                        dataGridView1[alterCount - 1, i].Value = "1";
+                    }
+                    else // Диагональный элемент
+                    {
+                        dataGridView1[i, alterCount - 1].ReadOnly = true;
+                        dataGridView1[i, alterCount - 1].Style.BackColor = Color.Red;
+                    }
                 }
             }
         }

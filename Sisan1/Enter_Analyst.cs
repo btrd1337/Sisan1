@@ -135,12 +135,12 @@ namespace Sisan1
 
             RefreshForm();
         }
-        private bool IsExpertCheckedAlternative()
+        private bool IsExpertCheckedAlternative(string Method)
         {
             string path = "data/Experts/";
             foreach (string s in Directory.GetDirectories(path))
             {
-                if (File.Exists(s + "/Matrix_" + ChosenProblemA))
+                if (File.Exists(s + "/"+Method+"_" + ChosenProblemA))
                 {
                     return true;
                 }
@@ -218,16 +218,18 @@ namespace Sisan1
             {
                 
                 string Filename2 = "data/Matrix_" + comboBox1.SelectedItem.ToString();
-                if (!System.IO.File.Exists(Filename2))
+                if (!IsExpertCheckedAlternative("Matrix") && !IsExpertCheckedAlternative("SecondLab")) 
                 {
                     //comboBox1.BackColor = Color.Red;
                     EditProblemButton.Enabled = true;
+                    AnalyticsFormButton.Enabled = false;
                     ChosenProblemA = comboBox1.SelectedItem.ToString();
                     Exit.Focus();
                     return;
                 }
                 else
                 {
+                    AnalyticsFormButton.Enabled = true;
                     //comboBox1.BackColor = Color.Green;
                     EditProblemButton.Enabled = false;
                     AnalyticsFormButton.Focus();
