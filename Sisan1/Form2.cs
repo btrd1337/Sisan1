@@ -283,6 +283,7 @@ namespace Sisan1
             this.Text = Enter_Expert.ChosenProblem;
             ProblemNameLabel.Text = Enter_Expert.ChosenProblem;
             ProblemNameLabel.Visible = true;
+            helpbutton.Visible = false;
             switch (MethodsComboBox.SelectedIndex)
             {
                 case 0:
@@ -1234,15 +1235,31 @@ namespace Sisan1
                             {
                                 m--;
                             }
-                            if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && Convert.ToByte(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value) > dataGridView2.Rows.Count || Convert.ToByte(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value) < 1)
+                            //if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && Convert.ToByte(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value) > dataGridView2.Rows.Count || Convert.ToByte(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value) < 1)
+                            //{
+                            //    dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
+                            //    CurrentCheckBoxChecked--;
+                            //}
+                            //else
+                            //{
+                            //    dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = default(Color);
+                            //    CurrentCheckBoxChecked++;
+                            //}
+                            if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
                             {
-                                dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
-                                CurrentCheckBoxChecked--;
-                            }
-                            else
-                            {
-                                dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = default(Color);
-                                CurrentCheckBoxChecked++;
+                                if (Convert.ToByte(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value) > dataGridView2.Rows.Count)
+                                {
+                                    dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dataGridView2.Rows.Count;
+                                }
+                                else
+                                {
+                                    if (Convert.ToByte(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value) < 1)
+                                        dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 1;
+                                    else
+                                    {
+                                        dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = default(Color);
+                                    }
+                                }
                             }
                         }
                         bool LockFinishButton = false;
@@ -1286,30 +1303,35 @@ namespace Sisan1
                     }
                 case 3: //метод ранга
                     {
-                        if (e.ColumnIndex == 1 && e.RowIndex > -1)
-                        {
-                            if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
-                            {
-                                if (Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace('.', ',')) > 10.0 || Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace('.', ',')) < 0.0)
-                                {
-                                    dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
-                                    CurrentCheckBoxChecked--;
-                                }
-                                else
-                                {
-                                    dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = default(Color);
-                                    CurrentCheckBoxChecked++;
-                                }
-                            }
-                        }
+                        //if (e.ColumnIndex == 1 && e.RowIndex > -1)
+                        //{
+                        //    if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                        //    {
+                        //        if (Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace('.', ',')) > 10.0 || Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().Replace('.', ',')) < 0.0)
+                        //        {
+                        //            //dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
+                        //            CurrentCheckBoxChecked--;
+                        //        }
+                        //        else
+                        //        {
+                        //            dataGridView2.Rows[e.RowIndex].DefaultCellStyle.BackColor = default(Color);
+                        //            CurrentCheckBoxChecked++;
+                        //        }
+                        //    }
+                        //}
                         bool LockFinishButton = false;
                         for (int i = 0; i < dataGridView2.Rows.Count && LockFinishButton == false; i++)
                         {
                             if (dataGridView2.Rows[i].Cells[1].Value != null)
                             {
-                                if (Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ',')) > 10.0 || Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ',')) < 0.0)
+                                if (Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ',')) > 10.0 )
                                 {
-                                    LockFinishButton = true;
+                                    dataGridView2[1, i].Value = 10.0;
+                                }
+                                else
+                                {
+                                    if (Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value.ToString().Replace('.', ',')) < 0.0)
+                                        dataGridView2[1, i].Value = 0.0;
                                 }
                             }
                         }
@@ -1333,40 +1355,21 @@ namespace Sisan1
             {
                 if (dataGridViewLab4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
                 {
-                    if (Convert.ToInt32(dataGridViewLab4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) > ScaleSize || Convert.ToInt32(dataGridViewLab4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) < 0)
+                    if (Convert.ToInt32(dataGridViewLab4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) > ScaleSize)
                     {
-                        dataGridViewLab4.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.FromArgb(252, 228, 214);
-                        CurrentCheckBoxChecked--;
+                        dataGridViewLab4[e.ColumnIndex, e.RowIndex].Value = ScaleSize;
                     }
                     else
                     {
-                        dataGridViewLab4.Rows[e.RowIndex].DefaultCellStyle.BackColor = default(Color);
-                        CurrentCheckBoxChecked++;
+                        if (Convert.ToInt32(dataGridViewLab4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()) < 0)
+                        {
+                            dataGridViewLab4[e.ColumnIndex, e.RowIndex].Value = 0;
+                        }
                     }
                     dataGridViewLab4.Rows[e.RowIndex].Cells[(e.ColumnIndex % 2) + 1].Value = ScaleSize - Convert.ToInt32(dataGridViewLab4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
                 }
             }
             bool LockFinishButton = false;
-            for (int i = 0; i < dataGridViewLab4.Rows.Count && LockFinishButton == false; i++)
-            {
-                if (dataGridViewLab4.Rows[i].Cells[e.ColumnIndex].Value != null)
-                {
-                    if (Convert.ToInt32(dataGridViewLab4.Rows[i].Cells[e.ColumnIndex].Value.ToString()) > ScaleSize || Convert.ToInt32(dataGridViewLab4.Rows[i].Cells[e.ColumnIndex].Value.ToString()) < 0 || dataGridViewLab4.Rows[e.RowIndex].DefaultCellStyle.BackColor == Color.FromArgb(252, 228, 214))
-                    {
-                        LockFinishButton = true;
-                    }
-                    //else
-                    //{
-                    //    MatrixLab4[Array[e.RowIndex][0], Array[e.RowIndex][1]] = dataGridViewLab4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-
-                    //}
-                }
-            }
-            if (CurrentCheckBoxChecked < tmp)
-            {
-                LockFinishButton = true;
-            }
-
             if (LockFinishButton == true)
             {
                 FinishButton.Enabled = false;

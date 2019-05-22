@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace Sisan1 //В этой формочке еще и удалять и редактировать экспертов будет можно (со временем)
 {
@@ -207,10 +207,8 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
                     dataGridView1.Rows.Clear();
                     dataGridView1.Refresh();
                     EditExpertGroupBox.Visible = true;
-                    //EditExpertCoefficientNumericUpDown.Value = 0;
                     InitDataGrid();
                     LoadPreviousProblems();
-                    //LoadPreviousCoefficient();
                     InitExpertsPassedProblem();
                 }
 
@@ -284,44 +282,6 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
                 }
             }
 
-            //CurrentExpertProblemsSelected.Clear();
-            //for (int i = 0; i < dataGridView1.Rows.Count; i++)
-            //{
-            //    if ((bool)dataGridView1.Rows[i].Cells[1].Value == true)
-            //    {
-
-            //        CurrentExpertProblemsSelected.Add(dataGridView1.Rows[i].Cells[0].Value.ToString());
-            //        CurrentExpertProblemsSelectedCoefficient.Add(Convert.ToDouble(dataGridView1.Rows[i].Cells[2].Value));
-            //    }
-            //    else
-            //    {
-            //        if (File.Exists("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/SecondLab_" + dataGridView1.Rows[i].Cells[0].Value.ToString()))
-            //        {
-            //            File.Delete("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/SecondLab_" + dataGridView1.Rows[i].Cells[0].Value.ToString());
-            //        }
-            //    }
-            //}
-            //File.CreateText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Problems.txt").Close(); //чистим строчку
-            //File.CreateText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Coefficient.txt").Close(); //чистим строчку
-            //for (int i = 0; i < Data.ExpertsList.Count; i++)
-            //{
-            //    if (Data.ExpertsList[i].Item1 == Data.CurrentExpertTuple.Item1)
-            //    {
-            //        Data.ExpertsList[i].Item3.Clear();
-            //        Data.ExpertsList[i].Item2.Clear();
-            //        for (int j = 0; j < CurrentExpertProblemsSelected.Count; j++)
-            //        {
-            //            Data.ExpertsList[i].Item3.Add(CurrentExpertProblemsSelected[j]);
-            //            Data.ExpertsList[i].Item2.Add(CurrentExpertProblemsSelectedCoefficient[j]);
-            //        }
-            //    }
-            //}
-            //CurrentExpertProblemsSelected.Insert(0, CurrentExpertProblemsSelected.Count.ToString());
-            //CurrentExpertProblemsSelectedCoefficient.Insert(0, CurrentExpertProblemsSelectedCoefficient.Count);
-            //File.WriteAllLines("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Problems.txt", CurrentExpertProblemsSelected);
-            ////File.WriteAllText("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Coefficient.txt", Convert.ToString(EditExpertCoefficientNumericUpDown.Value));
-            //File.WriteAllLines("data/Experts/" + Data.CurrentExpertTuple.Item1 + "/Coefficient.txt", (List<string>)CurrentExpertProblemsSelectedCoefficient.ConvertAll<string>(x => x.ToString()));
-
             Data.ProblemsFileName = "ad.txt";
             MessageBox.Show("Успешно сохранено");
         }
@@ -341,6 +301,22 @@ namespace Sisan1 //В этой формочке еще и удалять и ре
         {
             Application.Exit();
 
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 2 && e.RowIndex > -1)
+            {
+                if (Convert.ToDouble(dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString().Replace('.', ',')) > 10)
+                {
+                    dataGridView1[e.ColumnIndex, e.RowIndex].Value = 10;
+                }
+                else
+                    if (Convert.ToDouble(dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString().Replace('.', ',')) < 0)
+                {
+                    dataGridView1[e.ColumnIndex, e.RowIndex].Value = 0;
+                }
+            }
         }
     }
 }
