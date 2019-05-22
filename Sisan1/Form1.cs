@@ -685,8 +685,6 @@ namespace Sisan1
 
         }
 
-
-
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             dataGridView1[e.RowIndex, e.ColumnIndex].Value =

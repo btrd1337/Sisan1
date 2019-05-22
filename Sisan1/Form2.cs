@@ -763,7 +763,7 @@ namespace Sisan1
                                 }
                                 else
                                 {
-                                    output += dataGridView2.Rows[n].Cells[1].Value.ToString().Replace('.', ',');
+                                    output += Convert.ToString(Convert.ToDouble(dataGridView2.Rows[n].Cells[1].Value.ToString().Replace('.', ','))/100.0);
                                 }
 
                                 output += "\n";
@@ -1197,6 +1197,11 @@ namespace Sisan1
                         if (e.ColumnIndex == 1 && e.RowIndex > -1 && (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() != "" /*&& !string.IsNullOrWhiteSpace(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString())*/))
                         {
                             SumScore = 0;
+                            if (Convert.ToDouble(dataGridView2[e.ColumnIndex,e.RowIndex].Value.ToString())>100.0)
+                            {
+                                dataGridView2[e.ColumnIndex, e.RowIndex].Value = 100.0;
+                            }
+                            
                             for (int i = 0; i < dataGridView2.Rows.Count; i++)
                             {
                                 if ((dataGridView2.Rows[i].Cells[e.ColumnIndex].Value != null && dataGridView2.Rows[i].Cells[e.ColumnIndex].Value.ToString() != "" && !string.IsNullOrWhiteSpace(dataGridView2.Rows[i].Cells[e.ColumnIndex].Value.ToString())))

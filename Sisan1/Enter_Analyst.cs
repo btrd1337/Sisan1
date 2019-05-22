@@ -30,7 +30,7 @@ namespace Sisan1
         private void InitOldSessions()
         {
             CurSession.LoadSession();
-            if (CurSession.Problems.Count < Constants.MAX_ITEMS && CurSession.Problems.Count > 0)
+            if (CurSession.Problems.Count > 0)
             {
                 for (int i = 0; i < CurSession.Problems.Count; ++i)
                 {
@@ -78,8 +78,6 @@ namespace Sisan1
         {
             try
             {
-                if (Problems.Count < Constants.MAX_ITEMS)
-                {
 
                     string ProblemName = NewProblemTextBox.Text;
                     if (ProblemName == "")
@@ -113,11 +111,7 @@ namespace Sisan1
                     }
                     //}
 
-                }
-                else
-                {
-                    throw new Exception("Сликшом много проблем.");
-                }
+               
             }
             catch (Exception ex)
             {

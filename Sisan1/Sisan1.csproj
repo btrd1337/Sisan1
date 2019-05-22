@@ -67,7 +67,6 @@
     <Compile Include="ChangeTheme.Designer.cs">
       <DependentUpon>ChangeTheme.cs</DependentUpon>
     </Compile>
-    <Compile Include="constants.cs" />
     <Compile Include="DialogBox.cs">
       <SubType>Form</SubType>
     </Compile>
