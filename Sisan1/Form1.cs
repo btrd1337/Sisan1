@@ -129,22 +129,18 @@ namespace Sisan1
                     Lab4ResultVector.Add(Tuple.Create(Alternatives[i], tmp[i]));
                     dataGridViewLab4.Rows.Add();
                     dataGridViewLab4.Rows[i].Cells[1].Value = Convert.ToString(i + 1) + ". " + Lab4ResultVector[i].Item1;
-                    dataGridViewLab4.Rows[i].Cells[2].Value = Math.Round(Lab4ResultVector[i].Item2,4);
+                    dataGridViewLab4.Rows[i].Cells[2].Value = Math.Round(Lab4ResultVector[i].Item2, 4);
                 }
                 dataGridViewLab4.Sort(dataGridViewLab4.Columns[2], System.ComponentModel.ListSortDirection.Descending);
-                int tmpAltCount = Alternatives.Count;
+                int temp = 0;    //оно нужно для того чтобы адекватно выводить ранг, мы будем отнимать это число.
                 dataGridViewLab4.Rows[0].Cells[0].Value = 1;
-                for (int i = 1; i < tmpAltCount; i++)
+                for (int i = 1; i < Alternatives.Count; i++)
                 {
-                    if (dataGridViewLab4[2, i] == dataGridViewLab4[2, i - 1])
+                    if (Convert.ToDouble(dataGridViewLab4[2, i].Value) == Convert.ToDouble(dataGridViewLab4[2, i - 1].Value))
                     {
-                        tmpAltCount--;
-                        dataGridViewLab4.Rows[i].Cells[0].Value = i;
+                        temp++;
                     }
-                    else
-                    {
-                        dataGridViewLab4.Rows[i].Cells[0].Value = i + 1;
-                    }
+                    dataGridViewLab4.Rows[i].Cells[0].Value = i + 1 - temp;
                 }
             }
         }
@@ -187,20 +183,17 @@ namespace Sisan1
                     dataGridViewLab3FirstMethod.Rows[i].Cells[2].Value = Math.Round(ThirdLabFirstMethodResultVector[i].Item2, 4);
                 }
                 dataGridViewLab3FirstMethod.Sort(dataGridViewLab3FirstMethod.Columns[2], System.ComponentModel.ListSortDirection.Descending);
-                int tmpAltCount = Alternatives.Count;
+                int temp = 0;    //оно нужно для того чтобы адекватно выводить ранг, мы будем отнимать это число.
                 dataGridViewLab3FirstMethod.Rows[0].Cells[0].Value = 1;
-                for (int i = 1; i < tmpAltCount; i++)
+                for (int i = 1; i < Alternatives.Count; i++)
                 {
-                    if (dataGridViewLab3FirstMethod[2, i] == dataGridViewLab3FirstMethod[2, i - 1])
+                    if (Convert.ToDouble(dataGridViewLab3FirstMethod[2, i].Value) == Convert.ToDouble(dataGridViewLab3FirstMethod[2, i - 1].Value))
                     {
-                        tmpAltCount--;
-                        dataGridViewLab3FirstMethod.Rows[i].Cells[0].Value = i;
+                        temp++;
                     }
-                    else
-                    {
-                        dataGridViewLab3FirstMethod.Rows[i].Cells[0].Value = i + 1;
-                    }
+                    dataGridViewLab3FirstMethod.Rows[i].Cells[0].Value = i + 1 - temp;
                 }
+
             }
         }
 
@@ -244,19 +237,15 @@ namespace Sisan1
                     dataGridViewRankMethod.Rows[i].Cells[2].Value = Math.Round(RankMethodResultVector[i].Item2, 4);
                 }
                 dataGridViewRankMethod.Sort(dataGridViewRankMethod.Columns[2], System.ComponentModel.ListSortDirection.Descending);
-                int tmpAltCount = Alternatives.Count;
+                int temp = 0;    //оно нужно для того чтобы адекватно выводить ранг, мы будем отнимать это число.
                 dataGridViewRankMethod.Rows[0].Cells[0].Value = 1;
-                for (int i = 1; i < tmpAltCount; i++)
+                for (int i = 1; i < Alternatives.Count; i++)
                 {
-                    if (dataGridViewRankMethod[2, i] == dataGridViewRankMethod[2, i - 1])
+                    if (Convert.ToDouble(dataGridViewRankMethod[2, i].Value) == Convert.ToDouble(dataGridViewRankMethod[2, i - 1].Value))
                     {
-                        tmpAltCount--;
-                        dataGridViewRankMethod.Rows[i].Cells[0].Value = i;
+                        temp++;
                     }
-                    else
-                    {
-                        dataGridViewRankMethod.Rows[i].Cells[0].Value = i + 1;
-                    }
+                    dataGridViewRankMethod.Rows[i].Cells[0].Value = i + 1 - temp;
                 }
 
             }
@@ -344,22 +333,18 @@ namespace Sisan1
                     SecondLabResultVector.Add(Tuple.Create(Alternatives[i], tempList[i]));
                     dataGridViewLab2.Rows.Add();
                     dataGridViewLab2.Rows[i].Cells[1].Value = Convert.ToString(i + 1) + ". " + Alternatives[i];
-                    dataGridViewLab2.Rows[i].Cells[2].Value = Math.Round(tempList[i],4);
+                    dataGridViewLab2.Rows[i].Cells[2].Value = Math.Round(tempList[i], 4);
                 }
                 dataGridViewLab2.Sort(dataGridViewLab2.Columns[2], System.ComponentModel.ListSortDirection.Descending);
-                int tmpAltCount = Alternatives.Count;
+                int temp = 0;    //оно нужно для того чтобы адекватно выводить ранг, мы будем отнимать это число.
                 dataGridViewLab2.Rows[0].Cells[0].Value = 1;
-                for (int i = 1; i < tmpAltCount; i++)
+                for (int i = 1; i < Alternatives.Count; i++)
                 {
-                    if (dataGridViewLab2[2, i] == dataGridViewLab2[2, i - 1])
+                    if (Convert.ToDouble(dataGridViewLab2[2, i].Value) == Convert.ToDouble(dataGridViewLab2[2, i - 1].Value))
                     {
-                        tmpAltCount--;
-                        dataGridViewLab2.Rows[i].Cells[0].Value = i;
+                        temp++;
                     }
-                    else
-                    {
-                        dataGridViewLab2.Rows[i].Cells[0].Value = i + 1;
-                    }
+                    dataGridViewLab2.Rows[i].Cells[0].Value = i + 1 - temp;
                 }
             }
 
@@ -458,6 +443,12 @@ namespace Sisan1
                 ThirdLabFirstMethodExpertsPassedCountLabel.Text = "Пройдено " + ThirdLabFirstMethodExpertsPassed.Count.ToString() + " из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
                 RankMethodExpertsPassedLabel.Text = "Пройдено " + RankMethodExpertsPassed.Count.ToString() + " из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
                 FourthLabExpertsPassedCountLabel.Text = "Пройдено " + Lab4MethodExpertsPassed.Count.ToString() + " из " + AllProblemsCountForCurrentProblem.ToString() + " экспертами";
+                dataGridViewLab1.ClearSelection();
+                dataGridViewLab2.ClearSelection();
+                dataGridViewLab3FirstMethod.ClearSelection();
+                dataGridViewLab4.ClearSelection();
+                dataGridViewRankMethod.ClearSelection();
+                AlternativesDataGridView.ClearSelection();
 
             }
             catch (Exception err)
@@ -569,6 +560,8 @@ namespace Sisan1
             }
 
             ResultsFirstLab();
+            dataGridViewLab1.ClearSelection();
+
         }
 
         void PairedComparison() // Метод парных сравнений
@@ -714,22 +707,18 @@ namespace Sisan1
             {
                 dataGridViewLab1.Rows.Add();
                 dataGridViewLab1.Rows[i].Cells[1].Value = Convert.ToString(i + 1) + ". " + Alternatives[i];
-                dataGridViewLab1.Rows[i].Cells[2].Value = Math.Round(results[i],4);
+                dataGridViewLab1.Rows[i].Cells[2].Value = Math.Round(results[i], 4);
             }
             dataGridViewLab1.Sort(dataGridViewLab1.Columns[2], System.ComponentModel.ListSortDirection.Descending);
-            int tmpAltCount = Alternatives.Count;
+            int tmp = 0;    //оно нужно для того чтобы адекватно выводить ранг, мы будем отнимать это число.
             dataGridViewLab1.Rows[0].Cells[0].Value = 1;
-            for (int i = 1; i < tmpAltCount; i++)
+            for (int i = 1; i < Alternatives.Count; i++)
             {
-                if (dataGridViewLab1[2, i] == dataGridViewLab1[2, i - 1])
+                if (Convert.ToDouble(dataGridViewLab1[2, i].Value) == Convert.ToDouble(dataGridViewLab1[2, i - 1].Value))
                 {
-                    tmpAltCount--;
-                    dataGridViewLab1.Rows[i].Cells[0].Value = i;
+                    tmp++;
                 }
-                else
-                {
-                    dataGridViewLab1.Rows[i].Cells[0].Value = i + 1;
-                }
+                dataGridViewLab1.Rows[i].Cells[0].Value = i + 1 - tmp;
             }
 
         }
