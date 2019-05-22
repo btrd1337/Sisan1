@@ -898,5 +898,21 @@ namespace Sisan1
         {
 
         }
+
+        private void dataGridViewRankMethod_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            dataGridViewLab1.ClearSelection();
+            dataGridViewLab2.ClearSelection();
+            dataGridViewLab3FirstMethod.ClearSelection();
+            dataGridViewLab4.ClearSelection();
+            dataGridViewRankMethod.ClearSelection();
+            AlternativesDataGridView.ClearSelection();
+
+        }
     }
 }

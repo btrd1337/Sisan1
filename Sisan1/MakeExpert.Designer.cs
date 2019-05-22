@@ -162,9 +162,8 @@
             // 
             // Coefficient
             // 
-            this.Coefficient.HeaderText = "Уровень компетеции";
+            this.Coefficient.HeaderText = "Уровень компетенции";
             this.Coefficient.Name = "Coefficient";
-            this.Coefficient.ReadOnly = true;
             this.Coefficient.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // MakeExpert
@@ -180,7 +179,7 @@
             this.Controls.Add(this.AddExpertButton);
             this.Name = "MakeExpert";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MakeExpert";
+            this.Text = "Панель экспертов";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MakeExpert_FormClosing);
             this.Load += new System.EventHandler(this.MakeExpert_Load);
             this.EditExpertGroupBox.ResumeLayout(false);
