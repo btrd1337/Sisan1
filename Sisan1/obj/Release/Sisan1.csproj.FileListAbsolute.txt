@@ -1,5 +1,3 @@
-C:\Users\btrd\source\repos\Sisan1\Sisan1\bin\Release\Database1.mdf
-C:\Users\btrd\source\repos\Sisan1\Sisan1\bin\Release\Database1_log.ldf
 C:\Users\btrd\source\repos\Sisan1\Sisan1\bin\Release\Sisan1.exe.config
 C:\Users\btrd\source\repos\Sisan1\Sisan1\bin\Release\Sisan1.exe
 C:\Users\btrd\source\repos\Sisan1\Sisan1\bin\Release\Sisan1.pdb
@@ -17,3 +15,5 @@ C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Release\Sisan1.csproj.GenerateResou
 C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Release\Sisan1.csproj.CoreCompileInputs.cache
 C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Release\Sisan1.exe
 C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Release\Sisan1.pdb
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Release\Sisan1.ExpertLogin.resources
+C:\Users\btrd\source\repos\Sisan1\Sisan1\obj\Release\Sisan1.MakeExpert.resources

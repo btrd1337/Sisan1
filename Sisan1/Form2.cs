@@ -1197,7 +1197,7 @@ namespace Sisan1
                         if (e.ColumnIndex == 1 && e.RowIndex > -1 && (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null && dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() != "" /*&& !string.IsNullOrWhiteSpace(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString())*/))
                         {
                             SumScore = 0;
-                            if (Convert.ToDouble(dataGridView2[e.ColumnIndex,e.RowIndex].Value.ToString())>100.0)
+                            if (Convert.ToDouble(dataGridView2[e.ColumnIndex,e.RowIndex].Value.ToString().Replace('.', ',')) >100.0)
                             {
                                 dataGridView2[e.ColumnIndex, e.RowIndex].Value = 100.0;
                             }
@@ -1391,7 +1391,7 @@ namespace Sisan1
         private void dataGridViewLab4_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             e.Control.KeyPress -= new KeyPressEventHandler(Column1_KeyPress);
-            if (dataGridViewLab4.CurrentCell.ColumnIndex == 1) //Desired Column
+            if (dataGridViewLab4.CurrentCell.ColumnIndex == 1 || dataGridViewLab4.CurrentCell.ColumnIndex == 2) //Desired Column
             {
                 TextBox tb = e.Control as TextBox;
                 if (tb != null)

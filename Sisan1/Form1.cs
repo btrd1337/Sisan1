@@ -129,12 +129,22 @@ namespace Sisan1
                     Lab4ResultVector.Add(Tuple.Create(Alternatives[i], tmp[i]));
                     dataGridViewLab4.Rows.Add();
                     dataGridViewLab4.Rows[i].Cells[1].Value = Convert.ToString(i + 1) + ". " + Lab4ResultVector[i].Item1;
-                    dataGridViewLab4.Rows[i].Cells[2].Value = Lab4ResultVector[i].Item2;
+                    dataGridViewLab4.Rows[i].Cells[2].Value = Math.Round(Lab4ResultVector[i].Item2,4);
                 }
                 dataGridViewLab4.Sort(dataGridViewLab4.Columns[2], System.ComponentModel.ListSortDirection.Descending);
-                for (int i = 0; i < Alternatives.Count; i++)
+                int tmpAltCount = Alternatives.Count;
+                dataGridViewLab4.Rows[0].Cells[0].Value = 1;
+                for (int i = 1; i < tmpAltCount; i++)
                 {
-                    dataGridViewLab4.Rows[i].Cells[0].Value = i + 1;
+                    if (dataGridViewLab4[2, i] == dataGridViewLab4[2, i - 1])
+                    {
+                        tmpAltCount--;
+                        dataGridViewLab4.Rows[i].Cells[0].Value = i;
+                    }
+                    else
+                    {
+                        dataGridViewLab4.Rows[i].Cells[0].Value = i + 1;
+                    }
                 }
             }
         }
@@ -174,14 +184,23 @@ namespace Sisan1
                     ThirdLabFirstMethodResultVector.Add(Tuple.Create(Alternatives[i], tmpDouble));
                     dataGridViewLab3FirstMethod.Rows.Add();
                     dataGridViewLab3FirstMethod.Rows[i].Cells[1].Value = Convert.ToString(i + 1) + ". " + ThirdLabFirstMethodResultVector[i].Item1;
-                    dataGridViewLab3FirstMethod.Rows[i].Cells[2].Value = ThirdLabFirstMethodResultVector[i].Item2;
+                    dataGridViewLab3FirstMethod.Rows[i].Cells[2].Value = Math.Round(ThirdLabFirstMethodResultVector[i].Item2, 4);
                 }
                 dataGridViewLab3FirstMethod.Sort(dataGridViewLab3FirstMethod.Columns[2], System.ComponentModel.ListSortDirection.Descending);
-                for (int i = 0; i < Alternatives.Count; i++)
+                int tmpAltCount = Alternatives.Count;
+                dataGridViewLab3FirstMethod.Rows[0].Cells[0].Value = 1;
+                for (int i = 1; i < tmpAltCount; i++)
                 {
-                    dataGridViewLab3FirstMethod.Rows[i].Cells[0].Value = i + 1;
+                    if (dataGridViewLab3FirstMethod[2, i] == dataGridViewLab3FirstMethod[2, i - 1])
+                    {
+                        tmpAltCount--;
+                        dataGridViewLab3FirstMethod.Rows[i].Cells[0].Value = i;
+                    }
+                    else
+                    {
+                        dataGridViewLab3FirstMethod.Rows[i].Cells[0].Value = i + 1;
+                    }
                 }
-
             }
         }
 
@@ -222,12 +241,22 @@ namespace Sisan1
                     RankMethodResultVector.Add(Tuple.Create(Alternatives[i], tmp[i] / RankMethodExpertsPassed.Count));
                     dataGridViewRankMethod.Rows.Add();
                     dataGridViewRankMethod.Rows[i].Cells[1].Value = Convert.ToString(i + 1) + ". " + RankMethodResultVector[i].Item1;
-                    dataGridViewRankMethod.Rows[i].Cells[2].Value = RankMethodResultVector[i].Item2;
+                    dataGridViewRankMethod.Rows[i].Cells[2].Value = Math.Round(RankMethodResultVector[i].Item2, 4);
                 }
                 dataGridViewRankMethod.Sort(dataGridViewRankMethod.Columns[2], System.ComponentModel.ListSortDirection.Descending);
-                for (int i = 0; i < Alternatives.Count; i++)
+                int tmpAltCount = Alternatives.Count;
+                dataGridViewRankMethod.Rows[0].Cells[0].Value = 1;
+                for (int i = 1; i < tmpAltCount; i++)
                 {
-                    dataGridViewRankMethod.Rows[i].Cells[0].Value = i + 1;
+                    if (dataGridViewRankMethod[2, i] == dataGridViewRankMethod[2, i - 1])
+                    {
+                        tmpAltCount--;
+                        dataGridViewRankMethod.Rows[i].Cells[0].Value = i;
+                    }
+                    else
+                    {
+                        dataGridViewRankMethod.Rows[i].Cells[0].Value = i + 1;
+                    }
                 }
 
             }
@@ -258,7 +287,7 @@ namespace Sisan1
                             {
                                 while ((line = sr1.ReadLine()) != null)
                                 {
-                                    tmpDouble.Add(Convert.ToDouble(line));
+                                    tmpDouble.Add(Convert.ToDouble(line.Replace('.', ',')));
                                 }
                                 SecondLabExpertsPassed.Add(new Tuple<string, double, List<double>>(s.Remove(0, path.Length), CurrentSession.CofficientsList[CurrentSession.Problems.IndexOf(Enter_Analyst.ChosenProblemA)], tmpDouble));
                                 break;
@@ -276,7 +305,7 @@ namespace Sisan1
                             {
                                 while ((line = sr1.ReadLine()) != null)
                                 {
-                                    tmpDouble.Add(Convert.ToDouble(line));
+                                    tmpDouble.Add(Convert.ToDouble(line.Replace('.', ',')));
                                 }
                                 RankMethodExpertsPassed.Add(new Tuple<string, List<double>>(s.Remove(0, path.Length), tmpDouble));
 
@@ -315,12 +344,22 @@ namespace Sisan1
                     SecondLabResultVector.Add(Tuple.Create(Alternatives[i], tempList[i]));
                     dataGridViewLab2.Rows.Add();
                     dataGridViewLab2.Rows[i].Cells[1].Value = Convert.ToString(i + 1) + ". " + Alternatives[i];
-                    dataGridViewLab2.Rows[i].Cells[2].Value = tempList[i];
+                    dataGridViewLab2.Rows[i].Cells[2].Value = Math.Round(tempList[i],4);
                 }
                 dataGridViewLab2.Sort(dataGridViewLab2.Columns[2], System.ComponentModel.ListSortDirection.Descending);
-                for (int i = 0; i < Alternatives.Count; i++)
+                int tmpAltCount = Alternatives.Count;
+                dataGridViewLab2.Rows[0].Cells[0].Value = 1;
+                for (int i = 1; i < tmpAltCount; i++)
                 {
-                    dataGridViewLab2.Rows[i].Cells[0].Value = i + 1;
+                    if (dataGridViewLab2[2, i] == dataGridViewLab2[2, i - 1])
+                    {
+                        tmpAltCount--;
+                        dataGridViewLab2.Rows[i].Cells[0].Value = i;
+                    }
+                    else
+                    {
+                        dataGridViewLab2.Rows[i].Cells[0].Value = i + 1;
+                    }
                 }
             }
 
@@ -675,12 +714,22 @@ namespace Sisan1
             {
                 dataGridViewLab1.Rows.Add();
                 dataGridViewLab1.Rows[i].Cells[1].Value = Convert.ToString(i + 1) + ". " + Alternatives[i];
-                dataGridViewLab1.Rows[i].Cells[2].Value = results[i];
+                dataGridViewLab1.Rows[i].Cells[2].Value = Math.Round(results[i],4);
             }
             dataGridViewLab1.Sort(dataGridViewLab1.Columns[2], System.ComponentModel.ListSortDirection.Descending);
-            for (int i = 0; i < Alternatives.Count; i++)
+            int tmpAltCount = Alternatives.Count;
+            dataGridViewLab1.Rows[0].Cells[0].Value = 1;
+            for (int i = 1; i < tmpAltCount; i++)
             {
-                dataGridViewLab1.Rows[i].Cells[0].Value = i + 1;
+                if (dataGridViewLab1[2, i] == dataGridViewLab1[2, i - 1])
+                {
+                    tmpAltCount--;
+                    dataGridViewLab1.Rows[i].Cells[0].Value = i;
+                }
+                else
+                {
+                    dataGridViewLab1.Rows[i].Cells[0].Value = i + 1;
+                }
             }
 
         }
